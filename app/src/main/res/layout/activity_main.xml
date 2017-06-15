@@ -15,16 +15,19 @@
             android:id="@+id/passord"
             android:layout_width="200dp"
             android:layout_height="@dimen/signIn"
-            android:padding="10dp"
             />
         <EditText
-            android:padding="10dp"
             android:id="@+id/cnf_password"
             android:layout_width="200dp"
             android:layout_height="@dimen/signIn"
             />
         <Button
             android:id="@+id/submit_btn"
+            android:layout_gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="30dp" />
+        <Button
+            android:id="@+id/start"
             android:layout_gravity="center"
             android:layout_width="150dp"
             android:layout_height="30dp" />

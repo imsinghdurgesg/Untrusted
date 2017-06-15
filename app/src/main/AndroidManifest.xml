@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="singh.durgesh.com.applocker">
+
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -9,14 +15,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.SignupActivity">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+        <activity
+            android:name=".Activity.SignupActivity"
+            android:autoRemoveFromRecents="true" />
+        <activity android:name=".Activity.AppListActivity" />
+        <activity
+            android:name=".Activity.PasswordActivity"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleTask">
         </activity>
 
-        <activity android:name=".Activity.AppListActivity"></activity>
+        <service android:name=".Services.SecureMyAppsService" />
+
+        <receiver
+            android:name=".Services.StartMyServiceAtBootReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:label="StartMyServiceAtBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".Activity.BasePatternActivity" />
+        <activity
+            android:name=".Activity.ConfirmPatternActivity"
+            android:autoRemoveFromRecents="true"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".Activity.SetPatternActivity"
+            android:autoRemoveFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
