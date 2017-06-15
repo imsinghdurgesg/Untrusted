@@ -94,6 +94,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
 
     @Override
     public int getItemCount(){
+        
         // Count the installed apps
         return mDataSet.size();
     }
