@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right">
         <CheckBox
-            android:id="@+id/app_block_check"
+            android:id="@+id/cb_blocked_app"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
