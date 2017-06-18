@@ -1,29 +1,53 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <!--&lt;!&ndash; Base application theme. &ndash;&gt;-->
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+        <!--<item name="patternViewStyle">@style/PatternView</item>-->
+    <!--</style>-->
+    <!--<style name="Base.PatternView" parent="">-->
+        <!--<item name="pl_rowCount">3</item>-->
+        <!--<item name="pl_columnCount">3</item>-->
+        <!--<item name="pl_aspect">square</item>-->
+    <!--</style>-->
+
+    <!--<style name="PatternView" parent="Base.PatternView">-->
+        <!--<item name="pl_regularColor">?colorControlNormal</item>-->
+        <!--<item name="pl_errorColor">#fff4511e</item>-->
+        <!--<item name="pl_successColor">?colorControlActivated</item>-->
+    <!--</style>-->
+
+    <!--<style name="PatternView.Light" parent="Base.PatternView">-->
+        <!--<item name="pl_regularColor">?colorControlNormal</item>-->
+        <!--<item name="pl_errorColor">#fff4511e</item>-->
+        <!--<item name="pl_successColor">?colorControlActivated</item>-->
+    <!--</style>-->
+
+    <!--changes by Rohit-->
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="patternViewStyle">@style/PatternView</item>
-    </style>
-    <style name="Base.PatternView" parent="">
-        <item name="pl_rowCount">3</item>
-        <item name="pl_columnCount">3</item>
-        <item name="pl_aspect">square</item>
     </style>
 
-    <style name="PatternView" parent="Base.PatternView">
-        <item name="pl_regularColor">?colorControlNormal</item>
-        <item name="pl_errorColor">#fff4511e</item>
-        <item name="pl_successColor">?colorControlActivated</item>
-    </style>
 
-    <style name="PatternView.Light" parent="Base.PatternView">
-        <item name="pl_regularColor">?colorControlNormal</item>
-        <item name="pl_errorColor">#fff4511e</item>
-        <item name="pl_successColor">?colorControlActivated</item>
-    </style>
+    <!--regarding Tabs Text-->
+    <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>    </style>
+
+
+
 
 </resources>

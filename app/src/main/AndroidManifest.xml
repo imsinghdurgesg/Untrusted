@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MyMaterialTheme">
         <activity
             android:name=".Activity.SignupActivity"
             android:autoRemoveFromRecents="true" />
@@ -22,8 +22,7 @@
         <activity
             android:name=".Activity.PasswordActivity"
             android:autoRemoveFromRecents="true"
-            android:launchMode="singleTask">
-        </activity>
+            android:launchMode="singleTask"></activity>
 
         <service android:name=".Services.SecureMyAppsService" />
 
@@ -47,9 +46,11 @@
             android:autoRemoveFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.HomeActivity"></activity>
     </application>
 
 </manifest>

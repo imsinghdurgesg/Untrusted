@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#000000 </color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#f40909</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#c8e8ff</color>
+
+
+    <!--regarding Tab's bg color-->
+    <color name="tab_background_selected">#f40909</color>
+    <color name="tab_background_unselected">#f95148</color>
+
+    <!--regarding Tab's bg color-->
+    <color name="tbtext_background_selected">#000000</color>
+    <color name="tbtext_background_unselected">#ffffff</color>
+
 </resources>

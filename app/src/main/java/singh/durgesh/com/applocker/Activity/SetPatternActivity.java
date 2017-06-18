@@ -216,7 +216,7 @@ public class SetPatternActivity extends BasePatternActivity
 
     protected void onConfirmed() {
         setResult(RESULT_OK);
-        Intent mIntent=new Intent(this,SignupActivity.class);
+        Intent mIntent=new Intent(this,HomeActivity.class);
         startActivity(mIntent);
         finish();
     }
