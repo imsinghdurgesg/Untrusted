@@ -2,6 +2,7 @@ package singh.durgesh.com.applocker.Activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import singh.durgesh.com.applocker.Adapter.InstalledAppsAdapter;
 import singh.durgesh.com.applocker.R;
+import singh.durgesh.com.applocker.Services.SecureMyAppsService;
 import singh.durgesh.com.applocker.Source.AppsManager;
 
 
@@ -30,9 +32,10 @@ public class AppListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_list);
-
+        //starting background service
+        //
         // Get the application context
-        mContext = getApplicationContext();
+           mContext = getApplicationContext();
 
         // Get the activity
         mActivity = AppListActivity.this;
