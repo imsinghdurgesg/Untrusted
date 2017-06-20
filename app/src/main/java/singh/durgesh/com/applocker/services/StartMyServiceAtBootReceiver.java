@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Services;
+package singh.durgesh.com.applocker.services;
 
 /**
  * Created by DSingh on 6/12/2017.

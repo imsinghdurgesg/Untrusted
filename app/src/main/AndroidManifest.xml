@@ -16,19 +16,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.SignupActivity"
+            android:name=".activity.SignupActivity"
             android:autoRemoveFromRecents="true" />
-        <activity android:name=".Activity.AppListActivity" />
+        <activity android:name=".activity.AppListActivity" />
         <activity
-            android:name=".Activity.PasswordActivity"
+            android:name=".activity.PasswordActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTask">
         </activity>
 
-        <service android:name=".Services.SecureMyAppsService" />
+        <service android:name=".services.SecureMyAppsService" />
 
         <receiver
-            android:name=".Services.StartMyServiceAtBootReceiver"
+            android:name=".services.StartMyServiceAtBootReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="StartMyServiceAtBootReceiver">
@@ -37,29 +37,20 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Activity.BasePatternActivity" />
+        <activity android:name=".activity.BasePatternActivity" />
         <activity
-            android:name=".Activity.ConfirmPatternActivity"
+            android:name=".activity.ConfirmPatternActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTask" />
         <activity
-            android:name=".Activity.SetPatternActivity"
+            android:name=".activity.SetPatternActivity"
             android:autoRemoveFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.SignupActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".Activity.AppListActivity"></activity>
-
-        <receiver android:name=".Widget.WidgetProvider" >
+        <receiver android:name=".widget.WidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -69,7 +60,7 @@
                 android:resource="@xml/widget_provider" />
         </receiver>
 
-        <service android:name=".Widget.WidgetService"
+        <service android:name=".widget.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
     </application>

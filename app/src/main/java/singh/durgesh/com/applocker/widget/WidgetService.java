@@ -1,7 +1,7 @@
 /**
  * Created by DarshanG on 6/19/2017.
  */
-package singh.durgesh.com.applocker.Widget;
+package singh.durgesh.com.applocker.widget;
 
 import android.content.Intent;
 import android.widget.RemoteViewsService;

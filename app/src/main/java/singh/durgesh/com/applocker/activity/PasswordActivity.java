@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Activity;
+package singh.durgesh.com.applocker.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,10 +6,11 @@ import android.os.Bundle;
 
 import java.util.List;
 
-import singh.durgesh.com.applocker.Utils.PatternUtils;
-import singh.durgesh.com.applocker.Utils.PatternView;
+import singh.durgesh.com.applocker.utils.PatternUtils;
+import singh.durgesh.com.applocker.utils.PatternView;
 
 public class PasswordActivity extends BasePatternActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

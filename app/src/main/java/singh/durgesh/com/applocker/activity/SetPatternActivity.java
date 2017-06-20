@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Activity;
+package singh.durgesh.com.applocker.activity;
 
 
 
@@ -9,9 +9,9 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Utils.PatternUtils;
-import singh.durgesh.com.applocker.Utils.PatternView;
-import singh.durgesh.com.applocker.Utils.ViewAccessibilityCompat;
+import singh.durgesh.com.applocker.utils.PatternUtils;
+import singh.durgesh.com.applocker.utils.PatternView;
+import singh.durgesh.com.applocker.utils.ViewAccessibilityCompat;
 
 /*
  * Part of the source is from platform_packages_apps/Settings

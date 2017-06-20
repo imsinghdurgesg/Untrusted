@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Activity;
+package singh.durgesh.com.applocker.activity;
 
 
 import android.content.Intent;
@@ -6,22 +6,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-
 import java.util.List;
-
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Utils.PatternUtils;
-import singh.durgesh.com.applocker.Utils.PatternView;
-import singh.durgesh.com.applocker.Utils.ViewAccessibilityCompat;
-
-import static singh.durgesh.com.applocker.Services.SecureMyAppsService.comparePackage;
+import singh.durgesh.com.applocker.utils.PatternUtils;
+import singh.durgesh.com.applocker.utils.PatternView;
+import singh.durgesh.com.applocker.utils.ViewAccessibilityCompat;
 
 // For AOSP implementations, see:
 // https://android.googlesource.com/platform/packages/apps/Settings/+/master/src/com/android/settings/ConfirmLockPattern.java
 // https://android.googlesource.com/platform/frameworks/base/+/43d8451/policy/src/com/android/internal/policy/impl/keyguard/KeyguardPatternView.java
 // https://android.googlesource.com/platform/frameworks/base/+/master/packages/Keyguard/src/com/android/keyguard/KeyguardPatternView.java
-public class ConfirmPatternActivity extends BasePatternActivity
-        implements PatternView.OnPatternListener {
+public class ConfirmPatternActivity extends BasePatternActivity implements PatternView.OnPatternListener {
 
     private static final String KEY_NUM_FAILED_ATTEMPTS = "num_failed_attempts";
 
@@ -71,7 +66,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
         removeClearPatternRunnable();
 
         // Set display mode to correct to ensure that pattern can be in stealth mode.
-        mPatternView.setDisplayMode(singh.durgesh.com.applocker.Utils.PatternView.DisplayMode.Correct);
+        mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Correct);
     }
 
     @Override
@@ -84,7 +79,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
             onConfirmed();
         } else {
             mMessageText.setText(R.string.pl_wrong_pattern);
-            mPatternView.setDisplayMode(singh.durgesh.com.applocker.Utils.PatternView.DisplayMode.Wrong);
+            mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Wrong);
             postClearPatternRunnable();
             ViewAccessibilityCompat.announceForAccessibility(mMessageText, mMessageText.getText());
             onWrongPattern();

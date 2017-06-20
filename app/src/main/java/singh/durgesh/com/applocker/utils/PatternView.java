@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Utils;
+package singh.durgesh.com.applocker.utils;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -37,7 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Utils.PatternUtils;
 
 /*
  * Copyright (C) 2007 The Android Open Source Project

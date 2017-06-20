@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Widget;
+package singh.durgesh.com.applocker.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;

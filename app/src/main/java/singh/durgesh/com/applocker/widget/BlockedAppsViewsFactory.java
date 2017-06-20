@@ -1,10 +1,11 @@
-package singh.durgesh.com.applocker.Widget;
+package singh.durgesh.com.applocker.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+
 import singh.durgesh.com.applocker.R;
 
 /**

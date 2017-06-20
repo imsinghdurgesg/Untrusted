@@ -1,19 +1,16 @@
-package singh.durgesh.com.applocker.Activity;
+package singh.durgesh.com.applocker.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RelativeLayout;
 
-import singh.durgesh.com.applocker.Adapter.InstalledAppsAdapter;
+import singh.durgesh.com.applocker.adapter.InstalledAppsAdapter;
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Services.SecureMyAppsService;
-import singh.durgesh.com.applocker.Source.AppsManager;
+import singh.durgesh.com.applocker.source.AppsManager;
 
 
 public class AppListActivity extends AppCompatActivity {
@@ -35,7 +32,7 @@ public class AppListActivity extends AppCompatActivity {
         //starting background service
         //
         // Get the application context
-           mContext = getApplicationContext();
+        mContext = getApplicationContext();
 
         // Get the activity
         mActivity = AppListActivity.this;
@@ -50,7 +47,7 @@ public class AppListActivity extends AppCompatActivity {
 /*
         mLayoutManager = new GridLayoutManager(mContext,2);
 */
-        mLayoutManager = new LinearLayoutManager(mContext );
+        mLayoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // Initialize a new adapter for RecyclerView

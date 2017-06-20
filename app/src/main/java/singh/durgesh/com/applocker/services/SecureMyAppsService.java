@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Services;
+package singh.durgesh.com.applocker.services;
 
 import android.app.ActivityManager;
 import android.app.Service;
@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import singh.durgesh.com.applocker.Activity.ConfirmPatternActivity;
+import singh.durgesh.com.applocker.activity.ConfirmPatternActivity;
 
 /**
  * Created by DSingh on 6/6/2017.

@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Adapter;
+package singh.durgesh.com.applocker.adapter;
 
 /**
  * Created by DSingh on 6/5/2017.
@@ -24,10 +24,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Source.AppsManager;
+import singh.durgesh.com.applocker.source.AppsManager;
 
 public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdapter.ViewHolder> {
 
@@ -35,6 +34,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
     private List<String> mDataSet;
     ArrayList<String> blockAppsList = new ArrayList<>();
     HashSet<String> blockedAppHashList;
+
     public InstalledAppsAdapter(Context context, List<String> list) {
         mContext = context;
         mDataSet = list;
@@ -101,13 +101,13 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
                 }
             }
         });
-          holder.cbBlockedApp.setOnClickListener(new View.OnClickListener() {
+        holder.cbBlockedApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 blockAppsList.add(packageName);
-                Log.d("List Size",""+blockAppsList.size());
-                blockedAppHashList=new HashSet(blockAppsList);
-                Log.d("here list block app",""+blockedAppHashList.size());
+                Log.d("List Size", "" + blockAppsList.size());
+                blockedAppHashList = new HashSet(blockAppsList);
+                Log.d("here list block app", "" + blockedAppHashList.size());
                 saveBlockAppList();
                 if (Build.VERSION.SDK_INT >= 21) {
                     Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
@@ -121,20 +121,19 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
 
     public int getItemCount() {
 
-    public int getItemCount(){
-        
 
-        // Count the installed apps
-        return mDataSet.size();
-    }
-    public void saveBlockAppList(){
+            // Count the installed apps
+            return mDataSet.size();
+        }
+
+    public void saveBlockAppList() {
         SharedPreferences preferences = mContext.getSharedPreferences("db", 0);
-       // Set<String> hs = ss.getStringSet("set", blockedAppHashList);
+        // Set<String> hs = ss.getStringSet("set", blockedAppHashList);
         HashSet<String> in = new HashSet<>(blockedAppHashList);
-        in.add(String.valueOf(in.size()+1));
+        in.add(String.valueOf(in.size() + 1));
         preferences.edit().putStringSet("set", in).commit(); // brevity
-      // SharedPreferences sss = getSharedPreferences("db", 0); // not needed
-        Log.d("chauster", "2.set = "+ preferences.getStringSet("set", in));
+        // SharedPreferences sss = getSharedPreferences("db", 0); // not needed
+        Log.d("chauster", "2.set = " + preferences.getStringSet("set", in));
     }
 
 }
