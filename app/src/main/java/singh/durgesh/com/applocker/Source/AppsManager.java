@@ -54,6 +54,10 @@ public class AppsManager {
             // If this is not a system app package
             if(!isSystemPackage(resolveInfo)){
 
+
+
+                
+
                 // Add the non system package to the list
                 packageNames.add(activityInfo.applicationInfo.packageName);
             }
