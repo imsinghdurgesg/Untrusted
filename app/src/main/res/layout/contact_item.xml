@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="3dp"
+        android:background="#c1bdc1"
+        local:cardCornerRadius="2dp"
+        local:contentPadding="2dp">
+     <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+     <singh.durgesh.com.applocker.Presenter.RoundedImageView
+    android:id="@+id/rounded_iv_profile"
+    android:layout_width="45dp"
+    android:layout_marginTop="10dp"
+         android:visibility="gone"
+    android:layout_marginLeft="4dp"
+    android:src="@drawable/icon_avatat"
+    android:layout_height="50dp" />
+  <LinearLayout
+    android:id="@+id/linear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_toRightOf="@+id/rounded_iv_profile"
+    android:layout_marginLeft="10dp">
+
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_name"
+        android:text="namefgksfisyhfi"
+        android:textStyle="bold"
+        android:textAppearance="?android:textAppearanceLarge"
+        />
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:id="@+id/txt_phone"
+        android:text="phone"
+        android:layout_marginTop="3dp"
+        android:textAppearance="?android:textAppearanceLarge"
+        />
+  </LinearLayout>
+  </RelativeLayout>
+  </android.support.v7.widget.CardView>

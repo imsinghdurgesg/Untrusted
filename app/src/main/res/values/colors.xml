@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#000000</color>
-    <color name="colorPrimaryDark">#f40909</color>
+    <color name="colorPrimary">#f95148</color>
+    <color name="colorPrimaryDark">#d62a2a</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
@@ -10,7 +10,7 @@
 
     <!--regarding Tab's bg color-->
     <color name="tab_background_selected">#f40909</color>
-    <color name="tab_background_unselected">#f95148</color>
+    <color name="tab_background_unselected">#ed5555</color>
 
     <!--regarding Tab's bg color-->
     <color name="tbtext_background_selected">#000000</color>

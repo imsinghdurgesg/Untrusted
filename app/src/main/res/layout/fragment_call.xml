@@ -1,16 +1,15 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="singh.durgesh.com.applocker.Fragments.CallFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:text="Call Blocking coming soon... !!" />
+        android:id="@+id/recycler_view"
+        android:scrollbars="vertical"
+        >
+    </android.support.v7.widget.RecyclerView>
 
-
-</RelativeLayout>
+</LinearLayout>
