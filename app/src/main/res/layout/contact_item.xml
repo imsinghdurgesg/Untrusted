@@ -19,7 +19,7 @@
      <singh.durgesh.com.applocker.Presenter.RoundedImageView
     android:id="@+id/rounded_iv_profile"
     android:layout_width="45dp"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="20dp"
          android:visibility="gone"
     android:layout_marginLeft="4dp"
     android:src="@drawable/icon_avatat"
