@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Utils;
+package singh.durgesh.com.applocker.utils;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;

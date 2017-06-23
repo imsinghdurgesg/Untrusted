@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Services;
+package singh.durgesh.com.applocker.services;
 
 import android.app.ActivityManager;
 import android.app.Service;
@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import singh.durgesh.com.applocker.Activity.ConfirmPatternActivity;
+import singh.durgesh.com.applocker.activity.ConfirmPatternActivity;
 
 /**
  * Created by DSingh on 6/6/2017.
@@ -105,6 +105,7 @@ public class SecureMyAppsService extends Service {
                         Log.e("blockedPackage", "baad  " + blockedPackage + "--  current oackage" + currentApp);
                         Intent mIntent = new Intent(getApplicationContext(), ConfirmPatternActivity.class);
                         mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        mIntent.putExtra("isFromAppLocker",true);
                         getApplication().getApplicationContext().startActivity(mIntent);
                     }
 
@@ -123,6 +124,7 @@ public class SecureMyAppsService extends Service {
                 blockedPackage = currentApp;
                 Log.e("blockedPackage", "baad  " + blockedPackage + "--  current oackage" + currentApp);
                 Intent mIntent = new Intent(getApplicationContext(), ConfirmPatternActivity.class);
+                mIntent.putExtra("isFromAppLocker",true);
                 mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 getApplication().getApplicationContext().startActivity(mIntent);
             }

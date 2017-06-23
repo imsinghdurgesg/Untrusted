@@ -1,19 +1,16 @@
-package singh.durgesh.com.applocker.Activity;
+package singh.durgesh.com.applocker.activity;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RelativeLayout;
 
-import singh.durgesh.com.applocker.Adapter.InstalledAppsAdapter;
+import singh.durgesh.com.applocker.adapter.InstalledAppsAdapter;
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Services.SecureMyAppsService;
-import singh.durgesh.com.applocker.Source.AppsManager;
+import singh.durgesh.com.applocker.source.AppsManager;
 
 
 public class AppListActivity extends AppCompatActivity {

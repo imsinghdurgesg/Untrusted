@@ -1,6 +1,4 @@
-package singh.durgesh.com.applocker.Models;
-
-import java.util.ArrayList;
+package singh.durgesh.com.applocker.model;
 
 /**
  * Created by RSharma on 6/21/2017.

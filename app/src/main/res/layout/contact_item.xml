@@ -16,7 +16,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-     <singh.durgesh.com.applocker.Presenter.RoundedImageView
+     <singh.durgesh.com.applocker.presenter.RoundedImageView
     android:id="@+id/rounded_iv_profile"
     android:layout_width="45dp"
     android:layout_marginTop="20dp"
@@ -38,7 +38,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/txt_name"
         android:text="namefgksfisyhfi"
-        android:textStyle="bold"
         android:textAppearance="?android:textAppearanceLarge"
         />
     <TextView

@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Source;
+package singh.durgesh.com.applocker.source;
 
 /**
  * Created by DSingh on 6/5/2017.
@@ -28,6 +28,7 @@ public class AppsManager {
 
     // Get a list of installed app
     public List<String> getInstalledPackages(){
+
         // Initialize a new Intent which action is main
         Intent intent = new Intent(Intent.ACTION_MAIN,null);
 
@@ -58,7 +59,6 @@ public class AppsManager {
                 packageNames.add(activityInfo.applicationInfo.packageName);
             }
         }
-
         return packageNames;
 
     }

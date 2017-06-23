@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Presenter;
+package singh.durgesh.com.applocker.presenter;
 
 /**
  * Created by RSharma on 6/22/2017.
@@ -15,7 +15,6 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
 /**
  * ImageView that crops images in a circular fashion.

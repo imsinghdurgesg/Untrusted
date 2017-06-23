@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Activity;
+package singh.durgesh.com.applocker.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Services.SecureMyAppsService;
+import singh.durgesh.com.applocker.services.SecureMyAppsService;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
     EditText password, cnf_password;

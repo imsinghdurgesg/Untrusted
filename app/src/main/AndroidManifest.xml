@@ -24,18 +24,18 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
         <activity
-            android:name=".Activity.SignupActivity"
+            android:name=".activity.SignupActivity"
             android:autoRemoveFromRecents="true" />
-        <activity android:name=".Activity.AppListActivity" />
+        <activity android:name=".activity.AppListActivity" />
         <activity
-            android:name=".Activity.PasswordActivity"
+            android:name=".activity.PasswordActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTask" />
 
-        <service android:name=".Services.SecureMyAppsService" />
+        <service android:name=".services.SecureMyAppsService" />i
 
         <receiver
-            android:name=".Services.StartMyServiceAtBootReceiver"
+            android:name=".services.StartMyServiceAtBootReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="StartMyServiceAtBootReceiver">
@@ -44,26 +44,28 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Activity.BasePatternActivity" />
+        <activity android:name=".activity.BasePatternActivity" />
         <activity
-            android:name=".Activity.ConfirmPatternActivity"
+            android:name=".activity.ConfirmPatternActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTask" />
         <activity
-            android:name=".Activity.SetPatternActivity"
+            android:name=".activity.SetPatternActivity"
             android:autoRemoveFromRecents="true">
         </activity>
-        <activity android:name=".Activity.HomeActivity" />
-        <activity android:name=".Activity.SplashScreenActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
+        <activity android:name=".activity.HomeActivity"></activity>
+        <activity android:name=".activity.BaseActivity"></activity>
+    <activity
+        android:name=".activity.SplashScreenActivity"
+        android:autoRemoveFromRecents="true">
+        <intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
 
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-
-
-
-        </activity>
+            <action android:name="android.intent.action.MAIN" />
+        </intent-filter>
+    </activity>
     </application>
+
+
 
 </manifest>

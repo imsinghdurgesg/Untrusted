@@ -1,35 +1,26 @@
-package singh.durgesh.com.applocker.Activity;
-import android.Manifest;
-import android.content.pm.PackageManager;
+
+package singh.durgesh.com.applocker.activity;
+
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.style.TypefaceSpan;
-import android.util.Log;
 import android.view.Menu;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
-
-import singh.durgesh.com.applocker.Fragments.AppFragment;
-import singh.durgesh.com.applocker.Fragments.CallFragment;
+import singh.durgesh.com.applocker.fragments.AppFragment;
+import singh.durgesh.com.applocker.fragments.CallFragment;
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Utils.CustomTypefaceSpan;
+import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
-public class HomeActivity extends AppCompatActivity
+public class HomeActivity extends singh.durgesh.com.applocker.activity.BaseActivity
 {
 
     SpannableString  str =new SpannableString("App-Protector");
@@ -52,6 +43,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         //setting a style to ToolBar App icon Text
@@ -70,6 +62,7 @@ public class HomeActivity extends AppCompatActivity
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
+        hideProgressDialog();
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -77,6 +70,7 @@ public class HomeActivity extends AppCompatActivity
             {
                 if(tab.getPosition()==1)
                 {
+
                     tabLayout.getTabAt(0).setIcon(tabIcons[1]);
                     tabLayout.getTabAt(1).setIcon(tabIcons[2]);
 
@@ -121,6 +115,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        showProgressDialog();
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         //in order to give giving  Customized Tab Fonts
         Typeface font = Typeface.createFromAsset(getAssets(), "Roboto-Thin.ttf");
@@ -131,6 +126,7 @@ public class HomeActivity extends AppCompatActivity
         adapter.addFragment(new AppFragment(), SS1);
         adapter.addFragment(new CallFragment(),SS2);
         viewPager.setAdapter(adapter);
+
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

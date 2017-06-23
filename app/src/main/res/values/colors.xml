@@ -6,6 +6,7 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#c8e8ff</color>
+    <color name="transparent">#00000000</color>
 
 
     <!--regarding Tab's bg color-->

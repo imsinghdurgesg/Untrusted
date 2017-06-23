@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Activity;
+package singh.durgesh.com.applocker.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Utils.PatternView;
+import singh.durgesh.com.applocker.utils.PatternView;
 
 public class BasePatternActivity extends AppCompatActivity {
 
