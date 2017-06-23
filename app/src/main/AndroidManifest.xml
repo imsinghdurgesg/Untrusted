@@ -48,13 +48,13 @@
         <activity
             android:name=".Activity.SetPatternActivity"
             android:autoRemoveFromRecents="true">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
 
         </activity>
         <activity android:name=".Activity.HomeActivity">
-            <intent-filter>
-            <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
         </activity>
     </application>
 
