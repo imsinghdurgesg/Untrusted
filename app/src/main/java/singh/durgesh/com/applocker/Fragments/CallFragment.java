@@ -52,15 +52,16 @@ public class CallFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View view=inflater.inflate(R.layout.fragment_call, container, false);
         // Inflate the layout for this fragment
+
+        View view=inflater.inflate(R.layout.fragment_call, container, false);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
-        recyclerView.setNestedScrollingEnabled(false);
+  //      recyclerView.setNestedScrollingEnabled(false);
         contactList= (ArrayList<Contact>) requestContacts().clone();
        adapter=new ContactsAdapter(getActivity(),contactList);
         layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(false);
+       // recyclerView.setHasFixedSize(false);
         recyclerView.setAdapter(adapter);
 
 
