@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="singh.durgesh.com.applocker">
+
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
@@ -9,8 +10,11 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,18 +24,18 @@
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
         <activity
-            android:name=".Activity.SignupActivity"
+            android:name=".activity.SignupActivity"
             android:autoRemoveFromRecents="true" />
-        <activity android:name=".Activity.AppListActivity" />
+        <activity android:name=".activity.AppListActivity" />
         <activity
-            android:name=".Activity.PasswordActivity"
+            android:name=".activity.PasswordActivity"
             android:autoRemoveFromRecents="true"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
 
-        <service android:name=".Services.SecureMyAppsService" />
+        <service android:name=".services.SecureMyAppsService" />i
 
         <receiver
-            android:name=".Services.StartMyServiceAtBootReceiver"
+            android:name=".services.StartMyServiceAtBootReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="StartMyServiceAtBootReceiver">
@@ -40,22 +44,22 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".Activity.BasePatternActivity" />
+        <activity android:name=".activity.BasePatternActivity" />
         <activity
-            android:name=".Activity.ConfirmPatternActivity"
+            android:name=".activity.ConfirmPatternActivity"
             android:autoRemoveFromRecents="true"
             android:launchMode="singleTask" />
         <activity
-            android:name=".Activity.SetPatternActivity"
+            android:name=".activity.SetPatternActivity"
             android:autoRemoveFromRecents="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".Activity.HomeActivity">
-        </activity>
+        <activity android:name=".activity.HomeActivity"></activity>
+        <activity android:name=".activity.BaseActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Utils;
+package singh.durgesh.com.applocker.utils;
 
 /**
  * Created by DSingh on 6/13/2017.

@@ -6,6 +6,7 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="colorAccent">#c8e8ff</color>
+    <color name="transparent">#00000000</color>
 
 
     <!--regarding Tab's bg color-->
@@ -13,7 +14,7 @@
     <color name="tab_background_unselected">#ed5555</color>
 
     <!--regarding Tab's bg color-->
-    <color name="tbtext_background_selected">#000000</color>
-    <color name="tbtext_background_unselected">#ffffff</color>
+    <color name="tbtext_background_selected">#ffffff</color>
+    <color name="tbtext_background_unselected">#565452</color>
 
 </resources>

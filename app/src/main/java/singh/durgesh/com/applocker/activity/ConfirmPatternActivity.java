@@ -1,5 +1,4 @@
-package singh.durgesh.com.applocker.Activity;
-
+package singh.durgesh.com.applocker.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,11 +9,9 @@ import android.view.View;
 import java.util.List;
 
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Utils.PatternUtils;
-import singh.durgesh.com.applocker.Utils.PatternView;
-import singh.durgesh.com.applocker.Utils.ViewAccessibilityCompat;
-
-import static singh.durgesh.com.applocker.Services.SecureMyAppsService.comparePackage;
+import singh.durgesh.com.applocker.utils.PatternUtils;
+import singh.durgesh.com.applocker.utils.PatternView;
+import singh.durgesh.com.applocker.utils.ViewAccessibilityCompat;
 
 // For AOSP implementations, see:
 // https://android.googlesource.com/platform/packages/apps/Settings/+/master/src/com/android/settings/ConfirmLockPattern.java
@@ -71,7 +68,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
         removeClearPatternRunnable();
 
         // Set display mode to correct to ensure that pattern can be in stealth mode.
-        mPatternView.setDisplayMode(singh.durgesh.com.applocker.Utils.PatternView.DisplayMode.Correct);
+        mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Correct);
     }
 
     @Override
@@ -84,7 +81,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
             onConfirmed();
         } else {
             mMessageText.setText(R.string.pl_wrong_pattern);
-            mPatternView.setDisplayMode(singh.durgesh.com.applocker.Utils.PatternView.DisplayMode.Wrong);
+            mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Wrong);
             postClearPatternRunnable();
             ViewAccessibilityCompat.announceForAccessibility(mMessageText, mMessageText.getText());
             onWrongPattern();
@@ -109,8 +106,17 @@ public class ConfirmPatternActivity extends BasePatternActivity
 
     protected void onConfirmed() {
         setResult(RESULT_OK);
-        finish();
+        Intent intent=getIntent();
+        boolean isFromAppLocker= intent.getBooleanExtra("isFromAppLocker",false);
+        if (isFromAppLocker) {
+            finish();
+        } else {
+            Intent mIntent = new Intent(this, HomeActivity.class);
+            startActivity(mIntent);
+            finish();
+        }
     }
+
 
     protected void onWrongPattern() {
         ++mNumFailedAttempts;
@@ -129,17 +135,10 @@ public class ConfirmPatternActivity extends BasePatternActivity
     @Override
     protected void onPause() {
         super.onPause();
-      //  comparePackage = "";
-
     }
 
-   /* @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        finishAffinity();
-    }*/
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent startMain = new Intent(Intent.ACTION_MAIN);
@@ -148,6 +147,6 @@ public class ConfirmPatternActivity extends BasePatternActivity
         startMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(startMain);
         finish();
-    }
+    }*/
 
 }

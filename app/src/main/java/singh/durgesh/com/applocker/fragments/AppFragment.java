@@ -1,22 +1,21 @@
-package singh.durgesh.com.applocker.Fragments;
+package singh.durgesh.com.applocker.fragments;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import singh.durgesh.com.applocker.Adapter.InstalledAppsAdapter;
+import singh.durgesh.com.applocker.adapter.InstalledAppsAdapter;
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Source.AppsManager;
+import singh.durgesh.com.applocker.services.SecureMyAppsService;
+import singh.durgesh.com.applocker.source.AppsManager;
 
-public class AppFragment extends Fragment {
+public class AppFragment extends BaseFragment {
     private Context mContext;
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
@@ -29,6 +28,7 @@ public class AppFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        showProgressDialog();
     }
 
     @Override
@@ -37,9 +37,7 @@ public class AppFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_app_list, container, false);
         mContext = getContext();
-        ProgressDialog dialog = ProgressDialog.show(mContext, "",
-                "Loading. Please wait...", true);
-        dialog.show();
+        mContext.startService(new Intent(mContext, SecureMyAppsService.class));
         // Get the activity
         // mActivity = AppListActivity.this;
 
@@ -61,7 +59,7 @@ public class AppFragment extends Fragment {
 
         // Set the adapter for RecyclerView
         mRecyclerView.setAdapter(mAdapter);
-        dialog.cancel();
+        hideProgressDialog();
         return view;
     }
     public void showLoading(){

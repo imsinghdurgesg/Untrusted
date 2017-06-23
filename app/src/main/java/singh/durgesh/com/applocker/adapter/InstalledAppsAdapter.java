@@ -1,4 +1,4 @@
-package singh.durgesh.com.applocker.Adapter;
+package singh.durgesh.com.applocker.adapter;
 
 /**
  * Created by DSingh on 6/5/2017.
@@ -24,10 +24,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import singh.durgesh.com.applocker.R;
-import singh.durgesh.com.applocker.Source.AppsManager;
+import singh.durgesh.com.applocker.source.AppsManager;
 
 public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdapter.ViewHolder> {
 

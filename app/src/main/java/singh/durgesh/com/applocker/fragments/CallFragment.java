@@ -1,33 +1,27 @@
-package singh.durgesh.com.applocker.Fragments;
+package singh.durgesh.com.applocker.fragments;
 
 import android.Manifest;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
-import android.widget.Adapter;
 
 import java.util.ArrayList;
 
-import singh.durgesh.com.applocker.Adapter.ContactsAdapter;
-import singh.durgesh.com.applocker.Models.Contact;
+import singh.durgesh.com.applocker.adapter.ContactsAdapter;
+import singh.durgesh.com.applocker.model.Contact;
 import singh.durgesh.com.applocker.R;
 
-import static android.provider.ContactsContract.DisplayPhoto.CONTENT_URI;
-
-public class CallFragment extends Fragment
+public class CallFragment extends BaseFragment
 {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -56,12 +50,10 @@ public class CallFragment extends Fragment
 
         View view=inflater.inflate(R.layout.fragment_call, container, false);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
-  //      recyclerView.setNestedScrollingEnabled(false);
         contactList= (ArrayList<Contact>) requestContacts().clone();
        adapter=new ContactsAdapter(getActivity(),contactList);
         layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-       // recyclerView.setHasFixedSize(false);
         recyclerView.setAdapter(adapter);
 
 
