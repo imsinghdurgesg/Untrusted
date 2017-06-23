@@ -13,12 +13,15 @@ import singh.durgesh.com.applocker.utils.PatternUtils;
 import singh.durgesh.com.applocker.utils.PatternView;
 import singh.durgesh.com.applocker.utils.ViewAccessibilityCompat;
 
+import static singh.durgesh.com.applocker.activity.SetPatternActivity.isFirstTimeUserComplete;
+
 // For AOSP implementations, see:
 // https://android.googlesource.com/platform/packages/apps/Settings/+/master/src/com/android/settings/ConfirmLockPattern.java
 // https://android.googlesource.com/platform/frameworks/base/+/43d8451/policy/src/com/android/internal/policy/impl/keyguard/KeyguardPatternView.java
 // https://android.googlesource.com/platform/frameworks/base/+/master/packages/Keyguard/src/com/android/keyguard/KeyguardPatternView.java
 public class ConfirmPatternActivity extends BasePatternActivity
         implements PatternView.OnPatternListener {
+
 
     private static final String KEY_NUM_FAILED_ATTEMPTS = "num_failed_attempts";
 
@@ -33,6 +36,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
         mPatternView.setInStealthMode(isStealthModeEnabled());
         mPatternView.setOnPatternListener(this);
         mLeftButton.setText(R.string.pl_cancel);
+        isFirstTimeUserComplete="isFirstTimeUserComplete";
         mLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,8 +110,8 @@ public class ConfirmPatternActivity extends BasePatternActivity
 
     protected void onConfirmed() {
         setResult(RESULT_OK);
-        Intent intent=getIntent();
-        boolean isFromAppLocker= intent.getBooleanExtra("isFromAppLocker",false);
+        Intent intent = getIntent();
+        boolean isFromAppLocker = intent.getBooleanExtra("isFromAppLocker", false);
         if (isFromAppLocker) {
             finish();
         } else {

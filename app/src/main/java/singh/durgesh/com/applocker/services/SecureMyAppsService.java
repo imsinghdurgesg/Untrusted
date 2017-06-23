@@ -28,9 +28,7 @@ import singh.durgesh.com.applocker.activity.ConfirmPatternActivity;
 
 public class SecureMyAppsService extends Service {
     String CURRENT_PACKAGE_NAME;
-   // public static SecureMyAppsService instance;
     HashSet<String> blockedAppHashList;
-    public static boolean comparePackage;
     public static String blockedPackage = "";
 
     @Override

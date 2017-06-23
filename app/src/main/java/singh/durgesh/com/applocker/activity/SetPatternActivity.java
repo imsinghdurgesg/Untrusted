@@ -81,7 +81,7 @@ public class SetPatternActivity extends BasePatternActivity
             this.patternEnabled = patternEnabled;
         }
     }
-
+    public static String isFirstTimeUserComplete="";
     private static final String KEY_STAGE = "stage";
     private static final String KEY_PATTERN = "pattern";
 
@@ -93,9 +93,11 @@ public class SetPatternActivity extends BasePatternActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences prefs = getSharedPreferences("FirstTimeBoolean", MODE_PRIVATE);
+        //below code is checking whether user navigating first time in the app then it will open setPattern Activity else
+        //it will open confirmPatternActivity
         Boolean isFirstTimeUser = prefs.getBoolean("FirstTimeEnter", false);
-        if(isFirstTimeUser){
-            Intent mIntent=new Intent(this,ConfirmPatternActivity.class);
+        if (isFirstTimeUser && isFirstTimeUserComplete.equals("isFirstTimeUserComplete")) {
+            Intent mIntent = new Intent(this, ConfirmPatternActivity.class);
             startActivity(mIntent);
             finish();
         }

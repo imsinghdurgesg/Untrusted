@@ -62,31 +62,8 @@ public class AppFragment extends BaseFragment {
         hideProgressDialog();
         return view;
     }
-    public void showLoading(){
-      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder = new AlertDialog.Builder(mContext, android.R.style.Theme_Material_Dialog_Alert);
-        } else {
-            builder = new AlertDialog.Builder(mContext);
-        }
-        builder.setTitle("Delete entry")
-                .setMessage("Are you sure you want to delete this entry?")
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // continue with delete
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();*/
-        ProgressDialog dialog = ProgressDialog.show(mContext, "",
-                "Loading. Please wait...", true);
-    }
-    public void dismissLoading(){
-    }
+
+
 
 
 }
