@@ -1,9 +1,13 @@
 package singh.durgesh.com.applocker.Activity;
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -26,6 +30,8 @@ public class ConfirmPatternActivity extends BasePatternActivity
     private static final String KEY_NUM_FAILED_ATTEMPTS = "num_failed_attempts";
 
     public static final int RESULT_FORGOT_PASSWORD = RESULT_FIRST_USER;
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+
 
     protected int mNumFailedAttempts;
 
@@ -107,7 +113,8 @@ public class ConfirmPatternActivity extends BasePatternActivity
         return TextUtils.equals(PatternUtils.patternToSha1String(pattern), patternSha1);
     }
 
-    protected void onConfirmed() {
+    protected void onConfirmed()
+    {
         setResult(RESULT_OK);
         finish();
     }

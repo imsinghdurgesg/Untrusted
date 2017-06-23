@@ -3,6 +3,7 @@ package singh.durgesh.com.applocker.Fragments;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import android.widget.Adapter;
 
 import java.util.ArrayList;
 
+import singh.durgesh.com.applocker.Activity.HomeActivity;
 import singh.durgesh.com.applocker.Adapter.ContactsAdapter;
 import singh.durgesh.com.applocker.Models.Contact;
 import singh.durgesh.com.applocker.R;
@@ -123,7 +125,8 @@ public class CallFragment extends Fragment
     private ArrayList<Contact> requestContacts()
     {
        ArrayList<Contact> list1=new ArrayList<Contact>();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
+        {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PERMISSIONS_REQUEST_READ_CONTACTS);
         } else {
           list1= getContacts();

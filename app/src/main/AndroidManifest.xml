@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="singh.durgesh.com.applocker">
+
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
@@ -9,8 +10,11 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +30,7 @@
         <activity
             android:name=".Activity.PasswordActivity"
             android:autoRemoveFromRecents="true"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
 
         <service android:name=".Services.SecureMyAppsService" />
 
@@ -48,13 +52,17 @@
         <activity
             android:name=".Activity.SetPatternActivity"
             android:autoRemoveFromRecents="true">
+        </activity>
+        <activity android:name=".Activity.HomeActivity" />
+        <activity android:name=".Activity.SplashScreenActivity">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
 
-        </activity>
-        <activity android:name=".Activity.HomeActivity">
+
+
         </activity>
     </application>
 

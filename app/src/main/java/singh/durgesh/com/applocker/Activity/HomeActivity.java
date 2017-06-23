@@ -1,5 +1,8 @@
 package singh.durgesh.com.applocker.Activity;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -31,9 +34,12 @@ public class HomeActivity extends AppCompatActivity
 
     SpannableString  str =new SpannableString("App-Protector");
     private Toolbar toolbar;
+
     private TabLayout tabLayout;
     private String tab1str="Protect My Apps";
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     private String tab2str="Do Not Disturb";
+
     private ViewPager viewPager;
     private int[] tabIcons = {
             R.drawable.ic_phone_locked_black_24dp,
@@ -52,19 +58,16 @@ public class HomeActivity extends AppCompatActivity
         Typeface font = Typeface.createFromAsset(getAssets(),getResources().getString(R.string.font_toxic));
         SpannableStringBuilder ss = new SpannableStringBuilder("App Protector");
         ss.setSpan (new CustomTypefaceSpan("", font), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(ss);
 
-//        disabled HomeBack Button
+
+       // disabled HomeBack Button
        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-
-
-
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -72,22 +75,22 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onTabSelected(TabLayout.Tab tab)
             {
-                if(tab.getPosition()==0)
+                if(tab.getPosition()==1)
                 {
                     tabLayout.getTabAt(0).setIcon(tabIcons[1]);
                     tabLayout.getTabAt(1).setIcon(tabIcons[2]);
 
                 }
-                else if(tab.getPosition()==1)
+                else if(tab.getPosition()==0)
                 {
                     tabLayout.getTabAt(0).setIcon(tabIcons[3]);
                     tabLayout.getTabAt(1).setIcon(tabIcons[0]);
 
                 }
             }
-
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+            public void onTabUnselected(TabLayout.Tab tab)
+            {
 
             }
 
@@ -104,8 +107,8 @@ public class HomeActivity extends AppCompatActivity
     //method setupTabIcons
     private void setupTabIcons()
     {
-        tabLayout.getTabAt(0).setIcon(tabIcons[1]);
-        tabLayout.getTabAt(1).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(0).setIcon(tabIcons[3]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[0]);
 
     }
 
