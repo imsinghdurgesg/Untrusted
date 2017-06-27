@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:local="http://schemas.android.com/apk/res-auto"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="3dp"
-        android:background="#c1bdc1"
-        local:cardCornerRadius="2dp"
-        local:contentPadding="2dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    card_view:cardMaxElevation="3dp"
+    card_view:contentPadding="@dimen/medium_small_5"
+    android:layout_margin="@dimen/medium_small_5"
+    android:background="#c1bdc1"
+    >
      <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-     <singh.durgesh.com.applocker.presenter.RoundedImageView
-    android:id="@+id/rounded_iv_profile"
-    android:layout_width="45dp"
-    android:layout_marginTop="20dp"
-         android:visibility="gone"
-    android:layout_marginLeft="4dp"
-    android:src="@drawable/icon_avatat"
-    android:layout_height="50dp" />
+         <RelativeLayout
+             android:id="@+id/name_view"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+             <ImageView
+                 android:id="@+id/contact_letter"
+                 android:layout_width="@dimen/medium_small_50"
+                 android:layout_height="@dimen/medium_small_50"
+                 android:layout_marginLeft="@dimen/medium_small_5" />
+         </RelativeLayout>
   <LinearLayout
     android:id="@+id/linear"
-    android:layout_width="match_parent"
+    android:layout_width="250dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_toRightOf="@+id/rounded_iv_profile"
+    android:layout_toRightOf="@+id/name_view"
     android:layout_marginLeft="10dp">
 
 
@@ -37,7 +40,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/txt_name"
-        android:text="namefgksfisyhfi"
+        android:text="namefi"
         android:textAppearance="?android:textAppearanceLarge"
         />
     <TextView
@@ -49,5 +52,16 @@
         android:textAppearance="?android:textAppearanceLarge"
         />
   </LinearLayout>
+  <LinearLayout
+      android:layout_alignEnd="@+id/linear"
+      android:layout_marginTop="10dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+  <CheckBox
+      android:id="@+id/checkBoxBlocked"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+       />
+         </LinearLayout>
   </RelativeLayout>
   </android.support.v7.widget.CardView>

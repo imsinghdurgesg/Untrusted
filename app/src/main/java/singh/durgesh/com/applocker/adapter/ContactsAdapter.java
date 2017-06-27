@@ -6,7 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 
 import java.util.ArrayList;
 
@@ -21,6 +25,11 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
 {
     Context context;
     ArrayList<Contact> listOfContacts=new ArrayList<Contact>();
+    private String letter;
+    ColorGenerator generator = ColorGenerator.MATERIAL;
+    private String contNameCap;
+    int color = generator.getColor("#4000ff");
+
 
     //constructor
     public ContactsAdapter(Context context, ArrayList<Contact> listOfContacts)
@@ -38,8 +47,15 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
-        holder.txt_name.setText(listOfContacts.get(position).getCName());
+    public void onBindViewHolder(RecyclerViewHolder holder, int position)
+    {
+        contNameCap=listOfContacts.get(position).getCName();
+        //work regarding getting the First Alphabet and setting it to ImageView
+        letter=String.valueOf(listOfContacts.get(position).getCName().charAt(0)).toUpperCase();
+        TextDrawable drawable=TextDrawable.builder().buildRound(letter,generator.getRandomColor());
+
+        holder.txt_name.setText(contNameCap.substring(0, 1).toUpperCase() + contNameCap.substring(1));
+        holder.contact_img.setImageDrawable(drawable);
         holder.txt_phone.setText(listOfContacts.get(position).getCPhone());
 
 
@@ -53,6 +69,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
     public static class RecyclerViewHolder extends RecyclerView.ViewHolder
     {
         TextView txt_name,txt_phone;
+        ImageView contact_img;
         public CardView preCard;
         //constructor
         public RecyclerViewHolder(final View itemView)
@@ -61,6 +78,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
             preCard=(CardView)itemView.findViewById(R.id.card_view);
             txt_name=(TextView)itemView.findViewById(R.id.txt_name);
             txt_phone=(TextView)itemView.findViewById(R.id.txt_phone);
+            contact_img=(ImageView)itemView.findViewById(R.id.contact_letter);
 
 
             //setting OnLongClick Listener

@@ -14,17 +14,23 @@
 
 
         <RelativeLayout
+            android:id="@+id/lockerimage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:src="@drawable/locker"
-                android:layout_marginBottom="35dp"
-                />
+                android:layout_marginBottom="229dp"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="22dp" />
+
         </RelativeLayout>
 
 
