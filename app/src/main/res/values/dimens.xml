@@ -20,5 +20,39 @@
     <dimen name="medium_small_5">5dp</dimen>
 
 
+    <!--miscellaneous dimentions-->
+    <dimen name="zero_dim">0dp</dimen>
+    <dimen name="two_dim">2dp</dimen>
+    <dimen name="one_dim">1dp</dimen>
+    <dimen name="three_dim">3dp</dimen>
+    <dimen name="four_dim">4dp</dimen>
+    <dimen name="five_dim">5dp</dimen>
+    <dimen name="six_dim">6dp</dimen>
+    <dimen name="seven_dim">7dp</dimen>
+    <dimen name="eight_dim">8dp</dimen>
+    <dimen name="nine_dim">9dp</dimen>
+    <dimen name="ten_dim">10dp</dimen>
+
+    <!--password pattern dimentions-->
+    <dimen name="pw_width_dim">200dp</dimen>
+    <dimen name="pw_height_dim">40dp</dimen>
+    <dimen name="submit_width_dim">150dp</dimen>
+    <dimen name="submit_height_dim">30dp</dimen>
+
+
+
+
+    <!--splash-screen dimentions-->
+    <dimen name="simg_margin_dim">229dp</dimen>
+    <dimen name="simg_margin_start_dim">22dp</dimen>
+
+    <!--card pattern dimentions-->
+    <dimen name="card_linear1_width_dim">250dp</dimen>
+    <dimen name="card_linear1_margin_dim">250dp</dimen>
+    <dimen name="card_tvname_width_dim">200dp</dimen>
+    <dimen name="card_tvphone_width_dim">200dp</dimen>
+    <dimen name="card_imgapp_width_dim">60dp</dimen>
+
+
 
 </resources>

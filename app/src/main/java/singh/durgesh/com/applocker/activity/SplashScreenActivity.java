@@ -1,6 +1,7 @@
 package singh.durgesh.com.applocker.activity;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 
 import singh.durgesh.com.applocker.R;
+import singh.durgesh.com.applocker.services.CallBarring;
 
 public class SplashScreenActivity extends AppCompatActivity
 {
@@ -21,6 +23,7 @@ public class SplashScreenActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        //Registering The BroadCastReceiver
         //Checking wheather App is Permitted to Read Contacts
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SplashScreenActivity.this.checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
         {

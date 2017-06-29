@@ -13,6 +13,9 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.view.Menu;
+import android.view.View;
+import android.widget.CheckBox;
+
 import java.util.ArrayList;
 import java.util.List;
 import singh.durgesh.com.applocker.fragments.AppFragment;
@@ -25,6 +28,7 @@ public class HomeActivity extends singh.durgesh.com.applocker.activity.BaseActiv
 
     SpannableString  str =new SpannableString("App-Protector");
     private Toolbar toolbar;
+    public static List<String> blockedNumbers;
 
     private TabLayout tabLayout;
     private String tab1str="Protect My Apps";
@@ -53,6 +57,7 @@ public class HomeActivity extends singh.durgesh.com.applocker.activity.BaseActiv
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(ss);
+
 
 
        // disabled HomeBack Button

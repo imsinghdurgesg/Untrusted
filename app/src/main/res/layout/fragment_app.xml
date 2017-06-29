@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textSize="30sp"
+        android:textSize="@dimen/ten_dim"
         android:text="App Locking Work to be done !!" />
 
 </RelativeLayout>

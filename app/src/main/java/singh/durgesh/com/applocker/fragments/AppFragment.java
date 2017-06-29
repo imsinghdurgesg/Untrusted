@@ -10,10 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import singh.durgesh.com.applocker.adapter.InstalledAppsAdapter;
 import singh.durgesh.com.applocker.R;
 import singh.durgesh.com.applocker.services.SecureMyAppsService;
 import singh.durgesh.com.applocker.source.AppsManager;
+
+import static singh.durgesh.com.applocker.activity.HomeActivity.blockedNumbers;
 
 public class AppFragment extends BaseFragment {
     private Context mContext;

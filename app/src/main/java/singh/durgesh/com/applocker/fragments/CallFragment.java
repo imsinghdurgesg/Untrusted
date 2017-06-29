@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import java.util.ArrayList;
 
@@ -25,13 +27,15 @@ import singh.durgesh.com.applocker.R;
 public class CallFragment extends BaseFragment
 {
     private RecyclerView recyclerView;
+    private CheckBox cb;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<Contact> contactList;
+    CheckBox cBox;
 
     int counter;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
-    Cursor cursor,phoneCursor;
+    Cursor cursor;
     Contact contact;
     public CallFragment()
     {
@@ -51,7 +55,9 @@ public class CallFragment extends BaseFragment
 
         View view=inflater.inflate(R.layout.fragment_call, container, false);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
+        cBox=(CheckBox)view.findViewById(R.id.checkBoxBlocked);
         contactList= (ArrayList<Contact>) requestContacts().clone();
+        cb=(CheckBox)view.findViewById(R.id.checkBoxBlocked);
        adapter=new ContactsAdapter(getActivity(),contactList);
         layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -60,6 +66,9 @@ public class CallFragment extends BaseFragment
 
         return view;
     }
+
+
+
 
     //the method which gets all the Contacts from Phone
 
@@ -125,5 +134,6 @@ public class CallFragment extends BaseFragment
         }
         return  list1;
     }
+
 
 }

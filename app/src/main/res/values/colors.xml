@@ -17,4 +17,10 @@
     <color name="tbtext_background_selected">#ffffff</color>
     <color name="tbtext_background_unselected">#565452</color>
 
+    <color name="check">#ed7b7b</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000</color>
+
+
+    <color name="cardback">#c1bdc1</color>
 </resources>
