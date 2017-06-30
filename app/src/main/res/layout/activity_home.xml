@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
             android:layout_marginTop="@dimen/two_dim"
-            app:tabBackground="@drawable/tab_color_selector"
             app:tabTextColor="@color/tbtext_background_unselected"
             app:tabSelectedTextColor="@color/tbtext_background_selected"
             app:tabIndicatorColor="@color/tbtext_background_selected"

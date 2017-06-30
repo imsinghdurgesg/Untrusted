@@ -23,4 +23,9 @@
 
 
     <color name="cardback">#c1bdc1</color>
+
+    <!--Theme Green-->
+    <color name="colorPrimaryGreen">#99ff99</color>
+    <color name="colorPrimaryDarkGreen">#99ff99</color>
+    <color name="colorAccentGreen">#99ff99</color>
 </resources>
