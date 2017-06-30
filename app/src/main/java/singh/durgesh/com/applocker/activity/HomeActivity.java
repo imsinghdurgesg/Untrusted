@@ -16,6 +16,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,7 +95,6 @@ public class HomeActivity extends singh.durgesh.com.applocker.activity.BaseActiv
                 } else if (tab.getPosition() == 0) {
                     tabLayout.getTabAt(0).setIcon(tabIcons[3]);
                     tabLayout.getTabAt(1).setIcon(tabIcons[0]);
-
                 }
             }
 
@@ -108,15 +108,8 @@ public class HomeActivity extends singh.durgesh.com.applocker.activity.BaseActiv
 
             }
         });
-
         //method that attaches icons with the Tabs
         setupTabIcons();
-    }
-
-    @Override
-    public void onBackPressed() {
-        Log.d("DSG", "Finished");
-        HomeActivity.this.finish();
     }
 
     //method setupTabIcons
@@ -147,6 +140,7 @@ public class HomeActivity extends singh.durgesh.com.applocker.activity.BaseActiv
     private void openPreferenceActivity() {
         Intent intent = new Intent(this, PrefsActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void setupViewPager(ViewPager viewPager) {
