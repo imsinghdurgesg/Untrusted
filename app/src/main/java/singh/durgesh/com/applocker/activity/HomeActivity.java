@@ -15,8 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.util.Log;
-
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +25,7 @@ import java.util.List;
 import singh.durgesh.com.applocker.R;
 import singh.durgesh.com.applocker.fragments.AppFragment;
 import singh.durgesh.com.applocker.fragments.CallFragment;
+import singh.durgesh.com.applocker.utils.AppSharedPreference;
 import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 public class HomeActivity extends BaseActivity {
@@ -36,12 +35,11 @@ public class HomeActivity extends BaseActivity {
     private Toolbar toolbar;
     String themeName;
     public static List<String> blockedNumbers;
-
     private TabLayout tabLayout;
     private String tab1str = "Protect My Apps";
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     private String tab2str = "Do Not Disturb";
-
+    AppSharedPreference mSharedPref;
     private ViewPager viewPager;
     private int[] tabIcons = {
             R.drawable.ic_phone_locked_black_24dp,
@@ -66,11 +64,13 @@ public class HomeActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mSharedPref=new AppSharedPreference(this);
         //setting a style to ToolBar App icon Text
         Typeface font = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_toxic));
         SpannableStringBuilder ss = new SpannableStringBuilder("App Protector");
         ss.setSpan(new CustomTypefaceSpan("", font), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-
+        mSharedPref.putBooleanData("userCompleteProcess",true);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(ss);
@@ -111,18 +111,18 @@ public class HomeActivity extends BaseActivity {
         //method that attaches icons with the Tabs
         setupTabIcons();
     }
-/*This will capture the "back" button press event
- and send the user to the first item in the ViewPager.*/
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
+
+    /*This will capture the "back" button press event
+     and send the user to the first item in the ViewPager.*/
+   /* @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             viewPager.setCurrentItem(0, true);
             return true;
         } else {
             return super.onKeyDown(keyCode, event);
         }
-    }
+    }*/
 
     //method setupTabIcons
     private void setupTabIcons() {

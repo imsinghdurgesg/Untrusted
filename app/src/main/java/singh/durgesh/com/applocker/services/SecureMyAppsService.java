@@ -158,6 +158,7 @@ public class SecureMyAppsService extends Service {
                 blockedPackage = currentApp;
                 Log.e("blockedPackage", "baad  " + blockedPackage + "--  current oackage" + currentApp);
                 Intent mIntent = new Intent(getApplicationContext(), ConfirmPatternActivity.class);
+                mIntent.putExtra("isFromService",true);
                 mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 getApplication().getApplicationContext().startActivity(mIntent);
             }
