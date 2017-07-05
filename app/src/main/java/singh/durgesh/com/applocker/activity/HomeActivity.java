@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
@@ -101,6 +102,18 @@ public class HomeActivity extends singh.durgesh.com.applocker.activity.BaseActiv
 
         //method that attaches icons with the Tabs
         setupTabIcons();
+    }
+/*This will capture the "back" button press event
+ and send the user to the first item in the ViewPager.*/
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            viewPager.setCurrentItem(0, true);
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 
     //method setupTabIcons

@@ -8,6 +8,16 @@ public class Contact
 {
     public String CName;
     public String CPhone;
+    public Contact()
+    {
+
+    }
+
+
+    public Contact(final String CPhone)
+    {
+        this.CPhone=CPhone;
+    }
     public boolean isBlocked;
 
     public boolean isBlocked() {
