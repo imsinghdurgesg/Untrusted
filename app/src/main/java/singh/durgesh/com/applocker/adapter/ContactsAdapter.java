@@ -2,9 +2,12 @@ package singh.durgesh.com.applocker.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +33,8 @@ import java.util.Set;
 import singh.durgesh.com.applocker.fragments.CallFragment;
 import singh.durgesh.com.applocker.model.Contact;
 import singh.durgesh.com.applocker.R;
+import singh.durgesh.com.applocker.utils.AppSharedPreference;
+import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 /**
  * Created by RSharma on 6/21/2017.
@@ -43,7 +48,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
     List<Contact> listOfBContacts = new ArrayList<>();
     private String letter;
     ColorGenerator generator = ColorGenerator.MATERIAL;
-    private String contNameCap;
+    private String contNameCap,nameCap;
     int color = generator.getColor("#4000ff");
 
 
@@ -66,9 +71,10 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position)
     {
         //Getting the OldBlockList
-        SharedPreferences appSharedPrefs = context.getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);
+       // SharedPreferences appSharedPrefs = context.getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);
+        AppSharedPreference appSharedPrefs = new AppSharedPreference(context);
         Gson gson = new Gson();
-        String json = appSharedPrefs.getString("BlockedContacts", "");
+        String json = appSharedPrefs.getStringData("BlockedContacts");
 //        Contact mStudentObject = gson.fromJson(json, Contact.class);
         Type type = new TypeToken<ArrayList<Contact>>() {}.getType();
         oldBlockedList = gson.fromJson(json, type);
@@ -79,13 +85,23 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
 
         String phNo = listOfContacts.get(position).getCPhone();
         contNameCap = listOfContacts.get(position).getCName();
+        nameCap=contNameCap.substring(0, 1).toUpperCase() + contNameCap.substring(1);
+
         //work regarding getting the First Alphabet and setting it to ImageView
         letter = String.valueOf(listOfContacts.get(position).getCName().charAt(0)).toUpperCase();
         TextDrawable drawable = TextDrawable.builder().buildRound(letter, generator.getRandomColor());
+        //HERE SETTING THE fONT STYLE to TEXTVIEWS
+        Typeface fontText = Typeface.createFromAsset(context.getAssets(),context.getResources().getString(R.string.font_roboto));
+        SpannableStringBuilder ssName = new SpannableStringBuilder(nameCap.toString());
+        SpannableStringBuilder ssPhone = new SpannableStringBuilder(phNo.toString());
 
-        holder.txt_name.setText(contNameCap.substring(0, 1).toUpperCase() + contNameCap.substring(1));
+        ssName.setSpan(new CustomTypefaceSpan("", fontText), 0, ssName.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        ssPhone.setSpan(new CustomTypefaceSpan("", fontText), 0, ssPhone.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+
+
+        holder.txt_name.setText(ssName);
         holder.contact_img.setImageDrawable(drawable);
-        holder.txt_phone.setText(listOfContacts.get(position).getCPhone());
+        holder.txt_phone.setText(ssPhone);
         holder.cb.setTag(listOfContacts.get(position).CPhone);
 
 //        this code will first check wheather the current row already comes under blockList(old)
@@ -128,12 +144,10 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
                     //listOfBContacts.remove(c1);
                 //    Log.d("RK", "log boolean " + b);
                 }
-                SharedPreferences appSharedPrefs = context.getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);
-                SharedPreferences.Editor prefsEditor = appSharedPrefs.edit();
+                AppSharedPreference appSharedPrefs = new AppSharedPreference(context);
                 Gson gson = new Gson();
                 String json = gson.toJson(listOfBContacts);
-                prefsEditor.putString("BlockedContacts", json);
-                prefsEditor.commit();
+                appSharedPrefs.putStringData("BlockedContacts", json);
 
             }
 
@@ -192,6 +206,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
             rl = (RelativeLayout) itemView.findViewById(R.id.cfull_view);
             contact_img = (ImageView) itemView.findViewById(R.id.contact_letter);
             cb = (CheckBox) itemView.findViewById(R.id.checkBoxBlocked);
+
+
         }
 
     }

@@ -89,9 +89,10 @@ public class HomeActivity extends BaseActivity {
 
         mSharedPref=new AppSharedPreference(this);
         //setting a style to ToolBar App icon Text
-        Typeface font = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_toxic));
+        Typeface fontTool = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_toxic));
         SpannableStringBuilder ss = new SpannableStringBuilder("App Protector");
-        ss.setSpan(new CustomTypefaceSpan("", font), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+
+        ss.setSpan(new CustomTypefaceSpan("", fontTool), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         mSharedPref.putBooleanData("userCompleteProcess",true);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -133,6 +134,8 @@ public class HomeActivity extends BaseActivity {
         //method that attaches icons with the Tabs
         setupTabIcons();
     }
+/*This will capture the "back" button press event
+ and send the user to the first item in the ViewPager.*/
 
 
     @TargetApi(Build.VERSION_CODES.M)

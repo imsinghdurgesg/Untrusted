@@ -25,6 +25,9 @@
             android:id="@+id/app_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginLeft="@dimen/ten_dim"
+            android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_toRightOf="@id/iv_icon"
             android:layout_toEndOf="@id/iv_icon"
@@ -35,11 +38,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#848484"
+            android:layout_marginLeft="@dimen/ten_dim"
             android:layout_below="@id/app_label"
+            android:textSize="16sp"
             android:layout_toRightOf="@id/iv_icon"
             android:layout_toEndOf="@id/iv_icon"
             android:fontFamily="sans-serif-condensed"
-            android:textStyle="italic"
+            android:textStyle="bold"
             />
     </RelativeLayout>
     <RelativeLayout
@@ -49,6 +54,7 @@
         <CheckBox
             android:id="@+id/cb_blocked_app"
             android:layout_width="wrap_content"
+            android:theme="@style/RedCheck"
             android:layout_height="wrap_content" />
 
     </RelativeLayout>

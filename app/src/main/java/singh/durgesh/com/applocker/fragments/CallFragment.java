@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,12 +17,15 @@ import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -30,6 +34,7 @@ import singh.durgesh.com.applocker.adapter.ContactsAdapter;
 import singh.durgesh.com.applocker.model.Contact;
 
 import singh.durgesh.com.applocker.R;
+import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 public class CallFragment extends BaseFragment
 {
@@ -40,6 +45,7 @@ public class CallFragment extends BaseFragment
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<Contact> contactList;
     CheckBox cBox;
+    TextView txt_name,txt_phone;
 
     int counter;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
@@ -59,6 +65,10 @@ public class CallFragment extends BaseFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        View view=inflater.inflate(R.layout.fragment_call, container, false);
+
+
+
         //First of all getting all the BlockedContacts list that user has selected last time
         SharedPreferences appSharedPrefs = getActivity().getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -67,8 +77,6 @@ public class CallFragment extends BaseFragment
         Type type = new TypeToken<ArrayList<Contact>>() {}.getType();
        oldBlockedList = gson.fromJson(json, type);
         // Inflate the layout for this fragment
-
-        View view=inflater.inflate(R.layout.fragment_call, container, false);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
         cBox=(CheckBox)view.findViewById(R.id.checkBoxBlocked);
         contactList= (ArrayList<Contact>) requestContacts().clone();

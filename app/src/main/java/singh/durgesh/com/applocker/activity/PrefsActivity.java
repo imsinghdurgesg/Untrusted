@@ -1,11 +1,16 @@
 package singh.durgesh.com.applocker.activity;
 
+<<<<<<< HEAD
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
+=======
+import android.app.Activity;
+>>>>>>> 0e5f57362cf700ca7aff7ad68f33a8eea777a673
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.support.v7.widget.Toolbar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -16,7 +21,6 @@ import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
