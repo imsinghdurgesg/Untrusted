@@ -12,9 +12,13 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.MODIFY_PHONE_STATE"
+        tools:ignore="ProtectedPermissions" />
+
 
     <application
         android:allowBackup="true"
@@ -44,6 +48,16 @@
             </intent-filter>
         </receiver>
 
+        <!--receiver for calls -->
+        <receiver
+            android:name=".services.CallBarring"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
         <activity android:name=".activity.BasePatternActivity" />
         <activity
             android:name=".activity.ConfirmPatternActivity"
@@ -51,6 +65,11 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".activity.SetPatternActivity"
+            android:autoRemoveFromRecents="true"></activity>
+        <activity android:name=".activity.HomeActivity"></activity>
+        <activity android:name=".activity.BaseActivity"></activity>
+        <activity
+            android:name=".activity.SplashScreenActivity"
             android:autoRemoveFromRecents="true">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -58,8 +77,11 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.HomeActivity"></activity>
-        <activity android:name=".activity.BaseActivity"></activity>
+
+        <!--Preference Activity -->
+        <activity android:name=".activity.PrefsActivity"></activity>
+
     </application>
+
 
 </manifest>

@@ -5,11 +5,11 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="4dp"
-    card_view:cardMaxElevation="3dp"
-    card_view:contentPadding="5dp"
-    android:layout_margin="5dp"
+    card_view:cardCornerRadius="@dimen/four_dim"
+    card_view:cardElevation="@dimen/four_dim"
+    card_view:cardMaxElevation="@dimen/three_dim"
+    card_view:contentPadding="@dimen/five_dim"
+    android:layout_margin="@dimen/five_dim"
     >
     <RelativeLayout
         android:id="@+id/app_detail"
@@ -18,14 +18,14 @@
         >
         <ImageView
             android:id="@+id/iv_icon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/card_imgapp_width_dim"
+            android:layout_height="@dimen/card_imgapp_width_dim"
             android:contentDescription="@string/app_name"/>
         <TextView
             android:id="@+id/app_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000"
+            android:textColor="@color/black"
             android:layout_toRightOf="@id/iv_icon"
             android:layout_toEndOf="@id/iv_icon"
             android:fontFamily="sans-serif-condensed"

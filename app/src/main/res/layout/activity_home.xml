@@ -21,12 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
-            android:layout_marginTop="2dp"
-            app:tabBackground="@drawable/tab_color_selector"
+            android:layout_marginTop="@dimen/two_dim"
             app:tabTextColor="@color/tbtext_background_unselected"
             app:tabSelectedTextColor="@color/tbtext_background_selected"
             app:tabIndicatorColor="@color/tbtext_background_selected"
-            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorHeight="@dimen/one_dim"
             app:tabMode="fixed"
             app:tabGravity="fill"/>
     </android.support.design.widget.AppBarLayout>

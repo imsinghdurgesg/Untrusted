@@ -1,7 +1,11 @@
+
 package singh.durgesh.com.applocker.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +16,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +28,17 @@ import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 public class HomeActivity extends BaseActivity {
 
+
     SpannableString str = new SpannableString("App-Protector");
     private Toolbar toolbar;
+    String themeName;
+    public static List<String> blockedNumbers;
+
     private TabLayout tabLayout;
     private String tab1str = "Protect My Apps";
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     private String tab2str = "Do Not Disturb";
+
     private ViewPager viewPager;
     private int[] tabIcons = {
             R.drawable.ic_phone_locked_black_24dp,
@@ -39,6 +50,16 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //SharedPreference to change Theme dynamically...
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        themeName = sharedPreferences.getString("Theme", null);
+        if (themeName != null) {
+            if (themeName.equals("Redtheme")) {
+                setTheme(R.style.MyMaterialTheme);
+            } else {
+                setTheme(R.style.MyMaterialThemeGreen);
+            }
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -50,14 +71,13 @@ public class HomeActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(ss);
-
 //        disabled HomeBack Button
+
+        // disabled HomeBack Button
         // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-
-
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         hideProgressDialog();
         tabLayout.setupWithViewPager(viewPager);
@@ -72,7 +92,6 @@ public class HomeActivity extends BaseActivity {
                 } else if (tab.getPosition() == 0) {
                     tabLayout.getTabAt(0).setIcon(tabIcons[3]);
                     tabLayout.getTabAt(1).setIcon(tabIcons[0]);
-
                 }
             }
 
@@ -86,7 +105,6 @@ public class HomeActivity extends BaseActivity {
 
             }
         });
-
         //method that attaches icons with the Tabs
         setupTabIcons();
     }
@@ -103,6 +121,23 @@ public class HomeActivity extends BaseActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.miSetting:
+                openPreferenceActivity();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void openPreferenceActivity() {
+        Intent intent = new Intent(this, PrefsActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void setupViewPager(ViewPager viewPager) {

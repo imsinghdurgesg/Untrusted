@@ -3,6 +3,7 @@ package singh.durgesh.com.applocker.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -26,17 +27,31 @@ public class ConfirmPatternActivity extends BasePatternActivity
     private static final String KEY_NUM_FAILED_ATTEMPTS = "num_failed_attempts";
 
     public static final int RESULT_FORGOT_PASSWORD = RESULT_FIRST_USER;
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+
 
     protected int mNumFailedAttempts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //SharedPreference to change Theme dynamically...
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String themeName = sharedPreferences.getString("Theme", null);
+        if (themeName != null) {
+            if (themeName.equals("Redtheme")) {
+                setTheme(R.style.MyMaterialTheme);
+            } else {
+                setTheme(R.style.MyMaterialThemeGreen);
+            }
+        }
+
         super.onCreate(savedInstanceState);
         mMessageText.setText(R.string.pl_draw_pattern_to_unlock);
         mPatternView.setInStealthMode(isStealthModeEnabled());
         mPatternView.setOnPatternListener(this);
         mLeftButton.setText(R.string.pl_cancel);
-        isFirstTimeUserComplete="isFirstTimeUserComplete";
+        isFirstTimeUserComplete = "isFirstTimeUserComplete";
         mLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,12 +143,12 @@ public class ConfirmPatternActivity extends BasePatternActivity
 
     protected void onCancel() {
         setResult(RESULT_CANCELED);
-        finish();
+        // finish();
     }
 
     protected void onForgotPassword() {
         setResult(RESULT_FORGOT_PASSWORD);
-        finish();
+        //finish();
     }
 
     @Override
@@ -142,7 +157,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
     }
 
 
-   /* @Override
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent startMain = new Intent(Intent.ACTION_MAIN);
@@ -151,6 +166,6 @@ public class ConfirmPatternActivity extends BasePatternActivity
         startMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(startMain);
         finish();
-    }*/
+    }
 
 }

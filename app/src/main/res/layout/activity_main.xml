@@ -13,24 +13,24 @@
         android:layout_gravity="center">
         <EditText
             android:id="@+id/passord"
-            android:layout_width="200dp"
-            android:layout_height="@dimen/signIn"
+            android:layout_width="@dimen/pw_width_dim"
+            android:layout_height="@dimen/pw_height_dim"
             />
         <EditText
             android:id="@+id/cnf_password"
-            android:layout_width="200dp"
-            android:layout_height="@dimen/signIn"
+            android:layout_width="@dimen/pw_width_dim"
+            android:layout_height="@dimen/pw_height_dim"
             />
         <Button
             android:id="@+id/submit_btn"
             android:layout_gravity="center"
-            android:layout_width="150dp"
-            android:layout_height="30dp" />
+            android:layout_width="@dimen/submit_width_dim"
+            android:layout_height="@dimen/submit_height_dim" />
         <Button
             android:id="@+id/start"
             android:layout_gravity="center"
-            android:layout_width="150dp"
-            android:layout_height="30dp" />
+            android:layout_width="@dimen/submit_width_dim"
+            android:layout_height="@dimen/submit_height_dim" />
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

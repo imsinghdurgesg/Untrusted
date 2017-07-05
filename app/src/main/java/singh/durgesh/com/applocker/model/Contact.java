@@ -7,6 +7,16 @@ package singh.durgesh.com.applocker.model;
 public class Contact
 {
     public String CName;
+    public String CPhone;
+    public boolean isBlocked;
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
 
     public String getCName() {
         return CName;
@@ -24,5 +34,4 @@ public class Contact
         this.CPhone = CPhone;
     }
 
-    public String CPhone;
 }

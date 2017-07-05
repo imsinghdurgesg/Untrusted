@@ -26,10 +26,47 @@ import singh.durgesh.com.applocker.activity.ConfirmPatternActivity;
  * Created by DSingh on 6/6/2017.
  */
 
+import android.app.ActivityManager;
+import android.app.Service;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.IBinder;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import singh.durgesh.com.applocker.activity.ConfirmPatternActivity;
+import singh.durgesh.com.applocker.model.CheckBoxState;
+import singh.durgesh.com.applocker.utils.AppSharedPreference;
+
+/**
+ * Created by DSingh on 6/6/2017.
+ */
+
 public class SecureMyAppsService extends Service {
     String CURRENT_PACKAGE_NAME;
+    // public static SecureMyAppsService instance;
     HashSet<String> blockedAppHashList;
+    public static boolean comparePackage;
     public static String blockedPackage = "";
+    ArrayList<CheckBoxState>blockApps=new ArrayList<>();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -98,12 +135,11 @@ public class SecureMyAppsService extends Service {
                         blockedPackage = "";
                     }
                     Log.e("blockedPackage", "pehle " + blockedPackage + "--  current oackage" + currentApp);
-                    if (getBlockAppList().contains(currentApp)) {
+                    if (getBlockApp(currentApp)) {
                         blockedPackage = currentApp;
                         Log.e("blockedPackage", "baad  " + blockedPackage + "--  current oackage" + currentApp);
                         Intent mIntent = new Intent(getApplicationContext(), ConfirmPatternActivity.class);
                         mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        mIntent.putExtra("isFromAppLocker",true);
                         getApplication().getApplicationContext().startActivity(mIntent);
                     }
 
@@ -122,7 +158,6 @@ public class SecureMyAppsService extends Service {
                 blockedPackage = currentApp;
                 Log.e("blockedPackage", "baad  " + blockedPackage + "--  current oackage" + currentApp);
                 Intent mIntent = new Intent(getApplicationContext(), ConfirmPatternActivity.class);
-                mIntent.putExtra("isFromAppLocker",true);
                 mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 getApplication().getApplicationContext().startActivity(mIntent);
             }
@@ -136,8 +171,8 @@ public class SecureMyAppsService extends Service {
      * @return HashSet of List
      */
     public HashSet<String> getBlockAppList() {
-        SharedPreferences ss = getApplication().getApplicationContext().getSharedPreferences("db", 0);
-        Set<String> hs = ss.getStringSet("set", null);
+        SharedPreferences ss = getApplication().getApplicationContext().getSharedPreferences("BlockApps", 0);
+        Set<String> hs = ss.getStringSet("packagesList", null);
         if (hs != null) {
             blockedAppHashList = new HashSet<>(hs);
             Log.d("SecureService", "2.set = " + ss.getStringSet("set in service", blockedAppHashList));
@@ -145,6 +180,23 @@ public class SecureMyAppsService extends Service {
         }
         return blockedAppHashList;
     }
+    public boolean getBlockApp(String currentApp){
+        AppSharedPreference mSharedPref=new AppSharedPreference(getApplicationContext());
+        String packages = mSharedPref.getStringData("BlockApps");
+        GsonBuilder gsonb = new GsonBuilder();
+        Gson gson = gsonb.create();
+        Type type = new TypeToken<List<CheckBoxState>>() {
+        }.getType();
+        blockApps = gson.fromJson(packages, type);
+        for(int position=0;position<blockApps.size();position++){
+            if(blockApps.get(position).getPackageName().equals(currentApp)){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
 
     /*public static void stop() {
         if (instance != null) {
