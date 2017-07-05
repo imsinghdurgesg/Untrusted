@@ -57,5 +57,10 @@
 
     <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="RedCheck">
+        <item name="colorAccent">#ef0000</item>
+    </style>
+
+
 
 </resources>

@@ -9,11 +9,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +38,7 @@ import singh.durgesh.com.applocker.R;
 import singh.durgesh.com.applocker.model.CheckBoxState;
 import singh.durgesh.com.applocker.source.AppsManager;
 import singh.durgesh.com.applocker.utils.AppSharedPreference;
+import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdapter.ViewHolder> {
 
@@ -121,7 +125,10 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position)
+    {
+        //HERE SETTING THE fONT STYLE to TEXTVIEWS
+        Typeface fontText = Typeface.createFromAsset(mContext.getAssets(),mContext.getResources().getString(R.string.font_roboto));
         //getting checked list from sharedPreference
         AppSharedPreference mSharedPref = new AppSharedPreference(mContext);
         String packages = mSharedPref.getStringData("BlockApps");
@@ -203,11 +210,20 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
             }
         });
 
+        //setting FontFamily to TextViews
+        SpannableStringBuilder ssName = new SpannableStringBuilder(label.toString());
+        SpannableStringBuilder ssPkg = new SpannableStringBuilder(packageName.toString());
+
+        ssName.setSpan(new CustomTypefaceSpan("", fontText), 0, ssName.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        ssPkg.setSpan(new CustomTypefaceSpan("", fontText), 0, ssPkg.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+
+
+
         // Setting the current app label
-        holder.mTextViewLabel.setText(label);
+        holder.mTextViewLabel.setText(ssName);
 
         // Setting the current app package name
-        holder.mTextViewPackage.setText(packageName);
+        holder.mTextViewPackage.setText(ssPkg);
 
         // Setting the current app icon
         holder.mImageViewIcon.setImageDrawable(icon);

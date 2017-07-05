@@ -67,10 +67,9 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         //setting a style to ToolBar App icon Text
-        Typeface font = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_toxic));
+        Typeface fontTool = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_toxic));
         SpannableStringBuilder ss = new SpannableStringBuilder("App Protector");
-        ss.setSpan(new CustomTypefaceSpan("", font), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-
+        ss.setSpan(new CustomTypefaceSpan("", fontTool), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(ss);
@@ -113,17 +112,6 @@ public class HomeActivity extends BaseActivity {
     }
 /*This will capture the "back" button press event
  and send the user to the first item in the ViewPager.*/
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            viewPager.setCurrentItem(0, true);
-            return true;
-        } else {
-            return super.onKeyDown(keyCode, event);
-        }
-    }
-
     //method setupTabIcons
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[3]);

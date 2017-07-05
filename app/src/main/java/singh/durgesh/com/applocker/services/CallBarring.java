@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 import singh.durgesh.com.applocker.fragments.CallFragment;
 import singh.durgesh.com.applocker.model.Contact;
+import singh.durgesh.com.applocker.utils.AppSharedPreference;
 
 
 /**
@@ -90,11 +91,11 @@ public class CallBarring extends BroadcastReceiver {
     }
 
     public ArrayList<Contact> getBlockListFromPref(Context context) {
-        SharedPreferences appSharedPrefs = context.getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);
+        AppSharedPreference appSharedPrefs = new AppSharedPreference(context);
         Gson gson = new Gson();
-        String json = appSharedPrefs.getString("BlockedContacts", "");
-        Type type = new TypeToken<ArrayList<Contact>>() {
-        }.getType();
+        String json = appSharedPrefs.getStringData("BlockedContacts");
+//        Contact mStudentObject = gson.fromJson(json, Contact.class);
+        Type type = new TypeToken<ArrayList<Contact>>() {}.getType();
         blockList = gson.fromJson(json, type);
         return blockList;
 
