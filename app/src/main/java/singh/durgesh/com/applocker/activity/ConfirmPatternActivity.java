@@ -1,5 +1,6 @@
 package singh.durgesh.com.applocker.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,12 +11,10 @@ import android.view.View;
 import java.util.List;
 
 import singh.durgesh.com.applocker.R;
+import singh.durgesh.com.applocker.utils.AppSharedPreference;
 import singh.durgesh.com.applocker.utils.PatternUtils;
 import singh.durgesh.com.applocker.utils.PatternView;
 import singh.durgesh.com.applocker.utils.ViewAccessibilityCompat;
-
-import static singh.durgesh.com.applocker.activity.SetPatternActivity.isFirstTimeUserComplete;
-
 // For AOSP implementations, see:
 // https://android.googlesource.com/platform/packages/apps/Settings/+/master/src/com/android/settings/ConfirmLockPattern.java
 // https://android.googlesource.com/platform/frameworks/base/+/43d8451/policy/src/com/android/internal/policy/impl/keyguard/KeyguardPatternView.java
@@ -28,8 +27,8 @@ public class ConfirmPatternActivity extends BasePatternActivity
 
     public static final int RESULT_FORGOT_PASSWORD = RESULT_FIRST_USER;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
-
-
+   Context mContext;
+   AppSharedPreference mSharedPref;
     protected int mNumFailedAttempts;
 
     @Override
@@ -47,11 +46,12 @@ public class ConfirmPatternActivity extends BasePatternActivity
         }
 
         super.onCreate(savedInstanceState);
+        mSharedPref=new AppSharedPreference(this);
         mMessageText.setText(R.string.pl_draw_pattern_to_unlock);
         mPatternView.setInStealthMode(isStealthModeEnabled());
         mPatternView.setOnPatternListener(this);
         mLeftButton.setText(R.string.pl_cancel);
-        isFirstTimeUserComplete = "isFirstTimeUserComplete";
+      //  isFirstTimeUserComplete = "isFirstTimeUserComplete";
         mLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,8 +117,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
     }
 
     protected boolean isPatternCorrect(List<PatternView.Cell> pattern) {
-        SharedPreferences preferences = getSharedPreferences("prefs", MODE_PRIVATE);
-        String patternSha1 = preferences.getString("patternSha1", null);
+        String patternSha1 = mSharedPref.getStringData("patternSha");
 
         return TextUtils.equals(PatternUtils.patternToSha1String(pattern), patternSha1);
     }
@@ -126,8 +125,8 @@ public class ConfirmPatternActivity extends BasePatternActivity
     protected void onConfirmed() {
         setResult(RESULT_OK);
         Intent intent = getIntent();
-        boolean isFromAppLocker = intent.getBooleanExtra("isFromAppLocker", false);
-        if (isFromAppLocker) {
+        boolean isFromService = intent.getBooleanExtra("isFromService", false);
+        if (isFromService) {
             finish();
         } else {
             Intent mIntent = new Intent(this, HomeActivity.class);

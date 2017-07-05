@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import singh.durgesh.com.applocker.R;
+import singh.durgesh.com.applocker.utils.AppSharedPreference;
 import singh.durgesh.com.applocker.utils.PatternUtils;
 import singh.durgesh.com.applocker.utils.PatternView;
 import singh.durgesh.com.applocker.utils.ViewAccessibilityCompat;
@@ -20,7 +19,6 @@ import singh.durgesh.com.applocker.utils.ViewAccessibilityCompat;
  */
 public class SetPatternActivity extends BasePatternActivity
         implements PatternView.OnPatternListener {
-
     private enum LeftButtonState {
 
         Cancel(R.string.pl_cancel, true),
@@ -81,25 +79,24 @@ public class SetPatternActivity extends BasePatternActivity
             this.patternEnabled = patternEnabled;
         }
     }
-    public static String isFirstTimeUserComplete="";
+
     private static final String KEY_STAGE = "stage";
     private static final String KEY_PATTERN = "pattern";
 
     private int mMinPatternSize;
     private List<PatternView.Cell> mPattern;
     private Stage mStage;
+    AppSharedPreference msharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences prefs = getSharedPreferences("FirstTimeBoolean", MODE_PRIVATE);
-        //below code is checking whether user navigating first time in the app then it will open setPattern Activity else
-        //it will open confirmPatternActivity
-        Boolean isFirstTimeUser = prefs.getBoolean("FirstTimeEnter", false);
-        if (isFirstTimeUser && isFirstTimeUserComplete.equals("isFirstTimeUserComplete")) {
-            Intent mIntent = new Intent(this, ConfirmPatternActivity.class);
+        msharedPref=new AppSharedPreference(this);
+        Boolean isFirstTimeUser = msharedPref.getBooleanData("FirstTimeUser", false);
+        Boolean userCompleteProcess = msharedPref.getBooleanData("userCompleteProcess", false);
+        if(isFirstTimeUser && userCompleteProcess){
+            Intent mIntent=new Intent(this,ConfirmPatternActivity.class);
             startActivity(mIntent);
-            finish();
         }
         FirstTimeOnly();
         mMinPatternSize = getMinPatternSize();
@@ -129,6 +126,7 @@ public class SetPatternActivity extends BasePatternActivity
         }
     }
 
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -151,8 +149,7 @@ public class SetPatternActivity extends BasePatternActivity
     }
 
     @Override
-    public void onPatternCellAdded(List<PatternView.Cell> pattern) {
-    }
+    public void onPatternCellAdded(List<PatternView.Cell> pattern) {}
 
     @Override
     public void onPatternDetected(List<PatternView.Cell> newPattern) {
@@ -221,7 +218,7 @@ public class SetPatternActivity extends BasePatternActivity
 
     protected void onConfirmed() {
         setResult(RESULT_OK);
-        Intent mIntent = new Intent(this, HomeActivity.class);
+        Intent mIntent=new Intent(this,HomeActivity.class);
         startActivity(mIntent);
         finish();
     }
@@ -277,20 +274,12 @@ public class SetPatternActivity extends BasePatternActivity
     protected int getMinPatternSize() {
         return 4;
     }
-
     protected void onSetPattern(List<PatternView.Cell> pattern) {
-        SharedPreferences.Editor editor = getSharedPreferences("prefs", MODE_PRIVATE).edit();
-        String patternSha1 = PatternUtils.patternToSha1String(pattern);
+        String patternSha = PatternUtils.patternToSha1String(pattern);
         // TODO: Save patternSha1 in SharedPreferences.
-        editor.putString("patternSha1", patternSha1);
-        editor.apply();
+        msharedPref.putStringData("patternSha", patternSha);
     }
-
-    public void FirstTimeOnly() {
-        SharedPreferences prefs = getSharedPreferences("FirstTimeBoolean", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("FirstTimeEnter", true);
-        editor.apply();
+    public void FirstTimeOnly(){
+        msharedPref.putBooleanData("FirstTimeUser",true);
     }
-
 }
