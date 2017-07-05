@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -34,6 +35,18 @@ public class ConfirmPatternActivity extends BasePatternActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //SharedPreference to change Theme dynamically...
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String themeName = sharedPreferences.getString("Theme", null);
+        if (themeName != null) {
+            if (themeName.equals("Redtheme")) {
+                setTheme(R.style.MyMaterialTheme);
+            } else {
+                setTheme(R.style.MyMaterialThemeGreen);
+            }
+        }
+
         super.onCreate(savedInstanceState);
         mMessageText.setText(R.string.pl_draw_pattern_to_unlock);
         mPatternView.setInStealthMode(isStealthModeEnabled());

@@ -1,5 +1,8 @@
 <resources>
+
     <!--changes by Rohit   DEFAULT THEME :RED-->
+
+    <!--changes by Rohit-->
     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
 
     </style>
@@ -12,6 +15,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--change Theme to Green -->
+    <style name="MyMaterialThemeGreen" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimaryGreen</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkGreen</item>
+        <item name="colorAccent">@color/colorAccentGreen</item>
+    </style>
 
     <!--regarding Tabs Text-->
     <style name="MyTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">

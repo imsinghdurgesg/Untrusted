@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="Set Lock Pattern">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="SwitchLock"
+            android:summary="Set App Lock Phone/App"
+            android:title="App Lock Pattern"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+
+
+    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="Change Theme">
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="SwitchTheme"
+            android:summary="Set App Theme"
+            android:title="Change Theme"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+</PreferenceScreen>
+
