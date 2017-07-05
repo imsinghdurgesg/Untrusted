@@ -1,5 +1,7 @@
 <resources>
 
+    <!--changes by Rohit   DEFAULT THEME :RED-->
+
     <!--changes by Rohit-->
     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
 

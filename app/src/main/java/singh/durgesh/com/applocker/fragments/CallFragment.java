@@ -2,11 +2,17 @@ package singh.durgesh.com.applocker.fragments;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Context;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import singh.durgesh.com.applocker.adapter.ContactsAdapter;
@@ -28,6 +35,7 @@ public class CallFragment extends BaseFragment
 {
     private RecyclerView recyclerView;
     private CheckBox cb;
+    public static ArrayList<Contact> oldBlockedList=null;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<Contact> contactList;
@@ -51,6 +59,13 @@ public class CallFragment extends BaseFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        //First of all getting all the BlockedContacts list that user has selected last time
+        SharedPreferences appSharedPrefs = getActivity().getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = appSharedPrefs.getString("BlockedContacts", "");
+//        Contact mStudentObject = gson.fromJson(json, Contact.class);
+        Type type = new TypeToken<ArrayList<Contact>>() {}.getType();
+       oldBlockedList = gson.fromJson(json, type);
         // Inflate the layout for this fragment
 
         View view=inflater.inflate(R.layout.fragment_call, container, false);

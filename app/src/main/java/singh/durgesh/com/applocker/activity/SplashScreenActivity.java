@@ -19,7 +19,8 @@ import singh.durgesh.com.applocker.services.CallBarring;
 
 public class SplashScreenActivity extends AppCompatActivity
 {
-    private static int SPLASH_TIME_OUT=3000;
+    CallBarring mMyBroadcastReceiver;
+    private static int SPLASH_TIME_OUT=1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +40,16 @@ public class SplashScreenActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         //Registering The BroadCastReceiver
+
         //Checking wheather App is Permitted to Read Contacts
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SplashScreenActivity.this.checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
         {
             //  requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PERMISSIONS_REQUEST_READ_CONTACTS);
             ActivityCompat.requestPermissions(SplashScreenActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, 1);
+        }
+        else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SplashScreenActivity.this.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(SplashScreenActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
         }
         else
         {

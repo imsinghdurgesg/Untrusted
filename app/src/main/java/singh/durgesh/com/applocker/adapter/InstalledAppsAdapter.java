@@ -411,7 +411,9 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position)
+    {
+
         //  a new instance of AppManager class
         AppsManager appsManager = new AppsManager(mContext);
 
