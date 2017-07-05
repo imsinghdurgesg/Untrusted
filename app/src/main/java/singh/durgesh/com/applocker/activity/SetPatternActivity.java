@@ -97,6 +97,7 @@ public class SetPatternActivity extends BasePatternActivity
         if(isFirstTimeUser && userCompleteProcess){
             Intent mIntent=new Intent(this,ConfirmPatternActivity.class);
             startActivity(mIntent);
+            finish();
         }
         FirstTimeOnly();
         mMinPatternSize = getMinPatternSize();
