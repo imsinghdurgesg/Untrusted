@@ -45,9 +45,6 @@ public class AppFragment extends BaseFragment {
         // mActivity = AppListActivity.this;
 
         // Get the widgets reference from XML layout
-/*
-        mRelativeLayout = (RelativeLayout) findViewById(R.id.rl);
-*/
         mRecyclerView = (RecyclerView) view.findViewById(R.id.mRecycle_app_List);
 
         // Define a layout for RecyclerView

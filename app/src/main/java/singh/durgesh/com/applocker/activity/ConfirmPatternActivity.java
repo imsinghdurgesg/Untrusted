@@ -1,6 +1,5 @@
 package singh.durgesh.com.applocker.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,10 +24,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
 
 
     private static final String KEY_NUM_FAILED_ATTEMPTS = "num_failed_attempts";
-
     public static final int RESULT_FORGOT_PASSWORD = RESULT_FIRST_USER;
-    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
-    Context mContext;
     AppSharedPreference mSharedPref;
     protected int mNumFailedAttempts;
 
@@ -88,15 +84,12 @@ public class ConfirmPatternActivity extends BasePatternActivity
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
         outState.putInt(KEY_NUM_FAILED_ATTEMPTS, mNumFailedAttempts);
     }
 
     @Override
     public void onPatternStart() {
-
         removeClearPatternRunnable();
-
         // Set display mode to correct to ensure that pattern can be in stealth mode.
         mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Correct);
     }
