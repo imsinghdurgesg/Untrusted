@@ -79,11 +79,7 @@
 
         <!--Preference Activity -->
         <activity android:name=".activity.PrefsActivity"></activity>
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 6289ce06f7ca61c3bc8d992068328f3dc6a5951f
     </application>
 
 

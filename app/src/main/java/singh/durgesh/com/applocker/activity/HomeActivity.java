@@ -93,10 +93,11 @@ public class HomeActivity extends BaseActivity {
         SpannableStringBuilder ss = new SpannableStringBuilder("App Protector");
 
         ss.setSpan(new CustomTypefaceSpan("", fontTool), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        mSharedPref.putBooleanData("userCompleteProcess",true);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(ss);
+        mSharedPref.putBooleanData("userCompleteProcess",true);
+
 //        disabled HomeBack Button
 
         // disabled HomeBack Button

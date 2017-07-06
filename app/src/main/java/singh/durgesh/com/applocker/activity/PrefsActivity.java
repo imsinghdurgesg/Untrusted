@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v7.widget.Toolbar;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,8 @@ import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import singh.durgesh.com.applocker.R;
+import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 
 /**
@@ -34,6 +38,7 @@ import singh.durgesh.com.applocker.R;
 public class PrefsActivity extends AppCompatActivity {
 
     private static int i = 5;
+    private Toolbar toolbar;
 
 
     @Override
@@ -51,9 +56,14 @@ public class PrefsActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pref_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setting the Customized ToolBar
+        Typeface fontTool = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_toxic));
+        SpannableStringBuilder ss = new SpannableStringBuilder("App Protector");
+
+        ss.setSpan(new CustomTypefaceSpan("", fontTool), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(ss);
 
         Fragment fragment = new PreferenceScreen();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
