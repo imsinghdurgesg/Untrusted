@@ -1,9 +1,13 @@
 package singh.durgesh.com.applocker.activity;
 
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +96,8 @@ public class SetPatternActivity extends BasePatternActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         msharedPref=new AppSharedPreference(this);
+        //asking for Phone State permission
+
         Boolean isFirstTimeUser = msharedPref.getBooleanData("FirstTimeUser", false);
         Boolean userCompleteProcess = msharedPref.getBooleanData("userCompleteProcess", false);
         if(isFirstTimeUser && userCompleteProcess){

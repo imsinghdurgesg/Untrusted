@@ -92,8 +92,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
         TextDrawable drawable = TextDrawable.builder().buildRound(letter, generator.getRandomColor());
         //HERE SETTING THE fONT STYLE to TEXTVIEWS
         Typeface fontText = Typeface.createFromAsset(context.getAssets(),context.getResources().getString(R.string.font_roboto));
-        SpannableStringBuilder ssName = new SpannableStringBuilder(nameCap.toString());
-        SpannableStringBuilder ssPhone = new SpannableStringBuilder(phNo.toString());
+        SpannableStringBuilder ssName = new SpannableStringBuilder(nameCap);
+        SpannableStringBuilder ssPhone = new SpannableStringBuilder(phNo);
 
         ssName.setSpan(new CustomTypefaceSpan("", fontText), 0, ssName.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         ssPhone.setSpan(new CustomTypefaceSpan("", fontText), 0, ssPhone.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);

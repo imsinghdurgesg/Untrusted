@@ -138,6 +138,18 @@ public class CallFragment extends BaseFragment
                     contact.setCPhone(phoneNumber);
                     phoneCursor.close();
                 }
+                else
+                {
+                    Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
+                    while (phoneCursor.moveToNext())
+                    {
+                        phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
+
+                    }
+
+                    contact.setCPhone("");
+                    phoneCursor.close();
+                }
                 contactList.add(contact);
 
             }
@@ -148,14 +160,29 @@ public class CallFragment extends BaseFragment
     }
     private ArrayList<Contact> requestContacts()
     {
-       ArrayList<Contact> list1=new ArrayList<Contact>();
+        ArrayList<Contact> illegalList=new ArrayList<Contact>();
+        ArrayList<Contact> filteredList=new ArrayList<Contact>();
+        ArrayList<Contact> legalList=new ArrayList<Contact>();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
         {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PERMISSIONS_REQUEST_READ_CONTACTS);
-        } else {
-          list1= getContacts();
+        } else
+        {
+            illegalList= getContacts();
+
+/*
+            Now Filtering the ArrayList Of Contacts as that List may contain some Contacts
+            which dont have Contact Number
+*/
+          for(int j=0;j<illegalList.size();j++)
+          {
+              if(!(illegalList.get(j).getCPhone().equals("")))
+              {
+                  legalList.add(illegalList.get(j));
+              }
+          }
         }
-        return  list1;
+        return  legalList;
     }
 
 
