@@ -1,11 +1,8 @@
 package singh.durgesh.com.applocker.activity;
 
-<<<<<<< HEAD
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
-=======
 import android.app.Activity;
->>>>>>> 0e5f57362cf700ca7aff7ad68f33a8eea777a673
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.KeyguardManager;

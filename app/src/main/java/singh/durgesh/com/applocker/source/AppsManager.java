@@ -13,11 +13,6 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -71,9 +66,16 @@ public class AppsManager {
                 // Add the non system package to the list
                 packageNames.add(checkBoxState);
             }
-
+            String label = getApplicationLabelByPackageName(activityInfo.applicationInfo.packageName);
+            checkBoxState.setAppLabel(label);
 
         }
+        Collections.sort(packageNames, new Comparator<CheckBoxState>() {
+            @Override
+            public int compare(CheckBoxState o1, CheckBoxState o2) {
+                return o1.getAppLabel().compareToIgnoreCase(o2.getAppLabel());
+            }
+        });
         //  getBlockAppsList(packageNames);
         return packageNames;
 
@@ -141,13 +143,12 @@ public class AppsManager {
             if (applicationInfo != null) {
                 label = (String) packageManager.getApplicationLabel(applicationInfo);
             }
-           /* Collections.sort(packageNames, new Comparator<CheckBoxState>() {
+            /*Collections.sort(packageNames, new Comparator<CheckBoxState>() {
                 @Override
                 public int compare(CheckBoxState o1, CheckBoxState o2) {
                     return o1.getAppLabel().compareToIgnoreCase(o2.getAppLabel());
                 }
-            });
-*/
+            });*/
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
