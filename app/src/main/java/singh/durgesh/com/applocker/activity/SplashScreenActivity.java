@@ -27,7 +27,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
         //Registering The BroadCastReceiver
 
-<<<<<<< HEAD
+
         //Checking multiple Permissions at the same time
         //Checking wheather App is Permitted to Read Contacts and Read Phone Status
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SplashScreenActivity.this.checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
@@ -36,16 +36,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(SplashScreenActivity.this, new String[]{Manifest.permission.READ_CONTACTS,Manifest.permission.READ_PHONE_STATE}, 1);
         }
         else
-        {
-=======
-        //Checking wheather App is Permitted to Read Contacts
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SplashScreenActivity.this.checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            //  requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PERMISSIONS_REQUEST_READ_CONTACTS);
-            ActivityCompat.requestPermissions(SplashScreenActivity.this, new String[]{Manifest.permission.READ_CONTACTS}, 1);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SplashScreenActivity.this.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(SplashScreenActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
-        } else {
->>>>>>> 8d2d72beef784a851f4080ca2d5ca8c973954cca
+            {
             showNext();
         }
 
