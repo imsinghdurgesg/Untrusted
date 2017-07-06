@@ -78,7 +78,6 @@ public class AppsManager {
         });
         //  getBlockAppsList(packageNames);
         return packageNames;
-
     }
 
     // Custom method to determine an app is system app

@@ -30,9 +30,7 @@
         <activity
             android:name=".activity.SignupActivity"
             android:autoRemoveFromRecents="true" />
-        <activity
-            android:name=".activity.PrefsActivity"
-            android:autoRemoveFromRecents="true" />
+
 
         <activity android:name=".activity.AppListActivity" />
         <activity

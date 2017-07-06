@@ -12,7 +12,7 @@
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/red</item>
     </style>
 
     <!--change Theme to Green -->
@@ -57,9 +57,9 @@
 
     <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="RedCheck">
-        <item name="colorAccent">#ef0000</item>
-    </style>
+    <!--<style name="RedCheck">-->
+        <!--<item name="colorAccent">#ef0000</item>-->
+    <!--</style>-->
 
 
 
