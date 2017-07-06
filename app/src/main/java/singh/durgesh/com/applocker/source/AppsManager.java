@@ -71,12 +71,9 @@ public class AppsManager {
                 // Add the non system package to the list
                 packageNames.add(checkBoxState);
             }
-
-
         }
         //  getBlockAppsList(packageNames);
         return packageNames;
-
     }
 
     // Custom method to determine an app is system app
