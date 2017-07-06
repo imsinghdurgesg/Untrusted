@@ -31,6 +31,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -147,7 +149,15 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         //  current app icon
         Drawable icon = appsManager.getAppIconByPackageName(packageName);
         //  current app label
-        String label = appsManager.getApplicationLabelByPackageName(packageName);
+        String label = checkBoxStatesList.get(position).getAppLabel();
+       /* checkBoxStatesList.add(state);
+
+        Collections.sort(checkBoxStatesList, new Comparator<CheckBoxState>() {
+            @Override
+            public int compare(CheckBoxState o1, CheckBoxState o2) {
+                return o1.getAppLabel().compareToIgnoreCase(o2.getAppLabel());
+            }
+        });*/
         //
         //  holder.cbBlockedApp.setOnClickListener(null);
         //setting  state of checkbox

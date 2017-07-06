@@ -15,7 +15,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"
+    <uses-permission
+        android:name="android.permission.MODIFY_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
 
 
@@ -29,9 +30,7 @@
         <activity
             android:name=".activity.SignupActivity"
             android:autoRemoveFromRecents="true" />
-        <activity
-            android:name=".activity.PrefsActivity"
-            android:autoRemoveFromRecents="true" />
+
 
         <activity android:name=".activity.AppListActivity" />
         <activity
@@ -52,7 +51,8 @@
         </receiver>
 
         <!--receiver for calls -->
-        <receiver android:name=".services.CallBarring"
+        <receiver
+            android:name=".services.CallBarring"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -67,21 +67,22 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".activity.SetPatternActivity"
-            android:autoRemoveFromRecents="true">
-        </activity>
+            android:autoRemoveFromRecents="true"></activity>
         <activity android:name=".activity.HomeActivity"></activity>
         <activity android:name=".activity.BaseActivity"></activity>
-    <activity
-        android:name=".activity.SplashScreenActivity"
-        android:autoRemoveFromRecents="true">
-        <intent-filter>
-            <category android:name="android.intent.category.LAUNCHER" />
+        <activity
+            android:name=".activity.SplashScreenActivity"
+            android:autoRemoveFromRecents="true">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
 
-            <action android:name="android.intent.action.MAIN" />
-        </intent-filter>
-    </activity>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <!--Preference Activity -->
+
     </application>
-
 
 
 </manifest>

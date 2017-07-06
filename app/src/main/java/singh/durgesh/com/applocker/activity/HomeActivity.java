@@ -1,9 +1,13 @@
 
 package singh.durgesh.com.applocker.activity;
 
+import android.annotation.TargetApi;
+import android.app.KeyguardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
@@ -30,7 +34,6 @@ import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 public class HomeActivity extends BaseActivity {
 
-
     SpannableString str = new SpannableString("App-Protector");
     private Toolbar toolbar;
     String themeName;
@@ -51,6 +54,25 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+        Intent intent = getIntent();
+        int number = intent.getIntExtra("Lock", 0);
+
+        if (number == 6 || number ==5) {
+
+        } else {
+
+            SharedPreferences sharedPreferencesLock = PreferenceManager.getDefaultSharedPreferences(this);
+            String lockName = sharedPreferencesLock.getString("Lock", null);
+            if (lockName != null) {
+                if (lockName.equals("PhoneLock")) {
+                    checkforSecurity();
+                }
+            }
+
+        }
+
         //SharedPreference to change Theme dynamically...
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         themeName = sharedPreferences.getString("Theme", null);
@@ -114,6 +136,15 @@ public class HomeActivity extends BaseActivity {
     }
 /*This will capture the "back" button press event
  and send the user to the first item in the ViewPager.*/
+
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private void checkforSecurity() {
+
+        KeyguardManager keyguardManager = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+        Intent intent = keyguardManager.createConfirmDeviceCredentialIntent(null, null);
+        startActivity(intent);
+    }
 
     /*This will capture the "back" button press event
      and send the user to the first item in the ViewPager.*/
@@ -200,5 +231,6 @@ public class HomeActivity extends BaseActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+
     }
 }

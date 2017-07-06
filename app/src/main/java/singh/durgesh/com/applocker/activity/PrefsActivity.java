@@ -1,12 +1,16 @@
 package singh.durgesh.com.applocker.activity;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.support.v7.widget.Toolbar;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -28,6 +32,9 @@ import singh.durgesh.com.applocker.R;
  */
 
 public class PrefsActivity extends AppCompatActivity {
+
+    private static int i = 5;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,12 +70,23 @@ public class PrefsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             Intent intent = new Intent(this, HomeActivity.class);
+            intent.putExtra("Lock",i);
             startActivity(intent);
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("Lock",i);
+        ActivityOptions options =
+                ActivityOptions.makeCustomAnimation(this, R.anim.pull_in_from_left, 0);
+        this.startActivity(intent, options.toBundle());
+        finish();
+    }
 
     public static class PreferenceScreen extends PreferenceFragment {
 
@@ -89,6 +107,7 @@ public class PrefsActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.prefs);
             SwitchPreference switchPreference = (SwitchPreference) findPreference("SwitchTheme");
+            SwitchPreference switchPreferencePatternLock = (SwitchPreference) findPreference("SwitchLock");
 
             //Enables Users to chnage Theme
             switchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -113,6 +132,43 @@ public class PrefsActivity extends AppCompatActivity {
                     return true;
                 }
             });
+
+            //Enables Users to chnage Pattern Lock
+            switchPreferencePatternLock.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (!((Boolean) newValue)) {
+                        Log.d("DSG", "Change to App Pattern Lock");
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("Lock", "DSG");
+                        editor.commit();
+                    } else {
+                        i = 5;
+                        Log.d("DSG", "Change to Phone Default theme");
+                        //Open the default App Pattern Lock
+                        checkLock();
+                        i++;
+                    }
+                    return true;
+                }
+            });
+        }
+
+        @TargetApi(Build.VERSION_CODES.M)
+        private void checkLock() {
+            KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+            boolean isSecure = keyguardManager.isKeyguardSecure();
+            if (isSecure) {
+                Intent intent = keyguardManager.createConfirmDeviceCredentialIntent(null, null);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Lock", "PhoneLock");
+                editor.commit();
+                startActivity(intent);
+            } else {
+                // no lock screen set, show the new lock needed screen
+            }
         }
     }
 }

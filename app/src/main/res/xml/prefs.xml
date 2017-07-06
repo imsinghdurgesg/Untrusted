@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="Set Lock Pattern">
         <SwitchPreference
-            android:defaultValue="true"
+            android:defaultValue="false"
             android:key="SwitchLock"
             android:summary="Set App Lock Phone/App"
             android:title="App Lock Pattern"

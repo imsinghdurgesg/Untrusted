@@ -74,7 +74,6 @@
                 <CheckBox
                     android:id="@+id/checkBoxBlocked"
                     android:gravity="center_horizontal"
-                    android:theme="@style/RedCheck"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />

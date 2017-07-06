@@ -15,6 +15,7 @@ import singh.durgesh.com.applocker.utils.AppSharedPreference;
 import singh.durgesh.com.applocker.utils.PatternUtils;
 import singh.durgesh.com.applocker.utils.PatternView;
 import singh.durgesh.com.applocker.utils.ViewAccessibilityCompat;
+
 // For AOSP implementations, see:
 // https://android.googlesource.com/platform/packages/apps/Settings/+/master/src/com/android/settings/ConfirmLockPattern.java
 // https://android.googlesource.com/platform/frameworks/base/+/43d8451/policy/src/com/android/internal/policy/impl/keyguard/KeyguardPatternView.java
@@ -27,12 +28,22 @@ public class ConfirmPatternActivity extends BasePatternActivity
 
     public static final int RESULT_FORGOT_PASSWORD = RESULT_FIRST_USER;
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
-   Context mContext;
-   AppSharedPreference mSharedPref;
+    Context mContext;
+    AppSharedPreference mSharedPref;
     protected int mNumFailedAttempts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        SharedPreferences sharedPreferencesLock = PreferenceManager.getDefaultSharedPreferences(this);
+        String lockName = sharedPreferencesLock.getString("Lock", null);
+        if (lockName != null) {
+            if (lockName.equals("PhoneLock")) {
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
 
         //SharedPreference to change Theme dynamically...
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -46,12 +57,12 @@ public class ConfirmPatternActivity extends BasePatternActivity
         }
 
         super.onCreate(savedInstanceState);
-        mSharedPref=new AppSharedPreference(this);
+        mSharedPref = new AppSharedPreference(this);
         mMessageText.setText(R.string.pl_draw_pattern_to_unlock);
         mPatternView.setInStealthMode(isStealthModeEnabled());
         mPatternView.setOnPatternListener(this);
         mLeftButton.setText(R.string.pl_cancel);
-      //  isFirstTimeUserComplete = "isFirstTimeUserComplete";
+        //  isFirstTimeUserComplete = "isFirstTimeUserComplete";
         mLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
