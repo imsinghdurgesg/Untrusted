@@ -64,6 +64,7 @@ public class PrefsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(ss);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Fragment fragment = new PreferenceScreen();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
