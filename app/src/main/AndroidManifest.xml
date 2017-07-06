@@ -27,16 +27,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity
-            android:name=".activity.SignupActivity"
-            android:autoRemoveFromRecents="true" />
 
 
         <activity android:name=".activity.AppListActivity" />
-        <activity
-            android:name=".activity.PasswordActivity"
-            android:autoRemoveFromRecents="true"
-            android:launchMode="singleTask" />
 
         <service android:name=".services.SecureMyAppsService" />i
 
@@ -68,8 +61,12 @@
         <activity
             android:name=".activity.SetPatternActivity"
             android:autoRemoveFromRecents="true"></activity>
-        <activity android:name=".activity.HomeActivity"></activity>
-        <activity android:name=".activity.BaseActivity"></activity>
+        <activity android:name=".activity.HomeActivity">
+
+        </activity>
+        <activity android:name=".activity.BaseActivity">
+
+        </activity>
         <activity
             android:name=".activity.SplashScreenActivity"
             android:autoRemoveFromRecents="true">
@@ -82,8 +79,11 @@
 
         <!--Preference Activity -->
         <activity android:name=".activity.PrefsActivity"></activity>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 6289ce06f7ca61c3bc8d992068328f3dc6a5951f
     </application>
 
 

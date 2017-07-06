@@ -5,33 +5,6 @@ import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.os.IBinder;
-import android.util.Log;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import singh.durgesh.com.applocker.activity.ConfirmPatternActivity;
-
-/**
- * Created by DSingh on 6/6/2017.
- */
-
-import android.app.ActivityManager;
-import android.app.Service;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.IBinder;
@@ -45,7 +18,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.Executors;
@@ -60,13 +32,17 @@ import singh.durgesh.com.applocker.utils.AppSharedPreference;
  * Created by DSingh on 6/6/2017.
  */
 
+/**
+ * Created by DSingh on 6/6/2017.
+ */
+
 public class SecureMyAppsService extends Service {
     String CURRENT_PACKAGE_NAME;
     // public static SecureMyAppsService instance;
     HashSet<String> blockedAppHashList;
     public static boolean comparePackage;
     public static String blockedPackage = "";
-    ArrayList<CheckBoxState>blockApps=new ArrayList<>();
+    ArrayList<CheckBoxState> blockApps = new ArrayList<>();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -139,7 +115,7 @@ public class SecureMyAppsService extends Service {
                         blockedPackage = currentApp;
                         Log.e("blockedPackage", "baad  " + blockedPackage + "--  current oackage" + currentApp);
                         Intent mIntent = new Intent(getApplicationContext(), ConfirmPatternActivity.class);
-                        mIntent.putExtra("isFromService",true);
+                        mIntent.putExtra("isFromService", true);
                         mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         getApplication().getApplicationContext().startActivity(mIntent);
                     }
@@ -155,11 +131,11 @@ public class SecureMyAppsService extends Service {
                 blockedPackage = "";
             }
             Log.e("blockedPackage", "pehle " + blockedPackage + "--  current oackage" + currentApp);
-            if (getBlockAppList().contains(currentApp)) {
+            if (getBlockApp(currentApp)) {
                 blockedPackage = currentApp;
                 Log.e("blockedPackage", "baad  " + blockedPackage + "--  current oackage" + currentApp);
                 Intent mIntent = new Intent(getApplicationContext(), ConfirmPatternActivity.class);
-                mIntent.putExtra("isFromService",true);
+                mIntent.putExtra("isFromService", true);
                 mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 getApplication().getApplicationContext().startActivity(mIntent);
             }
@@ -167,31 +143,23 @@ public class SecureMyAppsService extends Service {
 
     }
 
-    /**
-     * Here we are retriving blocked appslist from the sharedPreferences
-     *
-     * @return HashSet of List
-     */
-    public HashSet<String> getBlockAppList() {
-        SharedPreferences ss = getApplication().getApplicationContext().getSharedPreferences("BlockApps", 0);
-        Set<String> hs = ss.getStringSet("packagesList", null);
-        if (hs != null) {
-            blockedAppHashList = new HashSet<>(hs);
-            Log.d("SecureService", "2.set = " + ss.getStringSet("set in service", blockedAppHashList));
 
-        }
-        return blockedAppHashList;
-    }
-    public boolean getBlockApp(String currentApp){
-        AppSharedPreference mSharedPref=new AppSharedPreference(getApplicationContext());
+    /**
+     * retriving saved CheckApp List from the shared preference
+     *
+     * @param currentApp to compare with saved list
+     * @return true if current app is in Saved List and vice-versa
+     */
+    public boolean getBlockApp(String currentApp) {
+        AppSharedPreference mSharedPref = new AppSharedPreference(getApplicationContext());
         String packages = mSharedPref.getStringData("BlockApps");
         GsonBuilder gsonb = new GsonBuilder();
         Gson gson = gsonb.create();
         Type type = new TypeToken<List<CheckBoxState>>() {
         }.getType();
         blockApps = gson.fromJson(packages, type);
-        for(int position=0;position<blockApps.size();position++){
-            if(blockApps.get(position).getPackageName().equals(currentApp)){
+        for (int position = 0; position < blockApps.size(); position++) {
+            if (blockApps.get(position).getPackageName().equals(currentApp)) {
                 return true;
             }
 

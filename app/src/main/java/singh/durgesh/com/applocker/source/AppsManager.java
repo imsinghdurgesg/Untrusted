@@ -70,6 +70,7 @@ public class AppsManager {
             checkBoxState.setAppLabel(label);
 
         }
+        // Sorting App Alphabetiacally with their label
         Collections.sort(packageNames, new Comparator<CheckBoxState>() {
             @Override
             public int compare(CheckBoxState o1, CheckBoxState o2) {
@@ -98,38 +99,6 @@ public class AppsManager {
         return icon;
     }
 
-  /*  public ArrayList<CheckBoxState> getBlockAppsList(ArrayList<CheckBoxState> packageNames) {
-        this.packageNames = packageNames;
-        ArrayList<CheckBoxState> stateofCheckBoxes = new ArrayList<>();
-
-        //getting state of checkboxes
-        String packages = msharedPref.getStringData("BlockApps");
-//        Log.e("reading here", packages);
-        GsonBuilder gsonb = new GsonBuilder();
-        Gson gson = gsonb.create();
-        Type type = new TypeToken<List<CheckBoxState>>() {
-        }.getType();
-        stateofCheckBoxes = gson.fromJson(packages, type);
-        //  msharedPref.getArrayList("BlockApps")''
-        if (stateofCheckBoxes != null && stateofCheckBoxes.size() > 0) {
-            for (int i = 0; i < stateofCheckBoxes.size(); i++) {
-                CheckBoxState checkBoxState = new CheckBoxState();
-                checkBoxState.setPackageName(stateofCheckBoxes.get(i).getPackageName());
-                checkBoxState.setPosition(stateofCheckBoxes.get(i).getPosition());
-                checkBoxState.setSelected(true);
-                packageNames.add(checkBoxState);
-            }
-        }
-        Collections.sort(packageNames, new Comparator<CheckBoxState>() {
-            @Override
-            public int compare(CheckBoxState o1, CheckBoxState o2) {
-                return o1.getPackageName().compareToIgnoreCase(o2.getPackageName());
-            }
-        });
-
-        return packageNames;
-//        Log.d("packages to be block", packages);
-    }*/
 
     // Custom method to get application label by package name
     public String getApplicationLabelByPackageName(String packageName) {
@@ -142,12 +111,6 @@ public class AppsManager {
             if (applicationInfo != null) {
                 label = (String) packageManager.getApplicationLabel(applicationInfo);
             }
-            /*Collections.sort(packageNames, new Comparator<CheckBoxState>() {
-                @Override
-                public int compare(CheckBoxState o1, CheckBoxState o2) {
-                    return o1.getAppLabel().compareToIgnoreCase(o2.getAppLabel());
-                }
-            });*/
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
