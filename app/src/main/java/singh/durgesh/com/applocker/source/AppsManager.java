@@ -8,10 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +29,7 @@ public class AppsManager {
     private Context mContext;
     ArrayList<CheckBoxState> packageNames = new ArrayList<>();
     AppSharedPreference msharedPref;
-
+    public String CURRENT_PACKAGE_NAME="";
     public AppsManager(Context context) {
         mContext = context;
     }
@@ -62,7 +64,7 @@ public class AppsManager {
             //      checkBoxState.setPosition(stateofCheckBoxes.get().getPosition());
 
             // If this is not a system app package
-            if (!isSystemPackage(resolveInfo)) {
+            if (!isSystemPackage(resolveInfo) && !checkBoxState.getPackageName().equals(getCurrentPAckage())) {
                 // Add the non system package to the list
                 packageNames.add(checkBoxState);
             }
@@ -115,5 +117,17 @@ public class AppsManager {
             e.printStackTrace();
         }
         return label;
+    }
+    public String getCurrentPAckage() {
+        PackageManager pm = mContext.getPackageManager();
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = pm.getPackageInfo(mContext.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        CURRENT_PACKAGE_NAME = packageInfo.packageName;
+        Log.d("CURRENT_PACKAGE_NAME", CURRENT_PACKAGE_NAME);
+        return CURRENT_PACKAGE_NAME;
     }
 }
