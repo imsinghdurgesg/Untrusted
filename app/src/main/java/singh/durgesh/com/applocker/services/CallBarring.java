@@ -56,7 +56,6 @@ public class CallBarring extends BroadcastReceiver {
 
         }
         ArrayList<String> cc = blockNumbers;
-        Toast.makeText(context, "Hello ...BroadcastReceiver is working fine now", Toast.LENGTH_LONG);
         // If, the received action is not a type of "Phone_State", ignore it
         if (!intent.getAction().equals("android.intent.action.PHONE_STATE"))
             return;

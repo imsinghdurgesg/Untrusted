@@ -6,6 +6,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -16,16 +17,22 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.view.View.OnClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.lang.reflect.Type;
@@ -33,6 +40,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import singh.durgesh.com.applocker.BuildConfig;
+import singh.durgesh.com.applocker.activity.SplashScreenActivity;
 import singh.durgesh.com.applocker.adapter.ContactsAdapter;
 import singh.durgesh.com.applocker.model.Contact;
 
@@ -48,6 +57,10 @@ public class CallFragment extends BaseFragment
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<Contact> contactList;
     CheckBox cBox;
+    Button permission;
+    Button permit;
+    LinearLayout layoutNoContact;
+    private RelativeLayout rootlayout;
     TextView txt_name,txt_phone;
 
     int counter;
@@ -69,32 +82,54 @@ public class CallFragment extends BaseFragment
                              Bundle savedInstanceState)
     {
         View view=inflater.inflate(R.layout.fragment_call, container, false);
-
-
-
-        //First of all getting all the BlockedContacts list that user has selected last time
-        SharedPreferences appSharedPrefs = getActivity().getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = appSharedPrefs.getString("BlockedContacts", "");
-//        Contact mStudentObject = gson.fromJson(json, Contact.class);
-        Type type = new TypeToken<ArrayList<Contact>>() {}.getType();
-       oldBlockedList = gson.fromJson(json, type);
-        // Inflate the layout for this fragment
+        layoutNoContact=(LinearLayout)view.findViewById(R.id.lay_contact);
+        rootlayout=(RelativeLayout)view.findViewById(R.id.mainll);
+        View parentLayout = view.findViewById(android.R.id.content);
+        permission=(Button) view.findViewById(R.id.permission);
+  //      permit= (Button) view.findViewById(R.id.btn_permit);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
-        cBox=(CheckBox)view.findViewById(R.id.checkBoxBlocked);
-        contactList= (ArrayList<Contact>) requestContacts().clone();
-        cb=(CheckBox)view.findViewById(R.id.checkBoxBlocked);
-       adapter=new ContactsAdapter(getActivity(),contactList);
-        layoutManager=new LinearLayoutManager(getActivity());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
+        {
+            //Showing the SnackBar if User has denied the Access to Contatcs
+
+            permission.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package",
+                            BuildConfig.APPLICATION_ID, null);
+                    intent.setData(uri);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+                }
+            });
+        }
+        else {
+            layoutNoContact.setVisibility(LinearLayout.GONE);
+            //First of all getting all the BlockedContacts list that user has selected last time
+            SharedPreferences appSharedPrefs = getActivity().getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);
+            Gson gson = new Gson();
+            String json = appSharedPrefs.getString("BlockedContacts", "");
+//        Contact mStudentObject = gson.fromJson(json, Contact.class);
+            Type type = new TypeToken<ArrayList<Contact>>() {
+            }.getType();
+            oldBlockedList = gson.fromJson(json, type);
+            // Inflate the layout for this fragment
+            cBox = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
+            contactList = (ArrayList<Contact>) requestContacts().clone();
+            cb = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
+            adapter = new ContactsAdapter(getActivity(), contactList);
+            layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        }
 
 
         return view;
     }
-
-
-
 
     //the method which gets all the Contacts from Phone
 

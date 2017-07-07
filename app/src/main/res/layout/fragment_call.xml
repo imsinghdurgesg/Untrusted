@@ -1,15 +1,55 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/mainll"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context="singh.durgesh.com.applocker.fragments.CallFragment">
-
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/recycler_view"
         android:scrollbars="vertical"
         >
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/lay_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/ten_dim"
+        android:layout_centerInParent="true"
+
+        >
+      <ImageView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="20dp"
+          android:src="@drawable/contact1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/ten_dim"
+            android:padding="@dimen/ten_dim"
+            android:text="You have denied the permission to add your contacts to this App,So u need to enable the permission first"
+            />
+        <Button
+            android:id="@+id/permission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/three_dim"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="@dimen/ten_dim"
+            android:paddingRight="@dimen/ten_dim"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:text="Enable"
+            />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -43,7 +43,7 @@ public class MyPreferenceCategory extends PreferenceCategory {
             if (textColor.equals("Redtheme")) {
                 titleView.setTextColor(Color.RED);
             } else {
-                titleView.setTextColor(Color.GREEN);
+                titleView.setTextColor(Color.parseColor("#4d9933"));
             }
         }
     }
