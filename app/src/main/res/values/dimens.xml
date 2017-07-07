@@ -51,7 +51,7 @@
     <dimen name="card_linear1_margin_dim">250dp</dimen>
     <dimen name="card_tvname_width_dim">200dp</dimen>
     <dimen name="card_tvphone_width_dim">200dp</dimen>
-    <dimen name="card_imgapp_width_dim">60dp</dimen>
+    <dimen name="card_imgapp_width_dim">50dp</dimen>
 
 
 
