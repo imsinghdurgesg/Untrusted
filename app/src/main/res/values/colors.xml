@@ -21,10 +21,10 @@
     <color name="check">#ed7b7b</color>
     <color name="white">#ffffff</color>
     <color name="black">#000</color>
-
-
     <color name="cardback">#c1bdc1</color>
 
+    <!--color for pattern text-->
+    <color name="pattern_text">#808080</color>
     <!--Theme Green-->
     <color name="colorPrimaryGreen">#4d9933</color>
     <color name="colorPrimaryDarkGreen">#478547</color>

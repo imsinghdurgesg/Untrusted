@@ -285,7 +285,6 @@ public class PatternView extends View {
         mRegularColor = a.getColor(R.styleable.PatternView_pl_regularColor, mRegularColor);
         mErrorColor = a.getColor(R.styleable.PatternView_pl_errorColor, mErrorColor);
         mSuccessColor = a.getColor(R.styleable.PatternView_pl_successColor, mSuccessColor);
-
         a.recycle();
 
         mPathPaint.setStyle(Paint.Style.STROKE);

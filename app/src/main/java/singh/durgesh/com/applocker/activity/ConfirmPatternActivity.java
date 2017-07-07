@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
     public static final int RESULT_FORGOT_PASSWORD = RESULT_FIRST_USER;
     AppSharedPreference mSharedPref;
     protected int mNumFailedAttempts;
-
+    LinearLayout pl_button_container;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,7 +36,10 @@ public class ConfirmPatternActivity extends BasePatternActivity
         String lockName = sharedPreferencesLock.getString("Lock", null);
         if (lockName != null) {
             if (lockName.equals("PhoneLock")) {
+                Intent mintent = getIntent();
+                boolean isFromService = mintent.getBooleanExtra("isFromService", false);
                 Intent intent = new Intent(this, HomeActivity.class);
+                intent.putExtra("isFromService",isFromService);
                 startActivity(intent);
                 finish();
             }
@@ -53,25 +57,31 @@ public class ConfirmPatternActivity extends BasePatternActivity
         }
 
         super.onCreate(savedInstanceState);
+        pl_button_container= (LinearLayout) findViewById(R.id.pl_button_container);
         mSharedPref = new AppSharedPreference(this);
         mMessageText.setText(R.string.pl_draw_pattern_to_unlock);
+        mMessageText.setTextColor(getResources().getColor(R.color.pattern_text));
         mPatternView.setInStealthMode(isStealthModeEnabled());
         mPatternView.setOnPatternListener(this);
-        mLeftButton.setText(R.string.pl_cancel);
+        pl_button_container.setVisibility(View.GONE);
+//        mLeftButton.setText(R.string.pl_cancel);
+//        mLeftButton.setVisibility(View.INVISIBLE);
         //  isFirstTimeUserComplete = "isFirstTimeUserComplete";
-        mLeftButton.setOnClickListener(new View.OnClickListener() {
+       /* mLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onCancel();
             }
-        });
-        mRightButton.setText(R.string.pl_forgot_pattern);
-        mRightButton.setOnClickListener(new View.OnClickListener() {
+        });*/
+//        pl_button_container.setVisibility(View.INVISIBLE);
+     //   mRightButton.setText(R.string.pl_forgot_pattern);
+    //    mRightButton.setVisibility(View.INVISIBLE);
+       /* mRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onForgotPassword();
+                //onForgotPassword();
             }
-        });
+        });*/
         ViewAccessibilityCompat.announceForAccessibility(mMessageText, mMessageText.getText());
 
         if (savedInstanceState == null) {
@@ -79,6 +89,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
         } else {
             mNumFailedAttempts = savedInstanceState.getInt(KEY_NUM_FAILED_ATTEMPTS);
         }
+
     }
 
     @Override
@@ -90,6 +101,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
     @Override
     public void onPatternStart() {
         removeClearPatternRunnable();
+
         // Set display mode to correct to ensure that pattern can be in stealth mode.
         mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Correct);
     }
