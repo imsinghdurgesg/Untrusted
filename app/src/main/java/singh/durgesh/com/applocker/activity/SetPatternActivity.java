@@ -243,7 +243,7 @@ public class SetPatternActivity extends BasePatternActivity
 
         mRightButton.setText(mStage.rightButtonState.textId);
         mRightButton.setEnabled(mStage.rightButtonState.enabled);
-
+        //mRightButton.setEnabled(false);
         mPatternView.setInputEnabled(mStage.patternEnabled);
 
         switch (mStage) {

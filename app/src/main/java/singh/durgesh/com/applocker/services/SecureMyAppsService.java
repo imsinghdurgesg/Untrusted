@@ -105,7 +105,7 @@ public class SecureMyAppsService extends Service {
                     String currentApp = mySortedMap.get(
                             mySortedMap.lastKey()).getPackageName();
                     Log.e("CurrentPackage", currentApp);
-                    if (currentApp.equals(getCurrentPAckage()) || currentApp.equals(blockedPackage)) {
+                    if (currentApp.equals(getCurrentPAckage()) || currentApp.equals(blockedPackage)|| currentApp.equals("com.android.settings")) {
                         return;
                     } else {
                         blockedPackage = "";

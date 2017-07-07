@@ -1,11 +1,10 @@
 package singh.durgesh.com.applocker.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import java.util.List;
 
@@ -27,14 +26,17 @@ public class ConfirmPatternActivity extends BasePatternActivity
     public static final int RESULT_FORGOT_PASSWORD = RESULT_FIRST_USER;
     AppSharedPreference mSharedPref;
     protected int mNumFailedAttempts;
+    LinearLayout pl_button_container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SharedPreferences sharedPreferencesLock = PreferenceManager.getDefaultSharedPreferences(this);
-        String lockName = sharedPreferencesLock.getString("Lock", null);
+        mSharedPref = new AppSharedPreference(this);
+
+        //SharedPreference to Open Security Lock dynamically...
+        String lockName = mSharedPref.getStringData("Lock");
         if (lockName != null) {
-            if (lockName.equals("PhoneLock")) {
+            if (lockName.equals("IS_PHONE_LOCK")) {
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 finish();
@@ -42,8 +44,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
         }
 
         //SharedPreference to change Theme dynamically...
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String themeName = sharedPreferences.getString("Theme", null);
+        String themeName = mSharedPref.getStringData("Theme");
         if (themeName != null) {
             if (themeName.equals("Redtheme")) {
                 setTheme(R.style.MyMaterialTheme);
@@ -53,12 +54,14 @@ public class ConfirmPatternActivity extends BasePatternActivity
         }
 
         super.onCreate(savedInstanceState);
-        mSharedPref = new AppSharedPreference(this);
+        pl_button_container = (LinearLayout) findViewById(R.id.pl_button_container);
         mMessageText.setText(R.string.pl_draw_pattern_to_unlock);
+        mMessageText.setTextColor(getResources().getColor(R.color.pattern_text));
         mPatternView.setInStealthMode(isStealthModeEnabled());
         mPatternView.setOnPatternListener(this);
-        mLeftButton.setText(R.string.pl_cancel);
-        //  isFirstTimeUserComplete = "isFirstTimeUserComplete";
+        //  mLeftButton.setText(R.string.pl_cancel);
+        pl_button_container.setVisibility(View.GONE);
+        // isFirstTimeUserComplete = "isFirstTimeUserComplete";
         mLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +107,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
             onConfirmed();
         } else {
             mMessageText.setText(R.string.pl_wrong_pattern);
+            mMessageText.setTextColor(getResources().getColor(R.color.red));
             mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Wrong);
             postClearPatternRunnable();
             ViewAccessibilityCompat.announceForAccessibility(mMessageText, mMessageText.getText());
@@ -139,7 +143,6 @@ public class ConfirmPatternActivity extends BasePatternActivity
         }
     }
 
-
     protected void onWrongPattern() {
         ++mNumFailedAttempts;
     }
@@ -172,3 +175,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
     }
 
 }
+
+
+
+

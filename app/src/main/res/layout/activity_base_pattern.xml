@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--
-  ~ Copyright (c) 2015 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
-  ~ All Rights Reserved.
-  -->
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:divider="?dividerHorizontal"
+    android:background="@drawable/background_pattern"
     android:orientation="vertical"
     android:showDividers="middle">
 
@@ -32,10 +29,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <View
+       <!-- <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/zero_dim"
-            android:layout_weight="1" />
+            android:layout_weight="1" />-->
     </LinearLayout>
 
     <LinearLayout

@@ -28,7 +28,7 @@ public class BasePatternActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_password);
+        setContentView(R.layout.activity_base_pattern);
         mMessageText = (TextView)findViewById(R.id.pl_message_text);
         mPatternView = (PatternView)findViewById(R.id.pl_pattern);
         mButtonContainer = (LinearLayout)findViewById(R.id.pl_button_container);

@@ -55,27 +55,26 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        mSharedPref = new AppSharedPreference(this);
 
         Intent intent = getIntent();
-        int number = intent.getIntExtra("Lock", 0);
-
-        if (number == 6 || number ==5) {
-
+        int SWITCH_CONSTANT = intent.getIntExtra("Lock", 0);
+        if (SWITCH_CONSTANT == 6 || SWITCH_CONSTANT == 5) {
         } else {
-
-            SharedPreferences sharedPreferencesLock = PreferenceManager.getDefaultSharedPreferences(this);
-            String lockName = sharedPreferencesLock.getString("Lock", null);
+            String lockName = mSharedPref.getStringData("Lock");
             if (lockName != null) {
-                if (lockName.equals("PhoneLock")) {
+                if (lockName.equals("IS_PHONE_LOCK")) {
                     checkforSecurity();
+                    Intent mintent = getIntent();
+                    boolean isFromService = mintent.getBooleanExtra("isFromService", false);
+                    if(isFromService){
+                        finish();
+                    }
                 }
             }
-
         }
-
         //SharedPreference to change Theme dynamically...
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        themeName = sharedPreferences.getString("Theme", null);
+        themeName = mSharedPref.getStringData("Theme");
         if (themeName != null) {
             if (themeName.equals("Redtheme")) {
                 setTheme(R.style.MyMaterialTheme);
@@ -87,7 +86,6 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        mSharedPref=new AppSharedPreference(this);
         //setting a style to ToolBar App icon Text
         Typeface fontTool = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_toxic));
         SpannableStringBuilder ss = new SpannableStringBuilder("App Protector");
@@ -96,7 +94,7 @@ public class HomeActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(ss);
-        mSharedPref.putBooleanData("userCompleteProcess",true);
+        mSharedPref.putBooleanData("userCompleteProcess", true);
 
 //        disabled HomeBack Button
 
@@ -147,17 +145,6 @@ public class HomeActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    /*This will capture the "back" button press event
-     and send the user to the first item in the ViewPager.*/
-   /* @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            viewPager.setCurrentItem(0, true);
-            return true;
-        } else {
-            return super.onKeyDown(keyCode, event);
-        }
-    }*/
 
     //method setupTabIcons
     private void setupTabIcons() {
