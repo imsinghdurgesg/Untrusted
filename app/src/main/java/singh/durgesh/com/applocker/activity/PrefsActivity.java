@@ -149,8 +149,8 @@ public class PrefsActivity extends AppCompatActivity {
                         SWITCH_CONSTANT = 5;
                         Log.d("DSG", "Change to Phone Default theme");
                         //Open the default App Pattern Lock
-                        checkLock();
-                        SWITCH_CONSTANT++;
+                       // checkLock();
+                      //  SWITCH_CONSTANT++;
                     }
                     return true;
                 }

@@ -32,7 +32,10 @@ public class AppsManager {
         mContext = context;
     }
 
-    // Get a list of installed app
+    /**
+     * Get a list of installed app
+     * @return
+     */
     public ArrayList<CheckBoxState> getInstalledPackages() {
         msharedPref = new AppSharedPreference(mContext);
         // Initialize a new Intent which action is main
