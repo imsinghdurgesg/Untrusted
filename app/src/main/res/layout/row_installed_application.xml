@@ -31,7 +31,6 @@
             android:textColor="@color/black"
             android:layout_toRightOf="@id/iv_icon"
             android:layout_toEndOf="@id/iv_icon"
-            android:fontFamily="sans-serif-condensed"
             />
         <TextView
             android:id="@+id/app_package"
@@ -39,12 +38,11 @@
             android:layout_height="wrap_content"
             android:textColor="#848484"
             android:layout_marginLeft="@dimen/ten_dim"
+            android:textStyle="bold"
             android:layout_below="@id/app_label"
             android:textSize="16sp"
             android:layout_toRightOf="@id/iv_icon"
             android:layout_toEndOf="@id/iv_icon"
-            android:fontFamily="sans-serif-condensed"
-            android:textStyle="bold"
             />
     </RelativeLayout>
     <RelativeLayout

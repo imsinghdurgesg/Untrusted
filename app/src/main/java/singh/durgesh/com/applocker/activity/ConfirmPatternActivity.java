@@ -107,6 +107,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
             onConfirmed();
         } else {
             mMessageText.setText(R.string.pl_wrong_pattern);
+            mMessageText.setTextColor(getResources().getColor(R.color.red));
             mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Wrong);
             postClearPatternRunnable();
             ViewAccessibilityCompat.announceForAccessibility(mMessageText, mMessageText.getText());
