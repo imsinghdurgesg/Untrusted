@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
@@ -29,6 +30,8 @@ import android.widget.TextView;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import singh.durgesh.com.applocker.adapter.ContactsAdapter;
 import singh.durgesh.com.applocker.model.Contact;
@@ -182,6 +185,12 @@ public class CallFragment extends BaseFragment
               }
           }
         }
+         Collections.sort(legalList, new Comparator<Contact>(){
+            @Override
+            public int compare(Contact o1, Contact o2) {
+                return o1.getCName().compareToIgnoreCase(o2.getCName());
+            }
+        });
         return  legalList;
     }
 

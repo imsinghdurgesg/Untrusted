@@ -4,17 +4,23 @@ import android.content.Context;
 import android.graphics.Color;
 import android.preference.PreferenceCategory;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import singh.durgesh.com.applocker.utils.AppSharedPreference;
 
 /**
  * Created by DarshanG on 6/28/2017.
  */
 
-public class MyPreferenceCategory extends PreferenceCategory{
+public class MyPreferenceCategory extends PreferenceCategory {
+
+    AppSharedPreference appSharedPreference;
 
     public MyPreferenceCategory(Context context) {
         super(context);
+
     }
 
     public MyPreferenceCategory(Context context, AttributeSet attrs) {
@@ -28,8 +34,17 @@ public class MyPreferenceCategory extends PreferenceCategory{
 
     @Override
     protected void onBindView(View view) {
+
         super.onBindView(view);
         TextView titleView = (TextView) view.findViewById(android.R.id.title);
-        titleView.setTextColor(Color.RED);
+        appSharedPreference = new AppSharedPreference(getContext());
+        String textColor = appSharedPreference.getStringData("Theme");
+        if (textColor != null) {
+            if (textColor.equals("Redtheme")) {
+                titleView.setTextColor(Color.RED);
+            } else {
+                titleView.setTextColor(Color.GREEN);
+            }
+        }
     }
 }

@@ -2,22 +2,22 @@ package singh.durgesh.com.applocker.activity;
 
 import android.annotation.TargetApi;
 import android.app.ActivityOptions;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.support.v7.widget.Toolbar;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,6 +25,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import singh.durgesh.com.applocker.R;
+import singh.durgesh.com.applocker.utils.AppSharedPreference;
+import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 
 /**
@@ -33,15 +35,17 @@ import singh.durgesh.com.applocker.R;
 
 public class PrefsActivity extends AppCompatActivity {
 
-    private static int i = 5;
+    private static int SWITCH_CONSTANT = 5;
 
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
+        AppSharedPreference appSharedPreference = new AppSharedPreference(this);
+
         //SharedPreference to change Theme dynamically...
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String themeName = sharedPreferences.getString("Theme", null);
+        String themeName = appSharedPreference.getStringData("Theme");
         if (themeName != null) {
             if (themeName.equals("Redtheme")) {
                 setTheme(R.style.MyMaterialTheme);
@@ -49,10 +53,16 @@ public class PrefsActivity extends AppCompatActivity {
                 setTheme(R.style.MyMaterialThemeGreen);
             }
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pref_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setting the Customized ToolBar
+        Typeface fontTool = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_toxic));
+        SpannableStringBuilder ss = new SpannableStringBuilder("App Protector");
+        ss.setSpan(new CustomTypefaceSpan("", fontTool), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle(ss);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Fragment fragment = new PreferenceScreen();
@@ -70,7 +80,7 @@ public class PrefsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             Intent intent = new Intent(this, HomeActivity.class);
-            intent.putExtra("Lock",i);
+            intent.putExtra("Lock", SWITCH_CONSTANT);
             startActivity(intent);
             finish();
         }
@@ -81,7 +91,7 @@ public class PrefsActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("Lock",i);
+        intent.putExtra("Lock", SWITCH_CONSTANT);
         ActivityOptions options =
                 ActivityOptions.makeCustomAnimation(this, R.anim.pull_in_from_left, 0);
         this.startActivity(intent, options.toBundle());
@@ -91,6 +101,7 @@ public class PrefsActivity extends AppCompatActivity {
     public static class PreferenceScreen extends PreferenceFragment {
 
         Context context;
+        AppSharedPreference appSharedPreference;
 
         public PreferenceScreen() {
 
@@ -104,6 +115,9 @@ public class PrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreate(@Nullable final Bundle savedInstanceState) {
+
+            appSharedPreference = new AppSharedPreference(getActivity().getBaseContext());
+
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.prefs);
             SwitchPreference switchPreference = (SwitchPreference) findPreference("SwitchTheme");
@@ -114,19 +128,10 @@ public class PrefsActivity extends AppCompatActivity {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (!((Boolean) newValue)) {
-                        Log.d("DSG", "Set Green Theme..");
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("Theme", "Greentheme");
-                        editor.commit();
+                        appSharedPreference.putStringData("Theme", "Greentheme");
                         getActivity().recreate();
                     } else {
-                        Log.d("DSG", "Set Red Theme...");
-                        //
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("Theme", "Redtheme");
-                        editor.commit();
+                        appSharedPreference.putStringData("Theme", "Redtheme");
                         getActivity().recreate();
                     }
                     return true;
@@ -139,16 +144,13 @@ public class PrefsActivity extends AppCompatActivity {
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     if (!((Boolean) newValue)) {
                         Log.d("DSG", "Change to App Pattern Lock");
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("Lock", "DSG");
-                        editor.commit();
+                        appSharedPreference.putStringData("Lock", "DSG");
                     } else {
-                        i = 5;
+                        SWITCH_CONSTANT = 5;
                         Log.d("DSG", "Change to Phone Default theme");
                         //Open the default App Pattern Lock
                         checkLock();
-                        i++;
+                        SWITCH_CONSTANT++;
                     }
                     return true;
                 }
@@ -161,10 +163,7 @@ public class PrefsActivity extends AppCompatActivity {
             boolean isSecure = keyguardManager.isKeyguardSecure();
             if (isSecure) {
                 Intent intent = keyguardManager.createConfirmDeviceCredentialIntent(null, null);
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("Lock", "PhoneLock");
-                editor.commit();
+                appSharedPreference.putStringData("Lock", "IS_PHONE_LOCK");
                 startActivity(intent);
             } else {
                 // no lock screen set, show the new lock needed screen

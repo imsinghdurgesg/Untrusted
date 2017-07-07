@@ -26,6 +26,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         //Registering The BroadCastReceiver
+
         //Checking multiple Permissions at the same time
         //Checking wheather App is Permitted to Read Contacts and Read Phone Status
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SplashScreenActivity.this.checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
@@ -35,6 +36,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
         else
         {
+
             showNext();
         }
 

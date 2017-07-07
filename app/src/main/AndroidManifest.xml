@@ -79,6 +79,7 @@
 
         <!--Preference Activity -->
         <activity android:name=".activity.PrefsActivity"></activity>
+
     </application>
 
 

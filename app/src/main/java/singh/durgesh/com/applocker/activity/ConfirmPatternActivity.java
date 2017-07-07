@@ -1,9 +1,7 @@
 package singh.durgesh.com.applocker.activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -20,8 +18,7 @@ import singh.durgesh.com.applocker.utils.ViewAccessibilityCompat;
 // https://android.googlesource.com/platform/packages/apps/Settings/+/master/src/com/android/settings/ConfirmLockPattern.java
 // https://android.googlesource.com/platform/frameworks/base/+/43d8451/policy/src/com/android/internal/policy/impl/keyguard/KeyguardPatternView.java
 // https://android.googlesource.com/platform/frameworks/base/+/master/packages/Keyguard/src/com/android/keyguard/KeyguardPatternView.java
-public class ConfirmPatternActivity extends BasePatternActivity
-        implements PatternView.OnPatternListener {
+public class ConfirmPatternActivity extends BasePatternActivity implements PatternView.OnPatternListener {
 
 
     private static final String KEY_NUM_FAILED_ATTEMPTS = "num_failed_attempts";
@@ -29,44 +26,47 @@ public class ConfirmPatternActivity extends BasePatternActivity
     AppSharedPreference mSharedPref;
     protected int mNumFailedAttempts;
     LinearLayout pl_button_container;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        SharedPreferences sharedPreferencesLock = PreferenceManager.getDefaultSharedPreferences(this);
-        String lockName = sharedPreferencesLock.getString("Lock", null);
+        mSharedPref = new AppSharedPreference(this);
+
+        //SharedPreference to Open Security Lock dynamically...
+        String lockName = mSharedPref.getStringData("Lock");
         if (lockName != null) {
             if (lockName.equals("PhoneLock")) {
                 Intent mintent = getIntent();
                 boolean isFromService = mintent.getBooleanExtra("isFromService", false);
-                Intent intent = new Intent(this, HomeActivity.class);
-                intent.putExtra("isFromService",isFromService);
-                startActivity(intent);
-                finish();
+                if (lockName.equals("IS_PHONE_LOCK")) {
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    intent.putExtra("isFromService", isFromService);
+                    startActivity(intent);
+                    finish();
+                }
             }
-        }
 
-        //SharedPreference to change Theme dynamically...
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String themeName = sharedPreferences.getString("Theme", null);
-        if (themeName != null) {
-            if (themeName.equals("Redtheme")) {
-                setTheme(R.style.MyMaterialTheme);
-            } else {
-                setTheme(R.style.MyMaterialThemeGreen);
+            //SharedPreference to change Theme dynamically...
+            String themeName = mSharedPref.getStringData("Theme");
+            if (themeName != null) {
+                if (themeName.equals("Redtheme")) {
+                    setTheme(R.style.MyMaterialTheme);
+                } else {
+                    setTheme(R.style.MyMaterialThemeGreen);
+                }
             }
-        }
 
-        super.onCreate(savedInstanceState);
-        pl_button_container= (LinearLayout) findViewById(R.id.pl_button_container);
-        mSharedPref = new AppSharedPreference(this);
-        mMessageText.setText(R.string.pl_draw_pattern_to_unlock);
-        mMessageText.setTextColor(getResources().getColor(R.color.pattern_text));
-        mPatternView.setInStealthMode(isStealthModeEnabled());
-        mPatternView.setOnPatternListener(this);
-        pl_button_container.setVisibility(View.GONE);
+            super.onCreate(savedInstanceState);
+            pl_button_container = (LinearLayout) findViewById(R.id.pl_button_container);
+            mSharedPref = new AppSharedPreference(this);
+            mMessageText.setText(R.string.pl_draw_pattern_to_unlock);
+            mMessageText.setTextColor(getResources().getColor(R.color.pattern_text));
+            mPatternView.setInStealthMode(isStealthModeEnabled());
+            mPatternView.setOnPatternListener(this);
+            pl_button_container.setVisibility(View.GONE);
 //        mLeftButton.setText(R.string.pl_cancel);
 //        mLeftButton.setVisibility(View.INVISIBLE);
-        //  isFirstTimeUserComplete = "isFirstTimeUserComplete";
+            //  isFirstTimeUserComplete = "isFirstTimeUserComplete";
        /* mLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,59 +74,60 @@ public class ConfirmPatternActivity extends BasePatternActivity
             }
         });*/
 //        pl_button_container.setVisibility(View.INVISIBLE);
-     //   mRightButton.setText(R.string.pl_forgot_pattern);
-    //    mRightButton.setVisibility(View.INVISIBLE);
+            //   mRightButton.setText(R.string.pl_forgot_pattern);
+            //    mRightButton.setVisibility(View.INVISIBLE);
        /* mRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //onForgotPassword();
             }
         });*/
-        ViewAccessibilityCompat.announceForAccessibility(mMessageText, mMessageText.getText());
-
-        if (savedInstanceState == null) {
-            mNumFailedAttempts = 0;
-        } else {
-            mNumFailedAttempts = savedInstanceState.getInt(KEY_NUM_FAILED_ATTEMPTS);
-        }
-
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(KEY_NUM_FAILED_ATTEMPTS, mNumFailedAttempts);
-    }
-
-    @Override
-    public void onPatternStart() {
-        removeClearPatternRunnable();
-
-        // Set display mode to correct to ensure that pattern can be in stealth mode.
-        mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Correct);
-    }
-
-    @Override
-    public void onPatternCellAdded(List<PatternView.Cell> pattern) {
-    }
-
-    @Override
-    public void onPatternDetected(List<PatternView.Cell> pattern) {
-        if (isPatternCorrect(pattern)) {
-            onConfirmed();
-        } else {
-            mMessageText.setText(R.string.pl_wrong_pattern);
-            mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Wrong);
-            postClearPatternRunnable();
             ViewAccessibilityCompat.announceForAccessibility(mMessageText, mMessageText.getText());
-            onWrongPattern();
+
+            if (savedInstanceState == null) {
+                mNumFailedAttempts = 0;
+            } else {
+                mNumFailedAttempts = savedInstanceState.getInt(KEY_NUM_FAILED_ATTEMPTS);
+            }
+
         }
     }
 
-    @Override
-    public void onPatternCleared() {
-        removeClearPatternRunnable();
-    }
+        @Override
+        protected void onSaveInstanceState (Bundle outState){
+            super.onSaveInstanceState(outState);
+            outState.putInt(KEY_NUM_FAILED_ATTEMPTS, mNumFailedAttempts);
+        }
+
+        @Override
+        public void onPatternStart () {
+            removeClearPatternRunnable();
+
+            // Set display mode to correct to ensure that pattern can be in stealth mode.
+            mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Correct);
+        }
+
+        @Override
+        public void onPatternCellAdded (List < PatternView.Cell > pattern) {
+        }
+
+        @Override
+        public void onPatternDetected (List < PatternView.Cell > pattern) {
+            if (isPatternCorrect(pattern)) {
+                onConfirmed();
+            } else {
+                mMessageText.setText(R.string.pl_wrong_pattern);
+                mPatternView.setDisplayMode(singh.durgesh.com.applocker.utils.PatternView.DisplayMode.Wrong);
+                postClearPatternRunnable();
+                ViewAccessibilityCompat.announceForAccessibility(mMessageText, mMessageText.getText());
+                onWrongPattern();
+            }
+        }
+
+        @Override
+        public void onPatternCleared () {
+            removeClearPatternRunnable();
+        }
 
     protected boolean isStealthModeEnabled() {
         return false;
@@ -150,7 +151,6 @@ public class ConfirmPatternActivity extends BasePatternActivity
             finish();
         }
     }
-
 
     protected void onWrongPattern() {
         ++mNumFailedAttempts;
@@ -182,5 +182,6 @@ public class ConfirmPatternActivity extends BasePatternActivity
         startActivity(startMain);
         finish();
     }
+
 
 }
