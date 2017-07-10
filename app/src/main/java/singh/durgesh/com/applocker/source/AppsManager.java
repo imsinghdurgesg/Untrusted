@@ -14,12 +14,10 @@ import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import singh.durgesh.com.applocker.R;
 import singh.durgesh.com.applocker.model.CheckBoxState;
 import singh.durgesh.com.applocker.utils.AppSharedPreference;
