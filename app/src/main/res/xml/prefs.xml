@@ -7,9 +7,8 @@
             android:summary="Set App Lock Phone/App"
             android:title="App Lock Pattern"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
-
 
     <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="Change Theme">
         <SwitchPreference
@@ -18,7 +17,17 @@
             android:summary="Set App Theme"
             android:title="Change Theme"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
+    </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+
+    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="Security">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="SwitchSecurity"
+            android:summary="Administrative permission"
+            android:title="Make App Unistallable without Security"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
 </PreferenceScreen>
 

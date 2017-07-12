@@ -66,7 +66,7 @@ public class HomeActivity extends BaseActivity {
                 if (lockName.equals("IS_PHONE_LOCK")) {
                     checkforSecurity();
                     Intent mintent = getIntent();
-                    boolean isFromService = mintent.getBooleanExtra("isFromService", false);
+                    boolean isFromService = mintent.getBooleanExtra("isFromServiceisFromService", false);
                     if(isFromService){
                         finish();
                     }

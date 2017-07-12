@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.CheckBox;
@@ -190,7 +191,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
         ArrayList<Contact> oldBlockedList1 = new ArrayList<Contact>();
         List<Contact> listOfBContacts1 = new ArrayList<>();
         RelativeLayout rl;
-        public CardView preCard;
+         LinearLayout preCard;
         Context context;
         CheckBox cb;
 
@@ -200,10 +201,10 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
             this.context=context;
             this.oldBlockedList1 = oldBlockedList1;
             this.listOfContacts1 = listOfContacts1;
-            preCard = (CardView) itemView.findViewById(R.id.card_view);
+            preCard = (LinearLayout) itemView.findViewById(R.id.card_view);
             txt_name = (TextView) itemView.findViewById(R.id.txt_name);
             txt_phone = (TextView) itemView.findViewById(R.id.txt_phone);
-            rl = (RelativeLayout) itemView.findViewById(R.id.cfull_view);
+          //  rl = (RelativeLayout) itemView.findViewById(R.id.cfull_view);
             contact_img = (ImageView) itemView.findViewById(R.id.contact_letter);
             cb = (CheckBox) itemView.findViewById(R.id.checkBoxBlocked);
 

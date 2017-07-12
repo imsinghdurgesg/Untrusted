@@ -23,15 +23,6 @@ public class SplashScreenActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        ComponentName devAdminReceiver = new ComponentName(this, AdminReceiver.class);
-        DevicePolicyManager dpm = (DevicePolicyManager) getSystemService(this.DEVICE_POLICY_SERVICE);
-        dpm.isAdminActive(devAdminReceiver);
-        if (!dpm.isAdminActive(devAdminReceiver)) {
-            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN,
-                    devAdminReceiver);
-            startActivity(intent);
-        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && SplashScreenActivity.this.checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             //  requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PERMISSIONS_REQUEST_READ_CONTACTS);

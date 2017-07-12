@@ -5,6 +5,8 @@ import android.app.ActivityOptions;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.KeyguardManager;
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -25,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import singh.durgesh.com.applocker.R;
+import singh.durgesh.com.applocker.services.AdminReceiver;
 import singh.durgesh.com.applocker.utils.AppSharedPreference;
 import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
@@ -122,6 +125,7 @@ public class PrefsActivity extends AppCompatActivity {
             addPreferencesFromResource(R.xml.prefs);
             SwitchPreference switchPreference = (SwitchPreference) findPreference("SwitchTheme");
             SwitchPreference switchPreferencePatternLock = (SwitchPreference) findPreference("SwitchLock");
+            SwitchPreference SwitchSecurity = (SwitchPreference) findPreference("SwitchSecurity");
 
             //Enables Users to chnage Theme
             switchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -149,8 +153,29 @@ public class PrefsActivity extends AppCompatActivity {
                         SWITCH_CONSTANT = 5;
                         Log.d("DSG", "Change to Phone Default theme");
                         //Open the default App Pattern Lock
-                       // checkLock();
-                      //  SWITCH_CONSTANT++;
+                        // checkLock();
+                        //  SWITCH_CONSTANT++;
+                    }
+                    return true;
+                }
+            });
+
+            SwitchSecurity.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    ComponentName devAdminReceiver = new ComponentName(context, AdminReceiver.class);
+                    DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(context.DEVICE_POLICY_SERVICE);
+                    dpm.isAdminActive(devAdminReceiver);
+
+                    if (!((Boolean) newValue)) {
+                        return dpm.isAdminActive(devAdminReceiver);
+
+                    } else {
+                        if (!dpm.isAdminActive(devAdminReceiver)) {
+                            Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+                            intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, devAdminReceiver);
+                            startActivity(intent);
+                        }
                     }
                     return true;
                 }

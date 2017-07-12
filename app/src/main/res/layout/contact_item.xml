@@ -1,83 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="1"
-    card_view:cardCornerRadius="@dimen/four_dim"
-    card_view:cardElevation="@dimen/four_dim"
-    card_view:cardMaxElevation="@dimen/three_dim"
-    card_view:contentPadding="@dimen/five_dim"
-    android:layout_margin="@dimen/five_dim"
-    android:background="@color/cardback"
-    >
-    <RelativeLayout
-        android:id="@+id/cfull_view"
+    android:orientation="vertical">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:id="@+id/name_view"
-            android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="4">
+    <RelativeLayout
+        android:id="@+id/name_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_weight=".5">
 
+        <ImageView
+            android:id="@+id/contact_letter"
+            android:layout_width="@dimen/medium_small_38"
+            android:layout_height="@dimen/medium_small_38"
+             />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/linear"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3.2">
+
+        <TextView
+            android:id="@+id/txt_name"
             android:layout_width="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/contact_letter"
-                android:layout_width="@dimen/medium_small_50"
-                android:layout_height="@dimen/medium_small_50"
-                android:layout_marginLeft="@dimen/medium_small_5" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/linear"
-            android:layout_width="200dp"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_phone"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_toRightOf="@+id/name_view"
-
-            android:layout_marginLeft="@dimen/ten_dim">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_name"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:text="kklhhhklsdfksdjfk"
-                android:textAppearance="?android:textAppearanceLarge"
-                />
-            <TextView
-                android:layout_width="@dimen/card_tvphone_width_dim"
-                android:layout_below="@+id/txt_name"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_height="wrap_content"
-                android:id="@+id/txt_phone"
-                android:text="phone"
-                android:layout_marginTop="@dimen/three_dim"
-                android:textAppearance="?android:textAppearanceLarge"
-                />
-        </RelativeLayout>
+            android:layout_below="@+id/txt_name"
+            android:layout_marginTop="@dimen/three_dim"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
 
-            <RelativeLayout
-                android:id="@+id/name_view2"
-                android:layout_width="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/ten_dim"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:id="@+id/checkBoxBlocked"
-                    android:gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-            </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/name_view2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".3">
 
-        </RelativeLayout>
-</android.support.v7.widget.CardView>
+        <CheckBox
+            android:id="@+id/checkBoxBlocked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+           />
+    </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:background="#D3D3D3"
+        />
+</LinearLayout>
