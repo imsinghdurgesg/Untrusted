@@ -83,7 +83,9 @@ public class PrefsActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra("Lock", SWITCH_CONSTANT);
-            startActivity(intent);
+            ActivityOptions options =
+                    ActivityOptions.makeCustomAnimation(this, R.anim.pull_in_from_left, 0);
+            this.startActivity(intent, options.toBundle());
             finish();
         }
         return super.onOptionsItemSelected(item);
@@ -129,10 +131,7 @@ public class PrefsActivity extends AppCompatActivity {
                 BLOCKED_APPS= CallBarring.getProtectListFromPref(getActivity()).size();
             }
 
-
-
             appSharedPreference = new AppSharedPreference(getActivity().getBaseContext());
-
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.prefs);
             SwitchPreference switchPreference = (SwitchPreference) findPreference("SwitchTheme");
@@ -194,7 +193,7 @@ public class PrefsActivity extends AppCompatActivity {
                 }
             });
 
-            //Enables Users to chnage Pattern Lock
+           /* //Enables Users to chnage Pattern Lock
             switchPreferencePatternLock.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -210,7 +209,7 @@ public class PrefsActivity extends AppCompatActivity {
                     }
                     return true;
                 }
-            });
+            });*/
         }
 
         @TargetApi(Build.VERSION_CODES.M)

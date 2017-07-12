@@ -37,7 +37,7 @@
             android:textSize="18sp"
             android:paddingTop="@dimen/five_dim"
             android:paddingBottom="@dimen/five_dim"
-            android:background="@color/colorPrimary"
+
             android:textColor="@color/textColorPrimary"
 
             />

@@ -1,5 +1,6 @@
 package singh.durgesh.com.applocker.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,6 +28,7 @@ import singh.durgesh.com.applocker.adapter.CallSetAdapter;
 import singh.durgesh.com.applocker.adapter.ContactsAdapter;
 import singh.durgesh.com.applocker.model.Contact;
 import singh.durgesh.com.applocker.services.CallBarring;
+import singh.durgesh.com.applocker.utils.AppSharedPreference;
 import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 public class BlockedContactsActivity extends AppCompatActivity
@@ -45,12 +48,30 @@ public class BlockedContactsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        AppSharedPreference appSharedPreference = new AppSharedPreference(this);
+        //SharedPreference to change Theme dynamically...
+        String themeName = appSharedPreference.getStringData("Theme");
+        if (themeName != null) {
+            if (themeName.equals("Redtheme")) {
+                setTheme(R.style.MyMaterialTheme);
+            } else {
+                setTheme(R.style.MyMaterialThemeGreen);
+            }
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blocked_contacts);
         layoutNoContact=(LinearLayout)findViewById(R.id.lay_contact1);
         layoutWithList=(LinearLayout)findViewById(R.id.app1);
         //setting a style to ToolBar App icon Text
         tvTagBlock = (TextView) findViewById(R.id.txtBlock);
+        if (themeName != null) {
+            if (themeName.equals("Redtheme")) {
+              tvTagBlock.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            } else {
+                tvTagBlock.setBackgroundColor(getResources().getColor(R.color.colorPrimaryGreen));
+            }
+        }
         btGoToTab=(Button)findViewById(R.id.gototab1);
         noContact=(TextView) findViewById(R.id.tv_nocontact);
         Typeface fontTool = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_toxic));
@@ -103,6 +124,17 @@ public class BlockedContactsActivity extends AppCompatActivity
             layoutWithList.setVisibility(LinearLayout.GONE);
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(this, PrefsActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     public void onBackPressed() {

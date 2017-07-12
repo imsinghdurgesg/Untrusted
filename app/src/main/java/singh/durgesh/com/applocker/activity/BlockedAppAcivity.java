@@ -1,5 +1,6 @@
 package singh.durgesh.com.applocker.activity;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,6 +25,7 @@ import singh.durgesh.com.applocker.model.CheckBoxState;
 import singh.durgesh.com.applocker.model.Contact;
 import singh.durgesh.com.applocker.services.CallBarring;
 import singh.durgesh.com.applocker.services.SecureMyAppsService;
+import singh.durgesh.com.applocker.utils.AppSharedPreference;
 import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 public class BlockedAppAcivity extends AppCompatActivity
@@ -42,6 +45,17 @@ public class BlockedAppAcivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        AppSharedPreference appSharedPreference = new AppSharedPreference(this);
+        //SharedPreference to change Theme dynamically...
+        String themeName = appSharedPreference.getStringData("Theme");
+        if (themeName != null) {
+            if (themeName.equals("Redtheme")) {
+                setTheme(R.style.MyMaterialTheme);
+            } else {
+                setTheme(R.style.MyMaterialThemeGreen);
+            }
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blocked_app_acivity);
         layoutNoContact1=(LinearLayout)findViewById(R.id.lay_contact2);
@@ -50,6 +64,14 @@ public class BlockedAppAcivity extends AppCompatActivity
         tvTagprotect = (TextView) findViewById(R.id.txtprotect);
         btGoToTab1=(Button)findViewById(R.id.gototab2);
         noContact1=(TextView) findViewById(R.id.tv_noprotect);
+        if (themeName != null) {
+            if (themeName.equals("Redtheme")) {
+                tvTagprotect.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            } else {
+                tvTagprotect.setBackgroundColor(getResources().getColor(R.color.colorPrimaryGreen));
+            }
+        }
+
         Typeface fontTool = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_toxic));
         SpannableStringBuilder ss = new SpannableStringBuilder("App Protector");
         Typeface fontText = Typeface.createFromAsset(getAssets(), getResources().getString(R.string.font_roboto));
@@ -99,6 +121,16 @@ public class BlockedAppAcivity extends AppCompatActivity
         else
             layoutWithList1.setVisibility(LinearLayout.GONE);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(this, PrefsActivity.class);
+           startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

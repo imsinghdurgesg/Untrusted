@@ -27,7 +27,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name=".activity.AppListActivity" />
+        <activity
+            android:name=".activity.AppListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
 
         <service android:name=".services.SecureMyAppsService" />
         i
@@ -61,22 +64,35 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.BasePatternActivity" />
+        <activity
+            android:name=".activity.BasePatternActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ConfirmPatternActivity"
             android:autoRemoveFromRecents="true"
-            android:launchMode="singleTask" />
+            android:configChanges="orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SetPatternActivity"
-            android:autoRemoveFromRecents="true" >
-        </activity>
-        <activity android:name=".activity.HomeActivity" >
-        </activity>
+            android:autoRemoveFromRecents="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.HomeActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".activity.BaseActivity" />
+        <activity
+            android:name=".activity.BaseActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SplashScreenActivity"
-            android:autoRemoveFromRecents="true">
+            android:autoRemoveFromRecents="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -87,10 +103,18 @@
         </activity>
 
         <!-- Preference Activity -->
-        <activity android:name=".activity.PrefsActivity" />
-        <activity android:name=".activity.BlockedContactsActivity">
-        </activity>
-        <activity android:name=".activity.BlockedAppAcivity"></activity>
+        <activity
+            android:name=".activity.PrefsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BlockedContactsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.BlockedAppAcivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
