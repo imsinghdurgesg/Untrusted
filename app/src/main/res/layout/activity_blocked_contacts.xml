@@ -1,0 +1,99 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/app1"
+        android:layout_below="@+id/app"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/seven_dim"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtBlock"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:paddingTop="@dimen/five_dim"
+            android:paddingBottom="@dimen/five_dim"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/textColorPrimary"
+
+            />
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/six_dim"
+            android:layout_below="@+id/txtBlock"
+            android:id="@+id/recycler_view1"
+            android:scrollbars="vertical"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lay_contact1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/ten_dim"
+        android:layout_centerInParent="true"
+
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/contact1"/>
+        <TextView
+            android:id="@+id/tv_nocontact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/no_contact"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingLeft="@dimen/ten_dim"
+            android:padding="@dimen/ten_dim"
+
+            android:text="Currently you don't have Blocked any of your Contact"
+            />
+        <Button
+            android:id="@+id/gototab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/three_dim"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="@dimen/ten_dim"
+            android:paddingRight="@dimen/ten_dim"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:text="Block Contacts now !"
+            />
+    </LinearLayout>
+
+
+
+</RelativeLayout>

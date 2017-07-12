@@ -20,5 +20,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+
+    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="Change Theme">
+        <Preference
+            android:selectable="true"
+            android:enabled="true"
+            android:key="app"
+            android:title="Blocked Applications"
+           />
+
+        <Preference
+            android:selectable="true"
+            android:enabled="true"
+            android:key="call"
+            android:title="Blocked Contacts for Calling"
+            />
+    </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+
+
 </PreferenceScreen>
 

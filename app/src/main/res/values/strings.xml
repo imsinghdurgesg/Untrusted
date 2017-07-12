@@ -20,7 +20,7 @@
     <string name="pl_access_pattern_cell_added_verbose">Cell <xliff:g example="3" id="cell_index">%1$d</xliff:g> added</string>
     <string name="pl_access_pattern_detected">Pattern completed</string>
     <string name="pl_access_pattern_area">Pattern area.</string>
-   
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

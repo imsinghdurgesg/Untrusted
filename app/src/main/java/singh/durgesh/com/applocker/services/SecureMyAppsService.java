@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -26,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 
 import singh.durgesh.com.applocker.activity.ConfirmPatternActivity;
 import singh.durgesh.com.applocker.model.CheckBoxState;
+import singh.durgesh.com.applocker.model.Contact;
 import singh.durgesh.com.applocker.utils.AppSharedPreference;
 
 /**
@@ -43,6 +45,7 @@ public class SecureMyAppsService extends Service {
     public static boolean comparePackage;
     public static String blockedPackage = "";
     ArrayList<CheckBoxState> blockApps = new ArrayList<>();
+
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -202,4 +205,5 @@ public class SecureMyAppsService extends Service {
         startService(new Intent(getApplicationContext(), SecureMyAppsService.class));
 
     }
+
 }

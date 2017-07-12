@@ -106,7 +106,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
 
 //        this code will first check wheather the current row already comes under blockList(old)
 //         ..if yes,it will check that corresponding row
-        if (oldBlockedList.isEmpty()) {
+        if (oldBlockedList.isEmpty())
+        {
             //Toast.makeText(context, "No Number is Blocked Yet", Toast.LENGTH_SHORT).show();
 
         } else
@@ -122,7 +123,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!oldBlockedList.isEmpty()) {
+                if (!oldBlockedList.isEmpty())
+                {
                     //In order to make a ArrayList consisting of Unique Values only
                     Set<Contact> unique = new HashSet<Contact>();
                     unique.addAll(oldBlockedList);
@@ -159,7 +161,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
 
     protected boolean containsPhoneNo(String phoneNo) {
         for (int i = 0; i < oldBlockedList.size(); i++) {
-            if (oldBlockedList.get(i).getCPhone().equals(phoneNo)) {
+            if (oldBlockedList.get(i).getCPhone().equals(phoneNo))
+            {
                 return true;
             }
         }

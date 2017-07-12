@@ -9,6 +9,10 @@ public class CheckBoxState {
     private boolean isSelected;
     private String packageName;
 
+    public CheckBoxState()
+    {
+    }
+
     public String getAppLabel() {
         return appLabel;
     }

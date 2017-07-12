@@ -19,9 +19,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +53,12 @@ public class HomeActivity extends BaseActivity {
             R.drawable.ic_phonelink_lock_white_24dp
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         mSharedPref = new AppSharedPreference(this);
+        Intent mIntent = getIntent();
+        int intValue = mIntent.getIntExtra("intValue", 0);
 
         Intent intent = getIntent();
         int SWITCH_CONSTANT = intent.getIntExtra("Lock", 0);
@@ -106,6 +109,22 @@ public class HomeActivity extends BaseActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         hideProgressDialog();
         tabLayout.setupWithViewPager(viewPager);
+        if(intValue>0)
+        {
+            if(intValue==2)
+            {
+                viewPager.setCurrentItem(1);
+                Toast.makeText(this, "Select the Contacts to block", Toast.LENGTH_LONG).show();
+
+            }
+            else
+            {
+                viewPager.setCurrentItem(0);
+                Toast.makeText(this, "Select the Applications to Protect", Toast.LENGTH_LONG).show();
+
+            }
+        }
+
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -160,6 +179,14 @@ public class HomeActivity extends BaseActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        getIntent().removeExtra("intValue");
+
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
