@@ -39,7 +39,7 @@
     <dimen name="submit_width_dim">150dp</dimen>
     <dimen name="submit_height_dim">30dp</dimen>
 
-
+    <dimen name="no_contact">20dp</dimen>
 
 
     <!--splash-screen dimentions-->

@@ -1,6 +1,7 @@
 package singh.durgesh.com.applocker.fragments;
 
 import android.Manifest;
+import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import com.google.gson.Gson;
@@ -130,6 +131,10 @@ public class CallFragment extends BaseFragment
 
         return view;
     }
+    public void onBackPressed()
+    {
+    }
+
 
     //the method which gets all the Contacts from Phone
 
@@ -228,6 +233,8 @@ public class CallFragment extends BaseFragment
         });
         return  legalList;
     }
+
+
 
 
 }

@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="Set Lock Pattern">
+    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="@string/theme_title">
         <SwitchPreference
-            android:defaultValue="false"
-            android:key="SwitchLock"
-            android:summary="Set App Lock Phone/App"
-            android:title="App Lock Pattern"
+            android:defaultValue="true"
+            android:key="SwitchTheme"
+            android:title="@string/theme_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
@@ -28,6 +27,23 @@
             android:title="Make App Unistallable without Security"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="@string/theme_block_title">
+        <Preference
+            android:selectable="true"
+            android:enabled="true"
+            android:key="app"
+            android:title="@string/pref_block_txt"
+           />
+
+        <Preference
+            android:selectable="true"
+            android:enabled="true"
+            android:key="call"
+            android:title="@string/pref_protect_txt"
+            />
     </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+
+
 </PreferenceScreen>
 

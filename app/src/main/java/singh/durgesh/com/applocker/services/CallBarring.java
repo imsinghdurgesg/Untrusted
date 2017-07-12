@@ -15,12 +15,15 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.android.internal.telephony.ITelephony;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import singh.durgesh.com.applocker.fragments.CallFragment;
+import singh.durgesh.com.applocker.model.CheckBoxState;
 import singh.durgesh.com.applocker.model.Contact;
 import singh.durgesh.com.applocker.utils.AppSharedPreference;
 
@@ -32,7 +35,8 @@ import singh.durgesh.com.applocker.utils.AppSharedPreference;
 public class CallBarring extends BroadcastReceiver {
     private String bNumber,number, numberToVerify;
     public ArrayList<String> blockNumbers =new ArrayList<String >();
-    public ArrayList<Contact> blockList = null;
+    public static ArrayList<CheckBoxState> blockedApps = null;
+    public static ArrayList<Contact> blockList = null;
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -89,7 +93,7 @@ public class CallBarring extends BroadcastReceiver {
 
     }
 
-    public ArrayList<Contact> getBlockListFromPref(Context context) {
+    public static ArrayList<Contact> getBlockListFromPref(Context context) {
         AppSharedPreference appSharedPrefs = new AppSharedPreference(context);
         Gson gson = new Gson();
         String json = appSharedPrefs.getStringData("BlockedContacts");
@@ -99,5 +103,20 @@ public class CallBarring extends BroadcastReceiver {
         return blockList;
 
     }
+
+    //getting List of Blocked Apps
+    //getting the Blocked Apps
+    public static ArrayList<CheckBoxState> getProtectListFromPref(Context context) {
+        AppSharedPreference mSharedPref = new AppSharedPreference(context);
+        String packages = mSharedPref.getStringData("BlockApps");
+        GsonBuilder gsonb = new GsonBuilder();
+        Gson gson = gsonb.create();
+        Type type = new TypeToken<List<CheckBoxState>>() {
+        }.getType();
+        blockedApps= gson.fromJson(packages, type);
+        return blockedApps;
+
+    }
+
 
 }

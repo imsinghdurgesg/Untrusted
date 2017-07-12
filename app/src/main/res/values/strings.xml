@@ -21,7 +21,7 @@
     <string name="pl_access_pattern_cell_added_verbose">Cell <xliff:g example="3" id="cell_index">%1$d</xliff:g> added</string>
     <string name="pl_access_pattern_detected">Pattern completed</string>
     <string name="pl_access_pattern_area">Pattern area.</string>
-   
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -32,4 +32,13 @@
     <string name="font_roboto">Roboto-Thin.ttf</string>
     <string name="font_toxic">toxic.ttf</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
+
+<!--
+Preference Theme
+-->
+    <string name="theme_text">Set Red/Green Theme</string>
+    <string name="theme_title">Change Theme</string>
+    <string name="theme_block_title">Blocked/Protected Contents</string>
+    <string name="pref_block_txt">Blocked Applications</string>
+    <string name="pref_protect_txt">Blocked Contacts for Calling</string>
 </resources>

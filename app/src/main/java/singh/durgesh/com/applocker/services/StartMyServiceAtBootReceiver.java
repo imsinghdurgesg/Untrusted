@@ -17,5 +17,7 @@ public  class StartMyServiceAtBootReceiver extends BroadcastReceiver {
         toast.show();
         Intent serviceIntent = new Intent(context,SecureMyAppsService.class);
         context.startService(serviceIntent);
+
+        //Intent for Call Blocker
     }
 }

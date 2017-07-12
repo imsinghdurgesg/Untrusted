@@ -1,9 +1,5 @@
 package singh.durgesh.com.applocker.adapter;
 
-/**
- * Created by DSingh on 6/5/2017.
- */
-
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -33,48 +30,61 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import singh.durgesh.com.applocker.R;
 import singh.durgesh.com.applocker.model.CheckBoxState;
+import singh.durgesh.com.applocker.model.Contact;
 import singh.durgesh.com.applocker.source.AppsManager;
 import singh.durgesh.com.applocker.utils.AppSharedPreference;
 import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
-public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdapter.ViewHolder> {
+/**
+ * Created by RSharma on 7/11/2017.
+ */
 
+public class AppSetAdapter extends RecyclerView.Adapter<AppSetAdapter.ViewHolder>
+{
     private Context mContext;
-    ArrayList<CheckBoxState> checkBoxStatesList;
-    ArrayList<CheckBoxState> checkStateList;
+    ArrayList<CheckBoxState> blockedAppList=new ArrayList<CheckBoxState>();
     private String packageName = "";
     ArrayList<CheckBoxState> selectedPackagesList = new ArrayList<>();
 
-    public InstalledAppsAdapter(Context context, ArrayList<CheckBoxState> list) {
+    ArrayList<CheckBoxState> protectListFinal1 = new ArrayList<CheckBoxState>();
+    ArrayList<CheckBoxState> protectListTemp = new ArrayList<CheckBoxState>();
+
+    public AppSetAdapter(Context context, ArrayList<CheckBoxState> list) {
         mContext = context;
-        this.checkBoxStatesList = list;
+        blockedAppList = list;
         // this.checkStateList = blockAppList;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-
+        private CardView mCardView;
         private TextView mTextViewLabel;
-    //    private TextView mTextViewPackage;
+        private TextView mTextViewPackage;
         private ImageView mImageViewIcon;
         private CheckBox cbBlockedApp;
+        Context context;
+        ArrayList<CheckBoxState> blockedAppList;
 
-        ViewHolder(View v) {
+       public ViewHolder(Context context, final View v,ArrayList<CheckBoxState> blockList) {
             super(v);
+            this.context=context;
+            this.blockedAppList=blockList;
             // widgets reference from custom layout
+            mCardView = (CardView) v.findViewById(R.id.card_view);
             mTextViewLabel = (TextView) v.findViewById(R.id.app_label);
-            //mTextViewPackage = (TextView) v.findViewById(R.id.app_package);
+            mTextViewPackage = (TextView) v.findViewById(R.id.app_package);
             mImageViewIcon = (ImageView) v.findViewById(R.id.iv_icon);
             cbBlockedApp = (CheckBox) v.findViewById(R.id.cb_blocked_app);
         }
     }
 
     @Override
-    public InstalledAppsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AppSetAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.row_installed_application, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+        AppSetAdapter.ViewHolder vh = new AppSetAdapter.ViewHolder(mContext,v,blockedAppList);
         return vh;
     }
 
@@ -83,82 +93,83 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
     }*/
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final AppSetAdapter.ViewHolder holder, final int position)
+    {
+        //preparing the Final List which has to be Updated in Preferences
+        protectListFinal1=(ArrayList<CheckBoxState>)blockedAppList.clone();
+        protectListTemp=(ArrayList<CheckBoxState>)blockedAppList.clone();
+
+
         //HERE SETTING THE fONT STYLE to TEXTVIEWS
         Typeface fontText = Typeface.createFromAsset(mContext.getAssets(), mContext.getResources().getString(R.string.font_roboto));
         //getting checked list from sharedPreference
-        AppSharedPreference mSharedPref = new AppSharedPreference(mContext);
-        String packages = mSharedPref.getStringData("BlockApps");
-//        Log.e("reading here", packages);
-        GsonBuilder gsonb = new GsonBuilder();
-        Gson gson = gsonb.create();
-        Type type = new TypeToken<List<CheckBoxState>>() {
-        }.getType();
-        checkStateList = gson.fromJson(packages, type);
         //  a new instance of AppManager class\
         AppsManager appsManager = new AppsManager(mContext);
 
         //  current package name
-        packageName = checkBoxStatesList.get(position).getPackageName();
+        packageName = blockedAppList.get(position).getPackageName();
         //     Log.d("Package Name", packageName);
         //  current app icon
         Drawable icon = appsManager.getAppIconByPackageName(packageName);
         //  current app label
-        String label = checkBoxStatesList.get(position).getAppLabel();
+        String label = blockedAppList.get(position).getAppLabel();
         //setting  state of checkbox
-        holder.cbBlockedApp.setOnCheckedChangeListener(null);
-        if (checkStateList != null) {
-            if (checkStateList.isEmpty()) {
-                //   Snackbar.make(holder.mCardView, "No App is bloked yet",Snackbar.LENGTH_SHORT).show();
-
-            } else {
-                if (isPackageBlock(packageName)) {
-
-                    holder.cbBlockedApp.setChecked(true);
-                } else {
-                    holder.cbBlockedApp.setChecked(false);
-                }
-            }
-        } else {
-            holder.cbBlockedApp.setChecked(false);
-        }
-
-// on the click of the checkbox saving the package name for the persistence of the checksate
-        holder.cbBlockedApp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.cbBlockedApp.setChecked(true);
+        //Controlling the Functionality of Checking and UnChecking the Functionality of CheckBox\
+        holder.cbBlockedApp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isuUsserStatspermission()) {
-                    Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                    mContext.startActivity(intent);
-                }
-                if (checkStateList != null) {
-                    if (!checkStateList.isEmpty()) {
-                        selectedPackagesList.clear();
-                        //In order to make a ArrayList consisting of Unique Values only
-                        HashSet<CheckBoxState> unique = new HashSet<CheckBoxState>();
-                        unique.clear();
-                        unique.addAll(checkStateList);
-                        selectedPackagesList.addAll(unique);
-                    }
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                CheckBoxState objCheck1=new CheckBoxState();
+                CheckBoxState objCheck2=new CheckBoxState();
+
+/*
+                if (!blockList.isEmpty())
+                {
+                    //In order to make a ArrayList consisting of Unique Values only
+                    Set<Contact> unique = new HashSet<Contact>();
+                    unique.addAll(blockList);
+                    blockListFinal.clear();
+                    blockListFinal.addAll(unique);
+
                 }
 
+*/
+                if(isChecked)
+                {
+                    int x=getPosition(blockedAppList.get(position));
+                    objCheck1=protectListTemp.get(x);
+                    protectListFinal1.add(objCheck1);
+                    String name=objCheck1.getAppLabel();
+                    Toast.makeText(mContext, name+" is Protected Again", Toast.LENGTH_SHORT).show();
 
-                if (isChecked) {
-                    CheckBoxState checkBoxState = new CheckBoxState();
-                    //selectedPackgemane = checkBoxStatesList.get(holder.getAdapterPosition()).getPackageName();
-                    checkBoxState.setPackageName(checkBoxStatesList.get(holder.getAdapterPosition()).getPackageName());
-                    checkBoxState.setAppLabel(checkBoxStatesList.get(holder.getAdapterPosition()).getAppLabel());
-                    selectedPackagesList.add(checkBoxState);
-                } else {
-                    selectedPackagesList.remove(getPosition(checkBoxStatesList.get(position)));
                 }
-                // Saving the values in shared preference
-                AppSharedPreference mShared = new AppSharedPreference(mContext);
+                else if(!isChecked)
+                {
+                    int x=getPosition(blockedAppList.get(position));
+                    objCheck2=protectListTemp.get(x);
+                    String name=objCheck2.getAppLabel();
+                    Toast.makeText(mContext, name+" is UnProtected Now", Toast.LENGTH_SHORT).show();
+
+                   protectListFinal1.remove(objCheck2);
+
+                }
+                AppSharedPreference appSharedPrefs = new AppSharedPreference(mContext);
                 Gson gson = new Gson();
-                String json = gson.toJson(selectedPackagesList);
-                mShared.putStringData("BlockApps", json);
+                //Removing the Duplicates
+                Set<CheckBoxState> unique = new HashSet<CheckBoxState>();
+                unique.addAll(protectListFinal1);
+                protectListFinal1.clear();
+                protectListFinal1.addAll(unique);
+
+                String json = gson.toJson(protectListFinal1);
+                appSharedPrefs.putStringData("BlockApps", json);
+
+
             }
         });
+
 
         //setting FontFamily to TextViews
         SpannableStringBuilder ssName = new SpannableStringBuilder(label.toString());
@@ -172,7 +183,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         holder.mTextViewLabel.setText(ssName);
 
         // Setting the current app package name
-       // holder.mTextViewPackage.setText(ssPkg);
+        holder.mTextViewPackage.setText(ssPkg);
 
         // Setting the current app icon
         holder.mImageViewIcon.setImageDrawable(icon);
@@ -185,19 +196,21 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
      * @param packageName
      * @return true or false accordingly
      */
-    public boolean isPackageBlock(String packageName) {
-        for (int i = 0; i < checkStateList.size(); i++) {
-            if (checkStateList.get(i).getPackageName().equals(packageName))
-                return true;
-        }
-        return false;
-    }
+//    public boolean isPackageBlock(String packageName)
+//    {
+//        for (int i = 0; i < checkStateList.size(); i++) {
+//            if (checkStateList.get(i).getPackageName().equals(packageName))
+//                return true;
+//        }
+//        return false;
+//    }
 
     /**
      * in this method userstatsmanager permission is check if it is enable or not
      * @return boolean accordingly
      */
 
+/*
     public boolean isuUsserStatspermission() {
         if (Build.VERSION.SDK_INT >= 21) {
             try {
@@ -213,6 +226,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         }
         return false;
     }
+*/
 
     /**
      *
@@ -221,8 +235,8 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
      */
     public int getPosition(CheckBoxState checkBoxState) {
         int currentRemovePOstion = 0;
-        for (int position = 0; position < selectedPackagesList.size(); position++) {
-            if (selectedPackagesList.get(position).getPackageName().equals(checkBoxState.getPackageName())) {
+        for (int position = 0; position < blockedAppList.size(); position++) {
+            if (blockedAppList.get(position).getPackageName().equals(checkBoxState.getPackageName())) {
                 currentRemovePOstion = position;
             }
         }
@@ -234,7 +248,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
     @Override
     public int getItemCount() {
         // Count the installed apps
-        return checkBoxStatesList.size();
+        return blockedAppList.size();
     }
 
   /*  public interface MyClickListener {
@@ -243,4 +257,3 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         void onItemDeselect(List<CheckBoxState> packageName);
     }*/
 }
-

@@ -47,4 +47,5 @@ public class MyPreferenceCategory extends PreferenceCategory {
             }
         }
     }
+
 }

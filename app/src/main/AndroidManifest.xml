@@ -18,7 +18,7 @@
     <uses-permission
         android:name="android.permission.MODIFY_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -27,12 +27,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
+        <activity
+            android:name=".activity.AppListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
 
-
-        <activity android:name=".activity.AppListActivity" />
-
-        <service android:name=".services.SecureMyAppsService" />i
-
+        <service android:name=".services.SecureMyAppsService" />
+        i
         <receiver
             android:name=".services.StartMyServiceAtBootReceiver"
             android:enabled="true"
@@ -43,7 +44,7 @@
             </intent-filter>
         </receiver>
 
-        <!--receiver for calls -->
+        <!-- receiver for calls -->
         <receiver
             android:name=".services.CallBarring"
             android:enabled="true"
@@ -63,34 +64,57 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.BasePatternActivity" />
+        <activity
+            android:name=".activity.BasePatternActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ConfirmPatternActivity"
             android:autoRemoveFromRecents="true"
-            android:launchMode="singleTask" />
+            android:configChanges="orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SetPatternActivity"
-            android:autoRemoveFromRecents="true"></activity>
-        <activity android:name=".activity.HomeActivity">
+            android:autoRemoveFromRecents="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.HomeActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
 
-        </activity>
-        <activity android:name=".activity.BaseActivity">
-
-        </activity>
+        <activity
+            android:name=".activity.BaseActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SplashScreenActivity"
-            android:autoRemoveFromRecents="true">
+            android:autoRemoveFromRecents="true"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
 
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
+
         </activity>
 
-        <!--Preference Activity -->
-        <activity android:name=".activity.PrefsActivity"></activity>
-
+        <!-- Preference Activity -->
+        <activity
+            android:name=".activity.PrefsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BlockedContactsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activity.BlockedAppAcivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
     </application>
-
 
 </manifest>
