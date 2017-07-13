@@ -60,32 +60,6 @@ public class HomeActivity extends BaseActivity {
         Intent mIntent = getIntent();
         int intValue = mIntent.getIntExtra("intValue", 0);
 
-        Intent intent = getIntent();
-        int SWITCH_CONSTANT = intent.getIntExtra("Lock", 0);
-        if (SWITCH_CONSTANT == 6 || SWITCH_CONSTANT == 5) {
-        } else {
-            String lockName = mSharedPref.getStringData("Lock");
-            if (lockName != null) {
-                if (lockName.equals("IS_PHONE_LOCK")) {
-                    checkforSecurity();
-                    Intent mintent = getIntent();
-                    boolean isFromService = mintent.getBooleanExtra("isFromServiceisFromService", false);
-                    if(isFromService){
-                        finish();
-                    }
-                }
-            }
-        }
-        //SharedPreference to change Theme dynamically...
-        themeName = mSharedPref.getStringData("Theme");
-        if (themeName != null) {
-            if (themeName.equals("Redtheme")) {
-                setTheme(R.style.MyMaterialTheme);
-            } else {
-                setTheme(R.style.MyMaterialThemeGreen);
-            }
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -182,8 +156,12 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void onBackPressed()
     {
-        super.onBackPressed();
-        getIntent().removeExtra("intValue");
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(startMain);
+        finish();
 
 
     }
@@ -201,7 +179,7 @@ public class HomeActivity extends BaseActivity {
     private void openPreferenceActivity() {
         Intent intent = new Intent(this, PrefsActivity.class);
         startActivity(intent);
-        finish();
+      //  finish();
     }
 
     private void setupViewPager(ViewPager viewPager) {

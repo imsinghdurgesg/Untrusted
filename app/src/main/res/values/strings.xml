@@ -33,11 +33,13 @@
     <string name="font_toxic">toxic.ttf</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
 
-<!--
-Preference Theme
--->
+    <!--
+    Preference Theme
+    -->
     <string name="theme_text">Set Red/Green Theme</string>
     <string name="theme_title">Change Theme</string>
+    <string name="chnage_Pattern">Change Pattern</string>
+    <string name="chnage_app_Lock">Change App Lock</string>
     <string name="theme_block_title">Blocked/Protected Contents</string>
     <string name="pref_block_txt">Blocked Applications</string>
     <string name="pref_protect_txt">Blocked Contacts for Calling</string>
