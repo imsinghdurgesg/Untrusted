@@ -55,18 +55,17 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private CardView mCardView;
+
         private TextView mTextViewLabel;
-        private TextView mTextViewPackage;
+    //    private TextView mTextViewPackage;
         private ImageView mImageViewIcon;
         private CheckBox cbBlockedApp;
 
         ViewHolder(View v) {
             super(v);
             // widgets reference from custom layout
-            mCardView = (CardView) v.findViewById(R.id.card_view);
             mTextViewLabel = (TextView) v.findViewById(R.id.app_label);
-            mTextViewPackage = (TextView) v.findViewById(R.id.app_package);
+            //mTextViewPackage = (TextView) v.findViewById(R.id.app_package);
             mImageViewIcon = (ImageView) v.findViewById(R.id.iv_icon);
             cbBlockedApp = (CheckBox) v.findViewById(R.id.cb_blocked_app);
         }
@@ -173,7 +172,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         holder.mTextViewLabel.setText(ssName);
 
         // Setting the current app package name
-        holder.mTextViewPackage.setText(ssPkg);
+       // holder.mTextViewPackage.setText(ssPkg);
 
         // Setting the current app icon
         holder.mImageViewIcon.setImageDrawable(icon);

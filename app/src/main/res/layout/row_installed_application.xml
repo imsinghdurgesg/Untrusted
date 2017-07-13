@@ -1,58 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="@dimen/four_dim"
-    card_view:cardElevation="@dimen/four_dim"
-    card_view:cardMaxElevation="@dimen/three_dim"
-    card_view:contentPadding="@dimen/five_dim"
-    android:layout_margin="@dimen/five_dim"
-    >
-    <RelativeLayout
-        android:id="@+id/app_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
-        <ImageView
-            android:id="@+id/iv_icon"
-            android:layout_width="@dimen/card_imgapp_width_dim"
-            android:layout_height="@dimen/card_imgapp_width_dim"
-            android:contentDescription="@string/app_name"/>
-        <TextView
-            android:id="@+id/app_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_marginLeft="@dimen/ten_dim"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_toRightOf="@id/iv_icon"
-            android:layout_toEndOf="@id/iv_icon"
-            />
-        <TextView
-            android:id="@+id/app_package"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#848484"
-            android:layout_marginLeft="@dimen/ten_dim"
-            android:textStyle="bold"
-            android:layout_below="@id/app_label"
-            android:textSize="16sp"
-            android:layout_toRightOf="@id/iv_icon"
-            android:layout_toEndOf="@id/iv_icon"
-            />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right">
-        <CheckBox
-            android:id="@+id/cb_blocked_app"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    android:orientation="vertical">
 
-    </RelativeLayout>
-</android.support.v7.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="4">
+
+        <RelativeLayout
+            android:id="@+id/app_detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_weight=".5">
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="@dimen/card_imgapp_width_dim"
+                android:layout_height="@dimen/card_imgapp_height_dim"
+                android:contentDescription="@string/app_name"
+                android:foregroundGravity="center_vertical" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.2">
+
+            <TextView
+                android:id="@+id/app_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <!--  <TextView
+                  android:id="@+id/app_package"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@id/app_label"
+                  android:contentDescription="@string/app_name"
+                  android:textColor="#848484"
+                  android:textSize="16sp"
+                  android:textStyle="bold" />-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".3">
+
+            <CheckBox
+                android:id="@+id/cb_blocked_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/app_name"
+                android:gravity="center_vertical" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height=".5dp"
+        android:layout_marginTop="5dp"
+        android:background="#D3D3D3" />
+
+</LinearLayout>

@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
-
 import java.util.List;
-
 import singh.durgesh.com.applocker.R;
 import singh.durgesh.com.applocker.utils.AppSharedPreference;
 import singh.durgesh.com.applocker.utils.PatternUtils;
@@ -104,6 +102,9 @@ public class ConfirmPatternActivity extends BasePatternActivity
     @Override
     public void onPatternDetected(List<PatternView.Cell> pattern) {
         if (isPatternCorrect(pattern)) {
+            mMessageText.setText(R.string.pattern_Success);
+            mMessageText.setTextColor(getResources().getColor(R.color.black));
+            mPatternView.setDisplayMode(PatternView.DisplayMode.Correct);
             onConfirmed();
         } else {
             mMessageText.setText(R.string.pl_wrong_pattern);
@@ -126,7 +127,6 @@ public class ConfirmPatternActivity extends BasePatternActivity
 
     protected boolean isPatternCorrect(List<PatternView.Cell> pattern) {
         String patternSha1 = mSharedPref.getStringData("patternSha");
-
         return TextUtils.equals(PatternUtils.patternToSha1String(pattern), patternSha1);
     }
 

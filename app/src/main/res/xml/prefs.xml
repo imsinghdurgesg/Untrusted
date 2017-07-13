@@ -6,7 +6,18 @@
             android:key="SwitchTheme"
             android:title="@string/theme_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
+    </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+
+    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="Security">
+        <CheckBoxPreference
+            android:selectable="true"
+            android:key="SwitchSecurity"
+            android:summary="Administrative permission"
+            android:title="Make App Unistallable without Security"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </CheckBoxPreference>
     </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
 
     <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="@string/theme_block_title">
