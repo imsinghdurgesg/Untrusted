@@ -95,8 +95,11 @@
             android:autoRemoveFromRecents="true"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
 
-
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
         </activity>
 
         <!-- Preference Activity -->
@@ -104,11 +107,6 @@
             android:name=".activity.PrefsActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" >
-        <intent-filter>
-            <category android:name="android.intent.category.LAUNCHER" />
-
-            <action android:name="android.intent.action.MAIN" />
-        </intent-filter>
         </activity>
         <activity
             android:name=".activity.BlockedContactsActivity"
