@@ -226,9 +226,9 @@ public class PrefsActivity extends AppCompatActivity {
                     } else {
                         AlertDialog.Builder builder;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+                            builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
                         } else {
-                            builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
+                            builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
                         }
                         builder.setTitle("Security")
                                 .setMessage("Please search Device Administrator permission in settings")
