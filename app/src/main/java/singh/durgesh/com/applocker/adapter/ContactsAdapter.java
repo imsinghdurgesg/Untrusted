@@ -119,7 +119,9 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
                 holder.cb.setChecked(false);
             }
         }
-        holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            Contact objContact=new Contact();
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -135,9 +137,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
                 if (isChecked)
                 {
                     //   holder.rl.setBackgroundColor(holder.itemView.getResources().getColor(R.color.check));
-                    listOfBContacts.add(listOfContacts.get(position));
-                }
-                else if (!isChecked)
+                    listOfBContacts.add(listOfContacts.get(position));                }
+                if (!isChecked)
                 {
                     //     holder.rl.setBackgroundColor(holder.itemView.getResources().getColor(R.color.white));
                     int x=getPosition(listOfContacts.get(position));

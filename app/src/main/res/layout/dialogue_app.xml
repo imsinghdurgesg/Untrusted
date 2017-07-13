@@ -1,0 +1,127 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/app2"
+        android:layout_below="@+id/app"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="@dimen/dialogue_height">
+
+        <RelativeLayout
+            android:id="@+id/rel_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent">
+            <TextView
+                android:id="@+id/txtprotect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/black"
+                android:paddingTop="@dimen/fifteen_dim"
+                android:paddingBottom="@dimen/fifteen_dim"
+                android:textSize="18sp"
+
+                />
+
+            <ImageView
+                android:id="@+id/iv_close_fragment_btn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close"
+                android:layout_marginLeft="@dimen/ten_dim"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"/>
+
+        </RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/six_dim"
+            android:layout_below="@+id/txtBlock"
+            android:id="@+id/recycler_view2"
+            android:scrollbars="vertical"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/lay_contact2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dialogue_height"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+        <RelativeLayout
+            android:id="@+id/rel_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/seven_dim">
+        <ImageView
+            android:id="@+id/iv_close_fragment_btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close"
+            android:layout_marginLeft="@dimen/eight_dim"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"/>
+
+        <TextView
+            android:id="@+id/txtprotect2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Protected Applications"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/black"
+            android:paddingTop="@dimen/fifteen_dim"
+            android:paddingBottom="@dimen/fifteen_dim"
+            android:textSize="18sp"
+
+            />
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:layout_marginBottom="@dimen/fifteen_dim"
+            android:src="@drawable/contact1"/>
+        <TextView
+            android:id="@+id/tv_noprotect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/no_contact"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingLeft="@dimen/ten_dim"
+            android:padding="@dimen/ten_dim"
+
+            android:text="Currently you don't have Protected any of your running Applications"
+            />
+        <Button
+            android:id="@+id/gototab2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/pw_height_dim"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="@dimen/ten_dim"
+            android:paddingRight="@dimen/ten_dim"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            android:text="Protect My Apps now !"
+            />
+    </LinearLayout>
+
+
+
+</RelativeLayout>
