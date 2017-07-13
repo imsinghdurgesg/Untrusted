@@ -15,6 +15,8 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.preference.SwitchPreference;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -67,8 +69,12 @@ public class PrefsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+        if (item.getItemId() == android.R.id.home)
+        {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+
+            this.finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -103,9 +109,12 @@ public class PrefsActivity extends AppCompatActivity {
                 BLOCKED_APPS = CallBarring.getProtectListFromPref(getActivity()).size();
             }
 
+
             appSharedPreference = new AppSharedPreference(getActivity().getBaseContext());
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.prefs);
+            final SwitchPreference switchPreference = (SwitchPreference) findPreference("SwitchTheme");
+            SwitchSecurity = (CheckBoxPreference) findPreference("SwitchSecurity");
 
             Preference lockPreference = findPreference("changeLock");
             lockPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -125,9 +134,12 @@ public class PrefsActivity extends AppCompatActivity {
             }
             appPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, BlockedAppAcivity.class);
-                    startActivity(intent);
+                public boolean onPreferenceClick(Preference preference)
+                {
+
+                    AppDialogue mFrag = new AppDialogue();
+                    mFrag.show(getFragmentManager(), "frag_apps");
+                    mFrag.setCancelable(false);
                     return true;
                 }
             });
@@ -144,20 +156,69 @@ public class PrefsActivity extends AppCompatActivity {
             contactPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, BlockedContactsActivity.class);
-                    startActivity(intent);
+                    CallDialogue mFrag1 = new CallDialogue();
+                    mFrag1.show(getFragmentManager(), "frag_calls");
+                    mFrag1.setCancelable(false);
                     return true;
                 }
+
             });
 
 
-            SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                     SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
+
+                    SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
                    /* ComponentName devAdminReceiver = new ComponentName(context, AdminReceiver.class);
                     DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(context.DEVICE_POLICY_SERVICE);
                     dpm.isAdminActive(devAdminReceiver);*/
 
+                            if (!dpm.isAdminActive(devAdminReceiver)) {
+                                SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+                                Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+                                intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, devAdminReceiver);
+                                startActivity(intent);
+                                //SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+                                return true;
+                            } else {
+                      /*  Log.d("called", "called here");
+                        SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+                        Snackbar.make(getView(),"Sorry",Snackbar.LENGTH_SHORT).show();
+                        return false;*/
+                                AlertDialog.Builder builder;
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                    builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+                                } else {
+                                    builder = new AlertDialog.Builder(context);
+                                }
+                                builder.setTitle("Security")
+                                        .setMessage("Are you sure you want to change the permission?")
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // continue with delete
+                                                Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
+                                                startActivity(intent);
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // do nothing
+                                                dialog.dismiss();
+                                                getActivity().recreate();
+                                            }
+                                        })
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
+                                return false;
+                            }
+
+
+                        }
+                    });
                     if (!dpm.isAdminActive(devAdminReceiver)) {
                         SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
                         Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
@@ -204,6 +265,9 @@ public class PrefsActivity extends AppCompatActivity {
             Intent intent = new Intent(context, ConfirmPatternActivity.class);
             intent.putExtra("PatternLock", true);
             startActivity(intent);
+            getActivity().finish();
+
+
         }
 
         @Override
@@ -213,7 +277,7 @@ public class PrefsActivity extends AppCompatActivity {
             final DevicePolicyManager dpm = (DevicePolicyManager) getActivity().getApplication().getApplicationContext().getSystemService(DEVICE_POLICY_SERVICE);
             SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
         }
+
+
     }
-
-
 }

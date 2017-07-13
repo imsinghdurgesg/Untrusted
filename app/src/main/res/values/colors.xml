@@ -8,6 +8,9 @@
     <color name="colorAccent">#c8e8ff</color>
     <color name="transparent">#00000000</color>
     <color name="red">#ef0000</color>
+    <color name="light_red">#ef0000</color>
+    <color name="light_green">#ef0000</color>
+
 
 
     <!--regarding Tab's bg color-->

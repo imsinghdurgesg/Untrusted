@@ -17,6 +17,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="medium_small_38">38dp</dimen>
+    <dimen name="medium_small_30">30dp</dimen>
     <dimen name="medium_small_5">5dp</dimen>
 
 
@@ -32,6 +33,9 @@
     <dimen name="eight_dim">8dp</dimen>
     <dimen name="nine_dim">9dp</dimen>
     <dimen name="ten_dim">10dp</dimen>
+    <dimen name="fifteen_dim">15dp</dimen>
+    <dimen name="eighteen_dim">7dp</dimen>
+    <dimen name="margin_top">25dp</dimen>
 
     <!--password pattern dimentions-->
     <dimen name="pw_width_dim">200dp</dimen>
@@ -51,8 +55,11 @@
     <dimen name="card_linear1_margin_dim">250dp</dimen>
     <dimen name="card_tvname_width_dim">200dp</dimen>
     <dimen name="card_tvphone_width_dim">200dp</dimen>
-    <dimen name="card_imgapp_width_dim">35dp</dimen>
-    <dimen name="card_imgapp_height_dim">32dp</dimen>
+    <dimen name="card_imgapp_width_dim">38dp</dimen>
+    <dimen name="card_imgapp_height_dim">35dp</dimen>
+
+
+    <dimen name="dialogue_height">475dp</dimen>
 
 
 

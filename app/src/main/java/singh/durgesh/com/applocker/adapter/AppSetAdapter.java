@@ -73,8 +73,9 @@ public class AppSetAdapter extends RecyclerView.Adapter<AppSetAdapter.ViewHolder
             this.context=context;
             this.blockedAppList=blockList;
             // widgets reference from custom layout
-            mCardView = (CardView) v.findViewById(R.id.card_view);
+//            mCardView = (CardView) v.findViewById(R.id.card_view);
             mTextViewLabel = (TextView) v.findViewById(R.id.app_label);
+//           mTextViewPackage = (TextView) v.findViewById(R.id.app_package);
          //   mTextViewPackage = (TextView) v.findViewById(R.id.app_package);
             mImageViewIcon = (ImageView) v.findViewById(R.id.iv_icon);
             cbBlockedApp = (CheckBox) v.findViewById(R.id.cb_blocked_app);
@@ -176,14 +177,18 @@ public class AppSetAdapter extends RecyclerView.Adapter<AppSetAdapter.ViewHolder
         SpannableStringBuilder ssPkg = new SpannableStringBuilder(packageName.toString());
 
         ssName.setSpan(new CustomTypefaceSpan("", fontText), 0, ssName.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+/*
         ssPkg.setSpan(new CustomTypefaceSpan("", fontText), 0, ssPkg.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+*/
 
 
         // Setting the current app label
         holder.mTextViewLabel.setText(ssName);
 
+/*
         // Setting the current app package name
         holder.mTextViewPackage.setText(ssPkg);
+*/
 
         // Setting the current app icon
         holder.mImageViewIcon.setImageDrawable(icon);
