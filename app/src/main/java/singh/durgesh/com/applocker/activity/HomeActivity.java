@@ -57,8 +57,6 @@ public class HomeActivity extends BaseActivity {
         Intent mIntent = getIntent();
         int intValue = mIntent.getIntExtra("intValue", 0);
 
-<<<<<<< HEAD
-=======
         Intent intent = getIntent();
         int SWITCH_CONSTANT = intent.getIntExtra("Lock", 0);
         if (SWITCH_CONSTANT == 6 || SWITCH_CONSTANT == 5) {
@@ -85,7 +83,6 @@ public class HomeActivity extends BaseActivity {
             }
         }*/
 
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -176,27 +173,13 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Override
-<<<<<<< HEAD
-    public void onBackPressed()
-    {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-=======
     public void onBackPressed() {
-        super.onBackPressed();
-        getIntent().removeExtra("intValue");
-       /* Intent startMain = new Intent(Intent.ACTION_MAIN);
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(startMain);
-<<<<<<< HEAD
         finish();
-
-=======
-        finish();*/
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
-
     }
 
     @Override
@@ -212,11 +195,8 @@ public class HomeActivity extends BaseActivity {
     private void openPreferenceActivity() {
         Intent intent = new Intent(this, PrefsActivity.class);
         startActivity(intent);
-<<<<<<< HEAD
-      //  finish();
-=======
+        //  finish();
         // finish();
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
     }
 
     private void setupViewPager(ViewPager viewPager) {

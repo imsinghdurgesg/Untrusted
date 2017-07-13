@@ -41,14 +41,10 @@ import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
 
 public class PrefsActivity extends AppCompatActivity {
 
-    private static int SWITCH_CONSTANT = 5;
-
     private Toolbar toolbar;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pref_main);
         //setting the Customized ToolBar
@@ -73,34 +69,12 @@ public class PrefsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-<<<<<<< HEAD
-        finish();
-        return super.onOptionsItemSelected(item);
-    }
 
-=======
         if (item.getItemId() == android.R.id.home) {
-            Intent intent = new Intent();
-            //intent.putExtra("Lock", SWITCH_CONSTANT);
-           /* ActivityOptions options =
-                    ActivityOptions.makeCustomAnimation(this, R.anim.pull_in_from_left, 0);
-            this.startActivity(intent, options.toBundle());*/
-            setResult(200);
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        /*Intent intent = new Intent(this, HomeActivity.class);
-        intent.putExtra("Lock", SWITCH_CONSTANT);
-        ActivityOptions options = ActivityOptions.makeCustomAnimation(this, R.anim.pull_in_from_left, 0);
-        this.startActivity(intent, options.toBundle());*/
-        finish();
-    }
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
 
     public static class PreferenceScreen extends PreferenceFragment {
         CheckBoxPreference SwitchSecurity;
@@ -121,13 +95,10 @@ public class PrefsActivity extends AppCompatActivity {
 
         @Override
         public void onCreate(@Nullable final Bundle savedInstanceState) {
-<<<<<<< HEAD
-=======
 
             final ComponentName devAdminReceiver = new ComponentName(getActivity().getApplication().getApplicationContext(), AdminReceiver.class);
             final DevicePolicyManager dpm = (DevicePolicyManager) getActivity().getApplication().getApplicationContext().getSystemService(DEVICE_POLICY_SERVICE);
 
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
             if (CallBarring.getBlockListFromPref(getActivity()) != null) {
                 BLOCKED_CONTACTS = CallBarring.getBlockListFromPref(getActivity()).size();
             }
@@ -138,7 +109,6 @@ public class PrefsActivity extends AppCompatActivity {
             appSharedPreference = new AppSharedPreference(getActivity().getBaseContext());
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.prefs);
-<<<<<<< HEAD
 
             Preference lockPreference = findPreference("changeLock");
             lockPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -149,15 +119,8 @@ public class PrefsActivity extends AppCompatActivity {
                 }
             });
 
-            Preference appPref = (Preference) findPreference("app");
-=======
-            SwitchPreference switchPreference = (SwitchPreference) findPreference("SwitchTheme");
-            // SwitchPreference switchPreferencePatternLock = (SwitchPreference) findPreference("SwitchLock");
             SwitchSecurity = (CheckBoxPreference) findPreference("SwitchSecurity");
-
-
             Preference appPref = findPreference("app");
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
             if (BLOCKED_APPS > 0) {
                 appPref.setSummary(BLOCKED_APPS + " applications protected");
             } else {
@@ -166,11 +129,7 @@ public class PrefsActivity extends AppCompatActivity {
             appPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-<<<<<<< HEAD
                     Intent intent = new Intent(context, BlockedAppAcivity.class);
-=======
-                    Intent intent = new Intent(getActivity().getApplicationContext(), BlockedAppAcivity.class);
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
                     startActivity(intent);
                     return true;
                 }
@@ -188,53 +147,14 @@ public class PrefsActivity extends AppCompatActivity {
             contactPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-<<<<<<< HEAD
                     Intent intent = new Intent(context, BlockedContactsActivity.class);
-=======
-                    Intent intent = new Intent(getActivity().getApplicationContext(), BlockedContactsActivity.class);
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
                     startActivity(intent);
                     return true;
                 }
             });
 
-<<<<<<< HEAD
-          /*  SwitchSecurity.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-=======
-            //Enables Users to chnage Theme
-            switchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (!((Boolean) newValue)) {
-                        appSharedPreference.putStringData("Theme", "Greentheme");
-                        getActivity().recreate();
-                    } else {
-                        appSharedPreference.putStringData("Theme", "Redtheme");
-                        getActivity().recreate();
-                    }
-                    return true;
-                }
-            });
 
-            /*//Enables Users to chnage Pattern Lock
-            switchPreferencePatternLock.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (!((Boolean) newValue)) {
-                        Log.d("DSG", "Change to App Pattern Lock");
-                        appSharedPreference.putStringData("Lock", "DSG");
-                    } else {
-                        SWITCH_CONSTANT = 5;
-                        Log.d("DSG", "Change to Phone Default theme");
-                        //Open the default App Pattern Lock
-                        // checkLock();
-                        //  SWITCH_CONSTANT++;
-                    }
-                    return true;
-                }
-            });*/
             SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
                    /* ComponentName devAdminReceiver = new ComponentName(context, AdminReceiver.class);
@@ -280,35 +200,16 @@ public class PrefsActivity extends AppCompatActivity {
                                 .show();
                         return false;
                     }
-
-
                 }
             });
 
         }
 
-<<<<<<< HEAD
         private void openConfirmActivity() {
 
             Intent intent = new Intent(context, ConfirmPatternActivity.class);
             intent.putExtra("PatternLock", true);
             startActivity(intent);
-        }
-
-
-=======
-
-        @TargetApi(Build.VERSION_CODES.M)
-        private void checkLock() {
-            KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-            boolean isSecure = keyguardManager.isKeyguardSecure();
-            if (isSecure) {
-                Intent intent = keyguardManager.createConfirmDeviceCredentialIntent(null, null);
-                appSharedPreference.putStringData("Lock", "IS_PHONE_LOCK");
-                startActivity(intent);
-            } else {
-                // no lock screen set, show the new lock needed screen
-            }
         }
 
         @Override
@@ -317,9 +218,7 @@ public class PrefsActivity extends AppCompatActivity {
             final ComponentName devAdminReceiver = new ComponentName(getActivity().getApplication().getApplicationContext(), AdminReceiver.class);
             final DevicePolicyManager dpm = (DevicePolicyManager) getActivity().getApplication().getApplicationContext().getSystemService(DEVICE_POLICY_SERVICE);
             SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
-
         }
->>>>>>> c018add71db13a6ad6dce49982f510f20d009939
     }
 
 
