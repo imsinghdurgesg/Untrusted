@@ -191,6 +191,10 @@ public class CallSetAdapter extends RecyclerView.Adapter<CallSetAdapter.Recycler
             preCard = (CardView) itemView.findViewById(R.id.card_view);
             txt_name = (TextView) itemView.findViewById(R.id.txt_name);
             txt_phone = (TextView) itemView.findViewById(R.id.txt_phone);
+<<<<<<< HEAD
+=======
+        //    rl = (RelativeLayout) itemView.findViewById(R.id.cfull_view);
+>>>>>>> c018add71db13a6ad6dce49982f510f20d009939
             contact_img = (ImageView) itemView.findViewById(R.id.contact_letter);
             cb = (CheckBox) itemView.findViewById(R.id.checkBoxBlocked);
         }

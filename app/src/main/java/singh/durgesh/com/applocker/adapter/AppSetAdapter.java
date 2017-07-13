@@ -75,6 +75,10 @@ public class AppSetAdapter extends RecyclerView.Adapter<AppSetAdapter.ViewHolder
             // widgets reference from custom layout
             mCardView = (CardView) v.findViewById(R.id.card_view);
             mTextViewLabel = (TextView) v.findViewById(R.id.app_label);
+<<<<<<< HEAD
+=======
+         //   mTextViewPackage = (TextView) v.findViewById(R.id.app_package);
+>>>>>>> c018add71db13a6ad6dce49982f510f20d009939
             mImageViewIcon = (ImageView) v.findViewById(R.id.iv_icon);
             cbBlockedApp = (CheckBox) v.findViewById(R.id.cb_blocked_app);
         }
