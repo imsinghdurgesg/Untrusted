@@ -5,11 +5,9 @@ import android.annotation.TargetApi;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +18,6 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -70,21 +67,21 @@ public class HomeActivity extends BaseActivity {
                     checkforSecurity();
                     Intent mintent = getIntent();
                     boolean isFromService = mintent.getBooleanExtra("isFromServiceisFromService", false);
-                    if(isFromService){
+                    if (isFromService) {
                         finish();
                     }
                 }
             }
         }
         //SharedPreference to change Theme dynamically...
-        themeName = mSharedPref.getStringData("Theme");
+       /* themeName = mSharedPref.getStringData("Theme");
         if (themeName != null) {
             if (themeName.equals("Redtheme")) {
                 setTheme(R.style.MyMaterialTheme);
             } else {
                 setTheme(R.style.MyMaterialThemeGreen);
             }
-        }
+        }*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -109,16 +106,12 @@ public class HomeActivity extends BaseActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         hideProgressDialog();
         tabLayout.setupWithViewPager(viewPager);
-        if(intValue>0)
-        {
-            if(intValue==2)
-            {
+        if (intValue > 0) {
+            if (intValue == 2) {
                 viewPager.setCurrentItem(1);
                 Toast.makeText(this, "Select the Contacts to block", Toast.LENGTH_LONG).show();
 
-            }
-            else
-            {
+            } else {
                 viewPager.setCurrentItem(0);
                 Toast.makeText(this, "Select the Applications to Protect", Toast.LENGTH_LONG).show();
 
@@ -180,11 +173,15 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed()
-    {
+    public void onBackPressed() {
         super.onBackPressed();
         getIntent().removeExtra("intValue");
-
+       /* Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(startMain);
+        finish();*/
 
     }
 
@@ -201,7 +198,7 @@ public class HomeActivity extends BaseActivity {
     private void openPreferenceActivity() {
         Intent intent = new Intent(this, PrefsActivity.class);
         startActivity(intent);
-        finish();
+        // finish();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -248,4 +245,49 @@ public class HomeActivity extends BaseActivity {
         }
 
     }
+
+/*
+    @Override
+    protected void onResume() {
+        super.onResume();
+        themeName = mSharedPref.getStringData("Theme");
+        if (themeName != null) {
+            if (themeName.equals("Redtheme")) {
+                setTheme(R.style.MyMaterialTheme);
+                setContentView(R.layout.activity_home);
+            } else {
+                setTheme(R.style.MyMaterialThemeGreen);
+                setContentView(R.layout.activity_home);
+
+            }
+        }*/
+
+
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+        Log.d("reqCode", "" + reqCode);
+        Log.d("resultCode", "" + resultCode);
+
+        Log.d("Intent", "" + data);
+
+        // Identify our request code
+       /* switch (reqCode) {
+            case SETTINGS:*/
+        if (resultCode == 200) {
+            themeName = mSharedPref.getStringData("Theme");
+            if (themeName != null) {
+                if (themeName.equals("Redtheme")) {
+                    setTheme(R.style.MyMaterialTheme);
+                    setContentView(R.layout.activity_home);
+                } else {
+                    setTheme(R.style.MyMaterialThemeGreen);
+                    setContentView(R.layout.activity_home);
+
+                }
+            }
+        }
+
+    }
+
 }
