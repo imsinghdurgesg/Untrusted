@@ -174,15 +174,12 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        getIntent().removeExtra("intValue");
-       /* Intent startMain = new Intent(Intent.ACTION_MAIN);
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(startMain);
-        finish();*/
-
+        finish();
     }
 
     @Override
@@ -198,6 +195,7 @@ public class HomeActivity extends BaseActivity {
     private void openPreferenceActivity() {
         Intent intent = new Intent(this, PrefsActivity.class);
         startActivity(intent);
+        //  finish();
         // finish();
     }
 
