@@ -1,6 +1,7 @@
 package singh.durgesh.com.applocker.activity;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.KeyguardManager;
@@ -14,11 +15,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.SwitchPreference;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
@@ -169,23 +169,20 @@ public class PrefsActivity extends AppCompatActivity {
                         //SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
                         return true;
                     } else {
-                      /*  Log.d("called", "called here");
-                        SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
-                        Snackbar.make(getView(),"Sorry",Snackbar.LENGTH_SHORT).show();
-                        return false;*/
                         AlertDialog.Builder builder;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
                         } else {
-                            builder = new AlertDialog.Builder(context);
+                            builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
                         }
                         builder.setTitle("Security")
-                                .setMessage("Are you sure you want to change the permission?")
+                                .setMessage("Please search Device Administrator permission in settings")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        // continue with delete
-                                        Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
-                                        startActivity(intent);
+                                        Intent dialogIntent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
+                                        dialogIntent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, devAdminReceiver);
+                                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(dialogIntent);
                                         dialog.dismiss();
                                     }
                                 })
@@ -193,7 +190,7 @@ public class PrefsActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // do nothing
                                         dialog.dismiss();
-                                        getActivity().recreate();
+                                        SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
                                     }
                                 })
                                 .setIcon(android.R.drawable.ic_dialog_alert)

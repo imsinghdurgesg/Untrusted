@@ -57,6 +57,13 @@
 
     <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <!--<style name="RedCheck">-->
+        <!--<item name="colorAccent">#ef0000</item>-->
+    <!--</style>-->
 
 
 
