@@ -180,14 +180,19 @@ public class PrefsActivity extends AppCompatActivity {
             }
 
 
-            contactPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            contactPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+            {
                 @Override
-                public boolean onPreferenceClick(Preference preference)
-                {
-                    CallDialogue mFrag1=new CallDialogue();
-                    mFrag1.show(getFragmentManager(),"frag_calls");
+                public boolean onPreferenceClick(Preference preference) {
+                    CallDialogue mFrag1 = new CallDialogue();
+                    mFrag1.show(getFragmentManager(), "frag_calls");
                     mFrag1.setCancelable(false);
-                });
+                    return true;
+                }
+
+            });
+
+
 
                 //Enables Users to chnage Theme
             switchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -222,14 +227,17 @@ public class PrefsActivity extends AppCompatActivity {
                     return true;
                 }
             });*/
-            SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener()
+            {
                     @Override
-                    public boolean onPreferenceClick(Preference preference) {
+                    public boolean onPreferenceClick(Preference preference)
+                    {
                    /* ComponentName devAdminReceiver = new ComponentName(context, AdminReceiver.class);
                     DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(context.DEVICE_POLICY_SERVICE);
                     dpm.isAdminActive(devAdminReceiver);*/
 
-                        if (!dpm.isAdminActive(devAdminReceiver)) {
+                        if (!dpm.isAdminActive(devAdminReceiver))
+                        {
                             SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
                             Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
                             intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, devAdminReceiver);
@@ -273,7 +281,7 @@ public class PrefsActivity extends AppCompatActivity {
                     }
                 });
 
-            }
+        }
 
 
             @TargetApi(Build.VERSION_CODES.M)
@@ -291,13 +299,14 @@ public class PrefsActivity extends AppCompatActivity {
 
             @Override
             public void onResume() {
-            super.onResume();
-            final ComponentName devAdminReceiver = new ComponentName(getActivity().getApplication().getApplicationContext(), AdminReceiver.class);
-            final DevicePolicyManager dpm = (DevicePolicyManager) getActivity().getApplication().getApplicationContext().getSystemService(DEVICE_POLICY_SERVICE);
-            SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+                super.onResume();
+                final ComponentName devAdminReceiver = new ComponentName(getActivity().getApplication().getApplicationContext(), AdminReceiver.class);
+                final DevicePolicyManager dpm = (DevicePolicyManager) getActivity().getApplication().getApplicationContext().getSystemService(DEVICE_POLICY_SERVICE);
+                SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+            }
 
         }
-        }
+
 
 
     }

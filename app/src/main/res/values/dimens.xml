@@ -17,6 +17,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="medium_small_38">38dp</dimen>
+    <dimen name="medium_small_30">30dp</dimen>
     <dimen name="medium_small_5">5dp</dimen>
 
 

@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_close"
-                android:layout_marginLeft="@dimen/eight_dim"
+                android:layout_marginLeft="@dimen/ten_dim"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/app_name"/>
 
@@ -76,14 +76,15 @@
                 android:id="@+id/txtprotect2_block"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Protected Applications"
+                android:text=""
                 android:layout_centerInParent="true"
                 android:textStyle="bold"
                 android:layout_centerHorizontal="true"
                 android:textColor="@color/black"
                 android:paddingTop="@dimen/fifteen_dim"
                 android:paddingBottom="@dimen/fifteen_dim"
-                android:textSize="@dimen/eighteen_dim"
+                android:textSize="18sp"
+
 
                 />
         </RelativeLayout>
