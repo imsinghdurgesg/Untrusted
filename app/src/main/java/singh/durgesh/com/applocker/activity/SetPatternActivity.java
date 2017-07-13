@@ -96,10 +96,18 @@ public class SetPatternActivity extends BasePatternActivity
         Boolean isFirstTimeUser = msharedPref.getBooleanData("FirstTimeUser", false);
         Boolean userCompleteProcess = msharedPref.getBooleanData("userCompleteProcess", false);
         // checking whether user is visitin firsttime or not and if second time the onConfirmPatternActivity will open
-        if (isFirstTimeUser && userCompleteProcess) {
-            Intent mIntent = new Intent(this, ConfirmPatternActivity.class);
-            startActivity(mIntent);
-            finish();
+        Intent intent = getIntent();
+        Boolean valuefromConfirmActivity = intent.getBooleanExtra("fromConfirmactivity",false);
+        if(valuefromConfirmActivity )
+        {
+
+        }
+        else {
+            if (isFirstTimeUser && userCompleteProcess) {
+                Intent mIntent = new Intent(this, ConfirmPatternActivity.class);
+                startActivity(mIntent);
+                finish();
+            }
         }
         FirstTimeOnly();
         mMinPatternSize = getMinPatternSize();

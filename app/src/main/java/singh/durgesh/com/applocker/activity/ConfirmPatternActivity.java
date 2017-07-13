@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
+
 import java.util.List;
+
 import singh.durgesh.com.applocker.R;
 import singh.durgesh.com.applocker.utils.AppSharedPreference;
 import singh.durgesh.com.applocker.utils.PatternUtils;
@@ -30,26 +32,6 @@ public class ConfirmPatternActivity extends BasePatternActivity
     protected void onCreate(Bundle savedInstanceState) {
 
         mSharedPref = new AppSharedPreference(this);
-
-        //SharedPreference to Open Security Lock dynamically...
-        String lockName = mSharedPref.getStringData("Lock");
-        if (lockName != null) {
-            if (lockName.equals("IS_PHONE_LOCK")) {
-                Intent intent = new Intent(this, HomeActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }
-
-        //SharedPreference to change Theme dynamically...
-        String themeName = mSharedPref.getStringData("Theme");
-        if (themeName != null) {
-            if (themeName.equals("Redtheme")) {
-                setTheme(R.style.MyMaterialTheme);
-            } else {
-                setTheme(R.style.MyMaterialThemeGreen);
-            }
-        }
 
         super.onCreate(savedInstanceState);
         pl_button_container = (LinearLayout) findViewById(R.id.pl_button_container);
@@ -132,14 +114,23 @@ public class ConfirmPatternActivity extends BasePatternActivity
 
     protected void onConfirmed() {
         setResult(RESULT_OK);
-        Intent intent = getIntent();
-        boolean isFromService = intent.getBooleanExtra("isFromService", false);
-        if (isFromService) {
+        Intent intentLock = getIntent();
+        Boolean lockvalue = intentLock.getBooleanExtra("PatternLock",false);
+        if (lockvalue) {
+            Intent setPatternIntent = new Intent(this, SetPatternActivity.class);
+            setPatternIntent.putExtra("fromConfirmactivity",true);
+            startActivity(setPatternIntent);
             finish();
         } else {
-            Intent mIntent = new Intent(this, HomeActivity.class);
-            startActivity(mIntent);
-            finish();
+            Intent intent = getIntent();
+            boolean isFromService = intent.getBooleanExtra("isFromService", false);
+            if (isFromService) {
+                finish();
+            } else {
+                Intent mIntent = new Intent(this, HomeActivity.class);
+                startActivity(mIntent);
+                finish();
+            }
         }
     }
 

@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="@string/theme_title">
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="SwitchTheme"
-            android:title="@string/theme_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
+    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="@string/chnage_app_Lock">
+        <Preference
+            android:selectable="true"
+            android:enabled="true"
+            android:key="changeLock"
+            android:title="@string/chnage_Pattern"
+            />
     </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+
 
     <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="Security">
         <CheckBoxPreference
             android:selectable="true"
+
             android:key="SwitchSecurity"
             android:summary="Administrative permission"
             android:title="Make App Unistallable without Security"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_width="match_parent">
         </CheckBoxPreference>
     </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
 
