@@ -1,5 +1,6 @@
 package singh.durgesh.com.applocker.activity;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -72,9 +73,8 @@ public class CallDialogue extends DialogFragment
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getActivity(), PrefsActivity.class);
-                startActivity(intent);
                 dismiss();
+                startActivity(getActivity().getIntent());
 
 
             }
@@ -89,14 +89,6 @@ public class CallDialogue extends DialogFragment
         tvTagblock2= (TextView) v.findViewById(R.id.txtprotect2_block);
         btGoToTab = (Button) v.findViewById(R.id.gototab);
         noContactblock1 = (TextView) v.findViewById(R.id.tv_noprotect_block);
-        if (themeName != null)
-        {
-            if (themeName.equals("Redtheme")) {
-                relblock1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            } else {
-                relblock1.setBackgroundColor(getResources().getColor(R.color.colorPrimaryGreen));
-            }
-        }
 
         Typeface fontTool = Typeface.createFromAsset(getActivity().getAssets(), getResources().getString(R.string.font_toxic));
         Typeface fontText = Typeface.createFromAsset(getActivity().getAssets(), getResources().getString(R.string.font_roboto));
@@ -140,14 +132,6 @@ public class CallDialogue extends DialogFragment
 
         } else
         {
-            if (themeName != null)
-            {
-                if (themeName.equals("Redtheme")) {
-                    relblock2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                } else {
-                    relblock2.setBackgroundColor(getResources().getColor(R.color.colorPrimaryGreen));
-                }
-            }
             tvTagblock2.setText(ss1);
             layoutWithListblock1.setVisibility(LinearLayout.GONE);
 

@@ -71,8 +71,12 @@ public class PrefsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+        if (item.getItemId() == android.R.id.home)
+        {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+
+            this.finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -132,13 +136,8 @@ public class PrefsActivity extends AppCompatActivity {
             }
             appPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(Preference preference) {
-/*
-                    Intent intent = new Intent(getActivity().getApplicationContext(),BlockedAppAcivity.class);
-                public boolean onPreferenceClick(Preference preference) {
-                    Intent intent = new Intent(context, BlockedAppAcivity.class);
-                    startActivity(intent);
-*/
+                public boolean onPreferenceClick(Preference preference)
+                {
 
                     AppDialogue mFrag = new AppDialogue();
                     mFrag.show(getFragmentManager(), "frag_apps");
@@ -162,31 +161,13 @@ public class PrefsActivity extends AppCompatActivity {
                     CallDialogue mFrag1 = new CallDialogue();
                     mFrag1.show(getFragmentManager(), "frag_calls");
                     mFrag1.setCancelable(false);
-                    Intent intent = new Intent(context, BlockedContactsActivity.class);
-                    startActivity(intent);
                     return true;
                 }
 
             });
 
 
-            //Enables Users to chnage Theme
-            switchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    if (!((Boolean) newValue)) {
-                        appSharedPreference.putStringData("Theme", "Greentheme");
-                        getActivity().recreate();
-                    } else {
-                        appSharedPreference.putStringData("Theme", "Redtheme");
-                        getActivity().recreate();
-                    }
-                    return true;
-                }
-            });
-
-
-            SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                     SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
 
@@ -286,6 +267,7 @@ public class PrefsActivity extends AppCompatActivity {
             Intent intent = new Intent(context, ConfirmPatternActivity.class);
             intent.putExtra("PatternLock", true);
             startActivity(intent);
+            getActivity().finish();
 
 
         }

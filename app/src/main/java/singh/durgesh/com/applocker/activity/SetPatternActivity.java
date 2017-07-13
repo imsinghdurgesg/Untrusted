@@ -88,6 +88,7 @@ public class SetPatternActivity extends BasePatternActivity
     private List<PatternView.Cell> mPattern;
     private Stage mStage;
     AppSharedPreference msharedPref;
+    int lockPatternValue=5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,7 @@ public class SetPatternActivity extends BasePatternActivity
         Boolean valuefromConfirmActivity = intent.getBooleanExtra("fromConfirmactivity",false);
         if(valuefromConfirmActivity )
         {
+            lockPatternValue++;
 
         }
         else {
@@ -230,9 +232,19 @@ public class SetPatternActivity extends BasePatternActivity
 
     protected void onConfirmed() {
         setResult(RESULT_OK);
-        Intent mIntent = new Intent(this, HomeActivity.class);
-        startActivity(mIntent);
-        finish();
+        if(lockPatternValue==6)
+        {
+            Intent mIntent = new Intent(this, PrefsActivity.class);
+            startActivity(mIntent);
+            finish();
+        }
+        else
+        {
+            Intent mIntent = new Intent(this, HomeActivity.class);
+            startActivity(mIntent);
+            finish();
+
+        }
     }
 
     private void updateStage(Stage newStage) {

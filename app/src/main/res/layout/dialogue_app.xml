@@ -14,7 +14,7 @@
             android:id="@+id/rel_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent">
+            android:background="@color/colorPrimary">
             <TextView
                 android:id="@+id/txtprotect"
                 android:layout_width="wrap_content"
@@ -62,6 +62,7 @@
             android:id="@+id/rel_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
             android:paddingBottom="@dimen/seven_dim">
         <ImageView
             android:id="@+id/iv_close_fragment_btn2"
