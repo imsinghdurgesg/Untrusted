@@ -90,7 +90,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
 
         //work regarding getting the First Alphabet and setting it to ImageView
         letter = String.valueOf(listOfContacts.get(position).getCName().charAt(0)).toUpperCase();
-        TextDrawable drawable = TextDrawable.builder().buildRound(letter, generator.getRandomColor());
+        TextDrawable drawable = TextDrawable.builder().buildRound(letter,R.color.check);
         //HERE SETTING THE fONT STYLE to TEXTVIEWS
         Typeface fontText = Typeface.createFromAsset(context.getAssets(),context.getResources().getString(R.string.font_roboto));
         SpannableStringBuilder ssName = new SpannableStringBuilder(nameCap);
@@ -153,9 +153,10 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
                 appSharedPrefs.putStringData("BlockedContacts", json);
                 notifyDataSetChanged();
 
-            }
 
+            }
         });
+
 
 
     }

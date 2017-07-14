@@ -57,9 +57,9 @@ public class AppDialogue extends DialogFragment {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getActivity(), PrefsActivity.class);
-                startActivity(intent);
                 dismiss();
+                startActivity(getActivity().getIntent());
+                getActivity().finish();
 
 
             }
@@ -69,10 +69,9 @@ public class AppDialogue extends DialogFragment {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(getActivity(), PrefsActivity.class);
-                startActivity(intent);
                 dismiss();
-
+                startActivity(getActivity().getIntent());
+                getActivity().finish();
 
             }
         });

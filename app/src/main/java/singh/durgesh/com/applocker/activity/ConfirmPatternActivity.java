@@ -35,7 +35,14 @@ public class ConfirmPatternActivity extends BasePatternActivity
 
         super.onCreate(savedInstanceState);
         pl_button_container = (LinearLayout) findViewById(R.id.pl_button_container);
-        mMessageText.setText(R.string.pl_draw_pattern_to_unlock);
+
+        Intent intentLock = getIntent();
+        Boolean lockvalue = intentLock.getBooleanExtra("PatternLock", false);
+        if (lockvalue) {
+            mMessageText.setText(R.string.pl_draw_old_pattern_to_unlock);
+        } else {
+            mMessageText.setText(R.string.pl_draw_pattern_to_unlock);
+        }
         mMessageText.setTextColor(getResources().getColor(R.color.pattern_text));
         mPatternView.setInStealthMode(isStealthModeEnabled());
         mPatternView.setOnPatternListener(this);
@@ -115,10 +122,10 @@ public class ConfirmPatternActivity extends BasePatternActivity
     protected void onConfirmed() {
         setResult(RESULT_OK);
         Intent intentLock = getIntent();
-        Boolean lockvalue = intentLock.getBooleanExtra("PatternLock",false);
+        Boolean lockvalue = intentLock.getBooleanExtra("PatternLock", false);
         if (lockvalue) {
             Intent setPatternIntent = new Intent(this, SetPatternActivity.class);
-            setPatternIntent.putExtra("fromConfirmactivity",true);
+            setPatternIntent.putExtra("fromConfirmactivity", true);
             startActivity(setPatternIntent);
             finish();
         } else {
@@ -157,12 +164,20 @@ public class ConfirmPatternActivity extends BasePatternActivity
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(startMain);
-        finish();
+
+        Intent intentLock = getIntent();
+        Boolean lockvalue = intentLock.getBooleanExtra("PatternLock", false);
+        if (lockvalue) {
+            Intent intent = new Intent(this, PrefsActivity.class);
+            startActivity(intent);
+        } else {
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startMain.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(startMain);
+            finish();
+        }
     }
 
 }

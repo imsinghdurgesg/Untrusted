@@ -71,8 +71,8 @@ public class PrefsActivity extends AppCompatActivity {
 
         if (item.getItemId() == android.R.id.home)
         {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, HomeActivity.class);
+//            startActivity(intent);
             this.finish();
         }
         return super.onOptionsItemSelected(item);
@@ -154,7 +154,8 @@ public class PrefsActivity extends AppCompatActivity {
 
             contactPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(Preference preference) {
+                public boolean onPreferenceClick(Preference preference)
+                {
                     CallDialogue mFrag1 = new CallDialogue();
                     mFrag1.show(getFragmentManager(), "frag_calls");
                     mFrag1.setCancelable(false);
