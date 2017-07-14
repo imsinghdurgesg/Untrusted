@@ -39,7 +39,7 @@ import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
  * Created by DarshanG on 6/27/2017.
  */
 
-public class PrefsActivity extends AppCompatActivity implements CallDialogue.CountBlockList {
+public class PrefsActivity extends AppCompatActivity  {
 
     private Toolbar toolbar;
     static int BLOCKED_CONTACTS = 0;
@@ -81,12 +81,12 @@ public class PrefsActivity extends AppCompatActivity implements CallDialogue.Cou
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+   /* @Override
     public void onFinishDialog(int size) {
         Log.d("here ------",""+size);
         BLOCKED_CONTACTS=size;
 
-    }
+    }*/
 
 
     public static class PreferenceScreen extends PreferenceFragment {
@@ -285,7 +285,7 @@ public class PrefsActivity extends AppCompatActivity implements CallDialogue.Cou
             final DevicePolicyManager dpm = (DevicePolicyManager) getActivity().getApplication().getApplicationContext().getSystemService(DEVICE_POLICY_SERVICE);
             SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
         }
-        @Override
+       /* @Override
         public void onAttach(Context context) {
             super.onAttach(context);
             // Verify that the host activity implements the callback interface
@@ -297,7 +297,7 @@ public class PrefsActivity extends AppCompatActivity implements CallDialogue.Cou
                 throw new ClassCastException(context.toString()
                         + " must implement EditNameDialogListener");
             }
-        }
+        }*/
 
 
     }

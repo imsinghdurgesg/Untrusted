@@ -135,8 +135,13 @@ public class CallFragment extends BaseFragment
     {
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 
-    //the method which gets all the Contacts from Phone
+//the method which gets all the Contacts from Phone
 
     public ArrayList<Contact> getContacts()
     {

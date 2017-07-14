@@ -86,7 +86,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         //HERE SETTING THE fONT STYLE to TEXTVIEWS
         Typeface fontText = Typeface.createFromAsset(mContext.getAssets(), mContext.getResources().getString(R.string.font_roboto));
         //getting checked list from sharedPreference
-        final AppSharedPreference mSharedPref = new AppSharedPreference(mContext);
+        AppSharedPreference mSharedPref = new AppSharedPreference(mContext);
         String packages = mSharedPref.getStringData("BlockApps");
 //        Log.e("reading here", packages);
         GsonBuilder gsonb = new GsonBuilder();
@@ -113,7 +113,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
             } else {
                 if (isPackageBlock(packageName)) {
 
-                    holder.cbBlockedApp.setChecked(checkStateList.get(position).isSelected());
+                    holder.cbBlockedApp.setChecked(true);
                 } else {
                     holder.cbBlockedApp.setChecked(false);
                 }
@@ -140,22 +140,23 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
                         selectedPackagesList.addAll(unique);
                     }
                 }
+
+
                 if (isChecked) {
                     CheckBoxState checkBoxState = new CheckBoxState();
                     checkBoxState.setPackageName(checkBoxStatesList.get(holder.getAdapterPosition()).getPackageName());
                     checkBoxState.setAppLabel(checkBoxStatesList.get(holder.getAdapterPosition()).getAppLabel());
-                    checkBoxState.setSelected(true);
                     selectedPackagesList.add(checkBoxState);
                 } else {
                     selectedPackagesList.remove(getPosition(checkBoxStatesList.get(position)));
                 }
                 // Saving the values in shared preference
+                AppSharedPreference mShared = new AppSharedPreference(mContext);
                 Gson gson = new Gson();
                 String json = gson.toJson(selectedPackagesList);
-                mSharedPref.putStringData("BlockApps", json);
+                mShared.putStringData("BlockApps", json);
                 notifyDataSetChanged();
             }
-
         });
 
         //setting FontFamily to TextViews
