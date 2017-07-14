@@ -13,7 +13,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -57,7 +56,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTextViewLabel;
-    //    private TextView mTextViewPackage;
+        //    private TextView mTextViewPackage;
         private ImageView mImageViewIcon;
         private CheckBox cbBlockedApp;
 
@@ -87,7 +86,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         //HERE SETTING THE fONT STYLE to TEXTVIEWS
         Typeface fontText = Typeface.createFromAsset(mContext.getAssets(), mContext.getResources().getString(R.string.font_roboto));
         //getting checked list from sharedPreference
-        AppSharedPreference mSharedPref = new AppSharedPreference(mContext);
+        final AppSharedPreference mSharedPref = new AppSharedPreference(mContext);
         String packages = mSharedPref.getStringData("BlockApps");
 //        Log.e("reading here", packages);
         GsonBuilder gsonb = new GsonBuilder();
@@ -127,7 +126,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         holder.cbBlockedApp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isuUsserStatspermission()) {
+                if (!isUserHavingStatsPermission()) {
                     Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                     mContext.startActivity(intent);
                 }
@@ -145,7 +144,6 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
 
                 if (isChecked) {
                     CheckBoxState checkBoxState = new CheckBoxState();
-                    //selectedPackgemane = checkBoxStatesList.get(holder.getAdapterPosition()).getPackageName();
                     checkBoxState.setPackageName(checkBoxStatesList.get(holder.getAdapterPosition()).getPackageName());
                     checkBoxState.setAppLabel(checkBoxStatesList.get(holder.getAdapterPosition()).getAppLabel());
                     selectedPackagesList.add(checkBoxState);
@@ -153,16 +151,18 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
                     selectedPackagesList.remove(getPosition(checkBoxStatesList.get(position)));
                 }
                 // Saving the values in shared preference
-                AppSharedPreference mShared = new AppSharedPreference(mContext);
+
                 Gson gson = new Gson();
                 String json = gson.toJson(selectedPackagesList);
-                mShared.putStringData("BlockApps", json);
+                mSharedPref.putStringData("BlockApps", json);
+                notifyDataSetChanged();
             }
+
         });
 
         //setting FontFamily to TextViews
-        SpannableStringBuilder ssName = new SpannableStringBuilder(label.toString());
-        SpannableStringBuilder ssPkg = new SpannableStringBuilder(packageName.toString());
+        SpannableStringBuilder ssName = new SpannableStringBuilder(label);
+        SpannableStringBuilder ssPkg = new SpannableStringBuilder(packageName);
 
         ssName.setSpan(new CustomTypefaceSpan("", fontText), 0, ssName.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         ssPkg.setSpan(new CustomTypefaceSpan("", fontText), 0, ssPkg.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
@@ -172,7 +172,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         holder.mTextViewLabel.setText(ssName);
 
         // Setting the current app package name
-       // holder.mTextViewPackage.setText(ssPkg);
+        // holder.mTextViewPackage.setText(ssPkg);
 
         // Setting the current app icon
         holder.mImageViewIcon.setImageDrawable(icon);
@@ -182,6 +182,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
 
     /**
      * checks whether method is checked previously or not
+     *
      * @param packageName
      * @return true or false accordingly
      */
@@ -195,10 +196,11 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
 
     /**
      * in this method userstatsmanager permission is check if it is enable or not
+     *
      * @return boolean accordingly
      */
 
-    public boolean isuUsserStatspermission() {
+    public boolean isUserHavingStatsPermission() {
         if (Build.VERSION.SDK_INT >= 21) {
             try {
                 PackageManager packageManager = mContext.getPackageManager();
@@ -215,7 +217,6 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
     }
 
     /**
-     *
      * @param checkBoxState
      * @return position of checkstateList on which user has uncheked the checkbox.
      */

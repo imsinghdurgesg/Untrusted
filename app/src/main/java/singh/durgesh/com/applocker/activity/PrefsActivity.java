@@ -73,7 +73,6 @@ public class PrefsActivity extends AppCompatActivity {
         {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
-
             this.finish();
         }
         return super.onOptionsItemSelected(item);

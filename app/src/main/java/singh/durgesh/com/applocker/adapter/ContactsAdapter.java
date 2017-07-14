@@ -73,7 +73,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
     {
         //Getting the OldBlockList
        // SharedPreferences appSharedPrefs = context.getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);
-        AppSharedPreference appSharedPrefs = new AppSharedPreference(context);
+        final AppSharedPreference appSharedPrefs = new AppSharedPreference(context);
         Gson gson = new Gson();
         String json = appSharedPrefs.getStringData("BlockedContacts");
 //        Contact mStudentObject = gson.fromJson(json, Contact.class);
@@ -148,10 +148,10 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
                     //listOfBContacts.remove(c1);
                 //    Log.d("RK", "log boolean " + b);
                 }
-                AppSharedPreference appSharedPrefs = new AppSharedPreference(context);
                 Gson gson = new Gson();
                 String json = gson.toJson(listOfBContacts);
                 appSharedPrefs.putStringData("BlockedContacts", json);
+                notifyDataSetChanged();
 
             }
 
