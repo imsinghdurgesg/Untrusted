@@ -62,9 +62,16 @@ public class CallDialogue extends DialogFragment
             @Override
             public void onClick(View v)
             {
+
                 dismiss();
                 startActivity(getActivity().getIntent());
                 getActivity().finish();
+               /* Intent intent = new Intent(getActivity(), PrefsActivity.class);
+                startActivity(intent);*/
+               /* listener = (CountBlockList) getActivity();
+                listener.onFinishDialog(CallBarring.getBlockListFromPref(getActivity()).size());*/
+               dismiss();
+
 
             }
         });
@@ -140,6 +147,8 @@ public class CallDialogue extends DialogFragment
         return  v;
     }
 
-
+    /*public interface CountBlockList {
+        void onFinishDialog(int size);
+    }*/
 
 }

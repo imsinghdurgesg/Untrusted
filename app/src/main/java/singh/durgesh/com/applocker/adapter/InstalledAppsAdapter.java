@@ -113,7 +113,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
             } else {
                 if (isPackageBlock(packageName)) {
 
-                    holder.cbBlockedApp.setChecked(true);
+                    holder.cbBlockedApp.setChecked(checkStateList.get(position).isSelected());
                 } else {
                     holder.cbBlockedApp.setChecked(false);
                 }
@@ -140,18 +140,16 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
                         selectedPackagesList.addAll(unique);
                     }
                 }
-
-
                 if (isChecked) {
                     CheckBoxState checkBoxState = new CheckBoxState();
                     checkBoxState.setPackageName(checkBoxStatesList.get(holder.getAdapterPosition()).getPackageName());
                     checkBoxState.setAppLabel(checkBoxStatesList.get(holder.getAdapterPosition()).getAppLabel());
+                    checkBoxState.setSelected(true);
                     selectedPackagesList.add(checkBoxState);
                 } else {
                     selectedPackagesList.remove(getPosition(checkBoxStatesList.get(position)));
                 }
                 // Saving the values in shared preference
-
                 Gson gson = new Gson();
                 String json = gson.toJson(selectedPackagesList);
                 mSharedPref.putStringData("BlockApps", json);
