@@ -78,7 +78,7 @@ public class CallSetAdapter extends RecyclerView.Adapter<CallSetAdapter.Recycler
 
         //work regarding getting the First Alphabet and setting it to ImageView
         letter = String.valueOf(blockList.get(position).getCName().charAt(0)).toUpperCase();
-        TextDrawable drawable = TextDrawable.builder().buildRound(letter, generator.getRandomColor());
+        TextDrawable drawable = TextDrawable.builder().buildRound(letter, R.color.check);
         //HERE SETTING THE fONT STYLE to TEXTVIEWS
         Typeface fontText = Typeface.createFromAsset(myContext.getAssets(),myContext.getResources().getString(R.string.font_roboto));
         SpannableStringBuilder ssName = new SpannableStringBuilder(nameCap);

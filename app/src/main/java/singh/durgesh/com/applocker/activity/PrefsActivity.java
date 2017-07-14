@@ -74,20 +74,21 @@ public class PrefsActivity extends AppCompatActivity  {
 
         if (item.getItemId() == android.R.id.home)
         {
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, HomeActivity.class);
+//            startActivity(intent);
             this.finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
    /* @Override
+/*
+    @Override
     public void onFinishDialog(int size) {
         Log.d("here ------",""+size);
         BLOCKED_CONTACTS=size;
 
     }*/
-
 
     public static class PreferenceScreen extends PreferenceFragment {
         CheckBoxPreference SwitchSecurity;
@@ -163,7 +164,8 @@ public class PrefsActivity extends AppCompatActivity  {
 
             contactPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(Preference preference) {
+                public boolean onPreferenceClick(Preference preference)
+                {
                     CallDialogue mFrag1 = new CallDialogue();
                     mFrag1.show(getFragmentManager(), "frag_calls");
                     mFrag1.setCancelable(false);
@@ -291,7 +293,7 @@ public class PrefsActivity extends AppCompatActivity  {
             // Verify that the host activity implements the callback interface
             try {
                 // Instantiate the EditNameDialogListener so we can send events to the host
-              CallDialogue.CountBlockList listener = (CallDialogue.CountBlockList) context;
+//              CallDialogue.CountBlockList listener = (CallDialogue.CountBlockList) context;
             } catch (ClassCastException e) {
                 // The activity doesn't implement the interface, throw exception
                 throw new ClassCastException(context.toString()

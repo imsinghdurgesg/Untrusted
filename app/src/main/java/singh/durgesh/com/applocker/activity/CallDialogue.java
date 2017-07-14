@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import singh.durgesh.com.applocker.R;
@@ -61,6 +62,10 @@ public class CallDialogue extends DialogFragment
             @Override
             public void onClick(View v)
             {
+
+                dismiss();
+                startActivity(getActivity().getIntent());
+                getActivity().finish();
                /* Intent intent = new Intent(getActivity(), PrefsActivity.class);
                 startActivity(intent);*/
                /* listener = (CountBlockList) getActivity();
@@ -77,6 +82,7 @@ public class CallDialogue extends DialogFragment
             {
                 dismiss();
                 startActivity(getActivity().getIntent());
+                getActivity().finish();
 
 
             }
