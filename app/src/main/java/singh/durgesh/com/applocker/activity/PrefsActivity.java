@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,9 +39,11 @@ import singh.durgesh.com.applocker.utils.CustomTypefaceSpan;
  * Created by DarshanG on 6/27/2017.
  */
 
-public class PrefsActivity extends AppCompatActivity {
+public class PrefsActivity extends AppCompatActivity implements CallDialogue.CountBlockList {
 
     private Toolbar toolbar;
+    static int BLOCKED_CONTACTS = 0;
+    static int BLOCKED_APPS = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,12 +81,18 @@ public class PrefsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onFinishDialog(int size) {
+        Log.d("here ------",""+size);
+        BLOCKED_CONTACTS=size;
+
+    }
+
+
     public static class PreferenceScreen extends PreferenceFragment {
         CheckBoxPreference SwitchSecurity;
         Context context;
         AppSharedPreference appSharedPreference;
-        int BLOCKED_CONTACTS = 0;
-        int BLOCKED_APPS = 0;
 
         public PreferenceScreen() {
 
@@ -275,6 +284,19 @@ public class PrefsActivity extends AppCompatActivity {
             final ComponentName devAdminReceiver = new ComponentName(getActivity().getApplication().getApplicationContext(), AdminReceiver.class);
             final DevicePolicyManager dpm = (DevicePolicyManager) getActivity().getApplication().getApplicationContext().getSystemService(DEVICE_POLICY_SERVICE);
             SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+        }
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            // Verify that the host activity implements the callback interface
+            try {
+                // Instantiate the EditNameDialogListener so we can send events to the host
+              CallDialogue.CountBlockList listener = (CallDialogue.CountBlockList) context;
+            } catch (ClassCastException e) {
+                // The activity doesn't implement the interface, throw exception
+                throw new ClassCastException(context.toString()
+                        + " must implement EditNameDialogListener");
+            }
         }
 
 
