@@ -33,7 +33,7 @@
             android:screenOrientation="portrait" />
 
         <service android:name=".services.SecureMyAppsService" />
-        i
+
         <receiver
             android:name=".services.StartMyServiceAtBootReceiver"
             android:enabled="true"
@@ -83,7 +83,7 @@
             android:name=".activity.ConfirmPatternActivity"
             android:autoRemoveFromRecents="true"
             android:configChanges="orientation"
-            android:launchMode="singleTask"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SetPatternActivity"
@@ -101,6 +101,8 @@
         <activity
             android:name=".activity.BaseActivity"
             android:configChanges="orientation"
+            android:autoRemoveFromRecents="true"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SplashScreenActivity"

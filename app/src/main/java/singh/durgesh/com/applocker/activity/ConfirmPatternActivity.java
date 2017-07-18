@@ -14,6 +14,10 @@ import singh.durgesh.com.applocker.utils.PatternUtils;
 import singh.durgesh.com.applocker.utils.PatternView;
 import singh.durgesh.com.applocker.utils.ViewAccessibilityCompat;
 
+import static singh.durgesh.com.applocker.services.SecureMyAppsService.foregroundPackage;
+import static singh.durgesh.com.applocker.services.SecureMyAppsService.blockedPackage;
+
+
 // For AOSP implementations, see:
 // https://android.googlesource.com/platform/packages/apps/Settings/+/master/src/com/android/settings/ConfirmLockPattern.java
 // https://android.googlesource.com/platform/frameworks/base/+/43d8451/policy/src/com/android/internal/policy/impl/keyguard/KeyguardPatternView.java
@@ -120,6 +124,7 @@ public class ConfirmPatternActivity extends BasePatternActivity
     }
 
     protected void onConfirmed() {
+        blockedPackage = foregroundPackage;
         setResult(RESULT_OK);
         Intent intentLock = getIntent();
         Boolean lockvalue = intentLock.getBooleanExtra("PatternLock", false);

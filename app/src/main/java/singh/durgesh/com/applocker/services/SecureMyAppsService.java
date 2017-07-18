@@ -4,7 +4,6 @@ import android.app.ActivityManager;
 import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -17,7 +16,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -27,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 
 import singh.durgesh.com.applocker.activity.ConfirmPatternActivity;
 import singh.durgesh.com.applocker.model.CheckBoxState;
-import singh.durgesh.com.applocker.model.Contact;
 import singh.durgesh.com.applocker.utils.AppSharedPreference;
 
 /**
@@ -41,11 +38,9 @@ import singh.durgesh.com.applocker.utils.AppSharedPreference;
 public class SecureMyAppsService extends Service {
     String CURRENT_PACKAGE_NAME;
     // public static SecureMyAppsService instance;
-    HashSet<String> blockedAppHashList;
-    public static boolean comparePackage;
     public static String blockedPackage = "";
+    public static String foregroundPackage = "";
     ArrayList<CheckBoxState> blockApps = new ArrayList<>();
-
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -64,7 +59,7 @@ public class SecureMyAppsService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // TODO Auto-generated method stub
-        Log.d("SecureMyAppsService", "Service started");
+        Log.d("SecureMyAppsService--->", "Service started");
         scheduleMethod();
         return START_STICKY;
     }
@@ -73,20 +68,16 @@ public class SecureMyAppsService extends Service {
      * background thread which invokes after every 1000 mili seconds
      */
     private void scheduleMethod() {
-        // TODO Auto-generated method stub
-
         ScheduledExecutorService scheduler = Executors
                 .newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new Runnable() {
 
             @Override
             public void run() {
-                // TODO Auto-generated method stub
                 getLollipopOrAboveFGAppPackageName();
             }
-        }, 0, 1000, TimeUnit.MILLISECONDS);
+        }, 0, 500, TimeUnit.MILLISECONDS);
     }
-
 
     /**
      * In this method we are getting foreground package name and blocking the selected apps accordingly.
@@ -104,31 +95,28 @@ public class SecureMyAppsService extends Service {
                     mySortedMap.put(usageStats.getLastTimeUsed(),
                             usageStats);
                 }
-                if (mySortedMap != null && !mySortedMap.isEmpty()) {
-                    String currentApp = mySortedMap.get(
-                            mySortedMap.lastKey()).getPackageName();
-                    Log.e("CurrentPackage", currentApp);
-                    if (currentApp.equals(getCurrentPAckage()) || currentApp.equals(blockedPackage)|| currentApp.equals("com.android.settings")) {
+                if (mySortedMap != null && !mySortedMap.isEmpty()){
+                    String currentApp = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
+
+                    if (currentApp.equals(getMyAppPAckage()) || currentApp.equals(blockedPackage)){
                         return;
-                    } else {
+                    }else{
                         blockedPackage = "";
                     }
-                    Log.e("blockedPackage", "pehle " + blockedPackage + "--  current oackage" + currentApp);
-                    if (getBlockApp(currentApp)) {
-                        blockedPackage = currentApp;
-                        Log.e("blockedPackage", "baad  " + blockedPackage + "--  current oackage" + currentApp);
+
+                    if (getBlockApp(currentApp)){
+                        foregroundPackage = currentApp;
                         Intent mIntent = new Intent(getApplicationContext(), ConfirmPatternActivity.class);
                         mIntent.putExtra("isFromService", true);
                         mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         getApplication().getApplicationContext().startActivity(mIntent);
                     }
-
                 }
             }
         } else {
             ActivityManager am = (ActivityManager) getBaseContext().getSystemService(ACTIVITY_SERVICE);
             String currentApp = am.getRunningTasks(1).get(0).topActivity.getPackageName();
-            if (currentApp.equals(getCurrentPAckage()) || currentApp.equals(blockedPackage)) {
+            if (currentApp.equals(getMyAppPAckage()) && currentApp.equals(blockedPackage)) {
                 return;
             } else {
                 blockedPackage = "";
@@ -182,7 +170,7 @@ public class SecureMyAppsService extends Service {
      *
      * @return
      */
-    public String getCurrentPAckage() {
+    public String getMyAppPAckage() {
         PackageManager pm = getPackageManager();
         PackageInfo packageInfo = null;
         try {
@@ -203,7 +191,6 @@ public class SecureMyAppsService extends Service {
         super.onDestroy();
         Log.d("SecureMyAppsService", "Service destroyed");
         startService(new Intent(getApplicationContext(), SecureMyAppsService.class));
-
     }
 
 }
