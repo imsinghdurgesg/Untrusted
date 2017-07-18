@@ -125,8 +125,8 @@ public class CallFragment extends BaseFragment
             cb = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
             adapter = new ContactsAdapter(getActivity(), contactList);
             layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setAdapter(adapter);
         }
 
 
@@ -144,6 +144,10 @@ public class CallFragment extends BaseFragment
     public void updateContacts(ArrayList<Contact> todolist){
         this.contactList = todolist;
         adapter.notifyDataSetChanged();
+        if(adapter!=null){
+            adapter.notifyDataSetChanged();
+        }
+
     }
 
 //the method which gets all the Contacts from Phone
