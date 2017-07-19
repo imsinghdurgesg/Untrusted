@@ -24,6 +24,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View.OnClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +37,7 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -43,6 +45,8 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import singh.durgesh.com.applocker.BuildConfig;
+import singh.durgesh.com.applocker.activity.HomeActivity;
+import singh.durgesh.com.applocker.activity.PrefsActivity;
 import singh.durgesh.com.applocker.activity.SplashScreenActivity;
 import singh.durgesh.com.applocker.adapter.ContactsAdapter;
 import singh.durgesh.com.applocker.model.Contact;
@@ -59,7 +63,7 @@ public class CallFragment extends BaseFragment
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<Contact> contactList;
     CheckBox cBox;
-    Button permission;
+    Button permission,reload;
     Button permit;
     LinearLayout layoutNoContact;
     private RelativeLayout rootlayout;
@@ -88,13 +92,15 @@ public class CallFragment extends BaseFragment
         rootlayout=(RelativeLayout)view.findViewById(R.id.mainll);
         View parentLayout = view.findViewById(android.R.id.content);
         permission=(Button) view.findViewById(R.id.permission);
+        reload=(Button) view.findViewById(R.id.permission_load);
   //      permit= (Button) view.findViewById(R.id.btn_permit);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
         {
             //Showing the SnackBar if User has denied the Access to Contatcs
             contactList = (ArrayList<Contact>) requestContacts().clone();
-            permission.setOnClickListener(new OnClickListener() {
+            permission.setOnClickListener(new OnClickListener()
+            {
                 @Override
                 public void onClick(View v)
                 {
@@ -105,6 +111,28 @@ public class CallFragment extends BaseFragment
                     intent.setData(uri);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+
+                }
+            });
+            reload.setOnClickListener(new OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED)
+                    {
+                        Toast.makeText(getActivity(), "Adding Contacts ... please wait", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getActivity(), HomeActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(getActivity(), "Contacts Added Succesfully !", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(), "Please Press Enable first and get the Permissions for getting Contacts !", Toast.LENGTH_LONG).show();
+                    }
+
 
                 }
             });
@@ -140,15 +168,6 @@ public class CallFragment extends BaseFragment
 
     }
 
-    //the method to update the ContactList in RecyclerView when user caome back
-    public void updateContacts(ArrayList<Contact> todolist){
-        this.contactList = todolist;
-        adapter.notifyDataSetChanged();
-        if(adapter!=null){
-            adapter.notifyDataSetChanged();
-        }
-
-    }
 
 //the method which gets all the Contacts from Phone
 
