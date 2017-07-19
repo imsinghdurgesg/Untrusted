@@ -28,6 +28,7 @@
 
     <!--color for pattern text-->
     <color name="pattern_text">#808080</color>
+    <color name="pattern_dot">#00bfff </color>
     <!--Theme Green-->
     <color name="colorPrimaryGreen">#4d9933</color>
     <color name="colorPrimaryDarkGreen">#478547</color>
