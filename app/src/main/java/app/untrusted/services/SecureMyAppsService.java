@@ -109,6 +109,7 @@ public class SecureMyAppsService extends Service {
                         foregroundPackage = currentApp;
                         Intent mIntent = new Intent(getApplicationContext(), ConfirmPatternActivity.class);
                         mIntent.putExtra("isFromService", true);
+                        mIntent.putExtra("Package",currentApp);
                         mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         getApplication().getApplicationContext().startActivity(mIntent);
                     }
@@ -128,6 +129,7 @@ public class SecureMyAppsService extends Service {
                 Log.e("blockedPackage", "baad  " + blockedPackage + "--  current oackage" + currentApp);
                 Intent mIntent = new Intent(getApplicationContext(), ConfirmPatternActivity.class);
                 mIntent.putExtra("isFromService", true);
+                mIntent.putExtra("Package",currentApp);
                 mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 getApplication().getApplicationContext().startActivity(mIntent);
             }
