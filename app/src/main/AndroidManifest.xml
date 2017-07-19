@@ -110,10 +110,7 @@
             android:autoRemoveFromRecents="true"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
+
         </activity>
 
         <!-- Preference Activity -->
@@ -135,6 +132,27 @@
             android:name=".activity.AppDialogue"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
+
+        <!--3 page Screen-->
+        <activity
+            android:name=".activity.LaunchScreenViewPagerActivity"
+            android:theme="@style/MyMaterialTheme"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+              <activity
+            android:name=".activity.GettingStartedActivity"
+            android:label="@string/title_activity_getting_started"
+            android:theme="@style/MyMaterialTheme"
+                  android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
 
     </application>
 

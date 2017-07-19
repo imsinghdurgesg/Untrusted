@@ -44,4 +44,12 @@
     <string name="theme_block_title">Blocked/Protected Contents</string>
     <string name="pref_block_txt">Blocked Applications</string>
     <string name="pref_protect_txt">Blocked Contacts for Calling</string>
+
+
+
+    <!--ViewPager Enum Colors-->
+    <string name="red">RED</string>
+    <string name="blue">BLUE</string>
+    <string name="green">GREEN</string>
+    <string name="title_activity_getting_started">App Protector</string>
 </resources>
