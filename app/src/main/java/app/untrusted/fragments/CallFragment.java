@@ -39,10 +39,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.concurrent.ExecutionException;
 
 import app.untrusted.BuildConfig;
 import app.untrusted.R;
@@ -50,7 +52,8 @@ import app.untrusted.activity.HomeActivity;
 import app.untrusted.adapter.ContactsAdapter;
 import app.untrusted.model.Contact;
 
-public class CallFragment extends BaseFragment
+
+public class CallFragment extends BaseFragment implements HomeActivity.GetList
 {
     private RecyclerView recyclerView;
     private CheckBox cb;
@@ -58,6 +61,7 @@ public class CallFragment extends BaseFragment
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<Contact> contactList;
+    ArrayList<Contact> contactListTemp=new ArrayList<Contact>();
     CheckBox cBox;
     Button permission,reload;
     Button permit;
@@ -77,6 +81,15 @@ public class CallFragment extends BaseFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+    }
+    //overriding GetList METHOD
+
+
+    @Override
+    public void getList(ArrayList<?> list)
+    {
+        contactListTemp.addAll((ArrayList<Contact>)list);
+
     }
 
     @Override
@@ -145,7 +158,17 @@ public class CallFragment extends BaseFragment
             oldBlockedList = gson.fromJson(json, type);
             // Inflate the layout for this fragment
             cBox = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
-            contactList = (ArrayList<Contact>) requestContacts().clone();
+         //   contactList = (ArrayList<Contact>) requestContacts().clone();
+/*
+            try {
+                contactListTemp.addAll((ArrayList<Contact>)new HomeActivity.FetchData().execute().get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+*/
+            contactList=(ArrayList<Contact>)contactListTemp.clone();
             cb = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
             adapter = new ContactsAdapter(getActivity(), contactList);
             layoutManager = new LinearLayoutManager(getActivity());
@@ -274,6 +297,8 @@ public class CallFragment extends BaseFragment
         });
         return  legalList;
     }
+
+
 
 
 
