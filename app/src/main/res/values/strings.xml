@@ -1,5 +1,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">AppLocker</string>
+    <string name="app_name">Untrusted</string>
     <string name="pl_cancel">Cancel</string>
     <string name="pl_confirm">Confirm</string>
     <string name="pl_confirm_pattern">Draw the pattern again to confirm</string>
