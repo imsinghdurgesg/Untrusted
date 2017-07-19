@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0077b5"
+    tools:context="singh.durgesh.com.applocker.activity.GettingStartedActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="App Protector"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:textSize="35dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFF"
+        android:id="@+id/textView" />
+
+    <ImageView
+        android:src="@drawable/lockicon"
+        android:layout_marginTop="125dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:text="Smart,
+Application Protector and Spam Blocker "
+        android:textColor="#FFFF"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:textSize="35dp"
+        android:layout_marginTop="250dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/gettinstartedbutton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Started"
+        android:textStyle="bold"
+        android:textColor="#FFFF"
+        android:textSize="20dp"
+        android:layout_marginStart="95dp"
+        android:background="#5e9a21"
+        android:layout_marginBottom="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
