@@ -121,8 +121,6 @@ public class CallSetAdapter extends RecyclerView.Adapter<CallSetAdapter.Recycler
                     objContact1=blockListTemp.get(x);
                     blockListFinal1.add(objContact1);
                     String name=objContact1.getCName();
-                    Toast.makeText(myContext, name+" is Blocked Again", Toast.LENGTH_SHORT).show();
-
                 }
                 else if(!isChecked)
                 {

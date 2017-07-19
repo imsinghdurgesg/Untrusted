@@ -19,5 +19,8 @@ public  class StartMyServiceAtBootReceiver extends BroadcastReceiver {
         context.startService(serviceIntent);
 
         //Intent for Call Blocker
+        Intent callService = new Intent(context,CallBarring.class);
+        context.startService(serviceIntent);
+
     }
 }

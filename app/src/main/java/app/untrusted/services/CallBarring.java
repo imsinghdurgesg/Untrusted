@@ -45,7 +45,8 @@ public class CallBarring extends BroadcastReceiver {
         for(int j=0;j<blockList.size();j++)
         {
             int length=blockList.get(j).getCPhone().length();
-            String num1=blockList.get(j).getCPhone();
+            String num=blockList.get(j).getCPhone();
+            String num1=num.replaceAll("\\s+","");
             if(length>10)
             {
                 bNumber=num1.substring(num1.length()-10);

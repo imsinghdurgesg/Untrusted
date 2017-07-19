@@ -24,17 +24,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View.OnClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -43,6 +46,7 @@ import java.util.Comparator;
 
 import app.untrusted.BuildConfig;
 import app.untrusted.R;
+import app.untrusted.activity.HomeActivity;
 import app.untrusted.adapter.ContactsAdapter;
 import app.untrusted.model.Contact;
 
@@ -55,7 +59,7 @@ public class CallFragment extends BaseFragment
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<Contact> contactList;
     CheckBox cBox;
-    Button permission;
+    Button permission,reload;
     Button permit;
     LinearLayout layoutNoContact;
     private RelativeLayout rootlayout;
@@ -84,13 +88,15 @@ public class CallFragment extends BaseFragment
         rootlayout=(RelativeLayout)view.findViewById(R.id.mainll);
         View parentLayout = view.findViewById(android.R.id.content);
         permission=(Button) view.findViewById(R.id.permission);
+        reload=(Button) view.findViewById(R.id.permission_load);
   //      permit= (Button) view.findViewById(R.id.btn_permit);
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
         {
             //Showing the SnackBar if User has denied the Access to Contatcs
-
-            permission.setOnClickListener(new OnClickListener() {
+            contactList = (ArrayList<Contact>) requestContacts().clone();
+            permission.setOnClickListener(new OnClickListener()
+            {
                 @Override
                 public void onClick(View v)
                 {
@@ -101,6 +107,28 @@ public class CallFragment extends BaseFragment
                     intent.setData(uri);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+
+                }
+            });
+            reload.setOnClickListener(new OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED)
+                    {
+                        Toast.makeText(getActivity(), "Adding Contacts ... please wait", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getActivity(), HomeActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(getActivity(), "Contacts Added Succesfully !", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                    else
+                    {
+                        Toast.makeText(getActivity(), "Please Press Enable first and get the Permissions for getting Contacts !", Toast.LENGTH_LONG).show();
+                    }
+
 
                 }
             });
@@ -128,18 +156,14 @@ public class CallFragment extends BaseFragment
 
         return view;
     }
-    public void onBackPressed()
-    {
-    }
 
     @Override
-    public void onResume() {
+    public void onResume()
+    {
         super.onResume();
-        if(adapter!=null){
-            adapter.notifyDataSetChanged();
-        }
 
     }
+
 
 //the method which gets all the Contacts from Phone
 
@@ -148,6 +172,7 @@ public class CallFragment extends BaseFragment
         contact=new Contact();
         contactList=new ArrayList<Contact>();
         String phoneNumber=null;
+        ArrayList<String> allContacts = new ArrayList<String>();
         ArrayList<String> phone_numbers=new ArrayList<String>();
         Uri CONTENT_URIL = ContactsContract.Contacts.CONTENT_URI;
         String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
@@ -168,38 +193,46 @@ public class CallFragment extends BaseFragment
                 contact=new Contact();
 
                 String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
-                contact.setCName(name);
+           //     contact.setCName(name);
                 //  contact.setCPhone(phone);
                 String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
                 int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex( HAS_PHONE_NUMBER )));
-                contact.setCName(name.toString());
+             //   contact.setCName(name.toString());
                 if (hasPhoneNumber > 0)
                 {
                     //This is to read multiple phone numbers associated with the same contact
                     Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
                     while (phoneCursor.moveToNext())
                     {
+                        contact=new Contact();
+                        contact.setCName(name);
                         phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
+                        contact.setCPhone(phoneNumber);
+                        contactList.add(contact);
 
                     }
 
-                    contact.setCPhone(phoneNumber);
+//                    contact.setCPhone(phoneNumber);
+//                    contact.setCPhone("");
+
                     phoneCursor.close();
                 }
+/*
                 else
                 {
                     Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
                     while (phoneCursor.moveToNext())
                     {
+                        contact=new Contact();
+                        contact.setCName(name);
                         phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
-
+                        contact.setCPhone("");
+                        contactList.add(contact);
                     }
 
-                    contact.setCPhone("");
                     phoneCursor.close();
                 }
-                contactList.add(contact);
-
+*/
             }
         }
         return contactList;
@@ -216,12 +249,13 @@ public class CallFragment extends BaseFragment
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PERMISSIONS_REQUEST_READ_CONTACTS);
         } else
         {
-            illegalList= getContacts();
+            legalList= getContacts();
 
 /*
             Now Filtering the ArrayList Of Contacts as that List may contain some Contacts
             which dont have Contact Number
 */
+/*
           for(int j=0;j<illegalList.size();j++)
           {
               if(!(illegalList.get(j).getCPhone().equals("")))
@@ -229,10 +263,12 @@ public class CallFragment extends BaseFragment
                   legalList.add(illegalList.get(j));
               }
           }
+*/
         }
          Collections.sort(legalList, new Comparator<Contact>(){
             @Override
-            public int compare(Contact o1, Contact o2) {
+            public int compare(Contact o1, Contact o2)
+            {
                 return o1.getCName().compareToIgnoreCase(o2.getCName());
             }
         });
