@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="@string/chnage_app_Lock">
+    <app.untrusted.activity.MyPreferenceCategory android:title="@string/chnage_app_Lock">
         <Preference
             android:selectable="true"
             android:enabled="true"
             android:key="changeLock"
             android:title="@string/chnage_Pattern"
             />
-    </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+    </app.untrusted.activity.MyPreferenceCategory>
 
 
-    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="Security">
+    <app.untrusted.activity.MyPreferenceCategory android:title="Security">
         <CheckBoxPreference
             android:selectable="true"
 
@@ -20,9 +20,9 @@
             android:title="Make App Unistallable without Security"
             android:layout_width="match_parent">
         </CheckBoxPreference>
-    </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+    </app.untrusted.activity.MyPreferenceCategory>
 
-    <singh.durgesh.com.applocker.activity.MyPreferenceCategory android:title="@string/theme_block_title">
+    <app.untrusted.activity.MyPreferenceCategory android:title="@string/theme_block_title">
         <Preference
             android:selectable="true"
             android:enabled="true"
@@ -36,7 +36,7 @@
             android:key="call"
             android:title="@string/pref_protect_txt"
             />
-    </singh.durgesh.com.applocker.activity.MyPreferenceCategory>
+    </app.untrusted.activity.MyPreferenceCategory>
 
 
 </PreferenceScreen>
