@@ -11,7 +11,7 @@ import app.untrusted.utils.PatternView;
 
 public class BasePatternActivity extends AppCompatActivity {
 
-    private static final int CLEAR_PATTERN_DELAY_MILLI = 2000;
+    private static final int CLEAR_PATTERN_DELAY_MILLI = 1000;
 
     protected TextView mMessageText;
     protected PatternView mPatternView;
