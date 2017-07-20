@@ -1,36 +1,59 @@
 package app.untrusted.fragments;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import app.untrusted.R;
 import app.untrusted.adapter.InstalledAppsAdapter;
+import app.untrusted.model.CheckBoxState;
+import app.untrusted.model.Contact;
 import app.untrusted.services.SecureMyAppsService;
-import app.untrusted.source.AppsManager;
+import app.untrusted.utils.FetchData;
 
 
-public class AppFragment extends BaseFragment {
+public class AppFragment extends BaseFragment implements FetchData.GetList {
     private Context mContext;
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
+    ArrayList<CheckBoxState> tempPackage = new ArrayList<>();
     InstalledAppsAdapter mAdapter;
+    ArrayList<CheckBoxState> appList;
     AlertDialog.Builder builder;
     public AppFragment() {
         // Required empty public constructor
     }
 
     @Override
+    public void getList(ArrayList<?> list)
+    {
+        if(list!=null)
+        {
+            tempPackage= (ArrayList<CheckBoxState>) ((ArrayList<CheckBoxState>)list).clone();
+            appList.addAll(tempPackage);
+            mAdapter.notifyDataSetChanged();
+
+
+            Log.e("Hello","GetList");
+        }
+
+
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         showProgressDialog();
     }
 
@@ -43,7 +66,9 @@ public class AppFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
+        new FetchData(2, getActivity(), null, this).execute();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_app_list, container, false);
         mContext = getContext();
@@ -61,8 +86,10 @@ public class AppFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        appList=(ArrayList<CheckBoxState>)tempPackage.clone();
+
         // Initialize a new adapter for RecyclerView
-        mAdapter = new InstalledAppsAdapter(mContext, new AppsManager(mContext).getInstalledPackages());
+        mAdapter = new InstalledAppsAdapter(mContext, appList);
 
         // Set the adapter for RecyclerView
         mRecyclerView.setAdapter(mAdapter);

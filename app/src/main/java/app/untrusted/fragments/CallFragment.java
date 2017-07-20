@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,18 +40,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.concurrent.ExecutionException;
 
 import app.untrusted.BuildConfig;
 import app.untrusted.R;
 import app.untrusted.activity.HomeActivity;
 import app.untrusted.adapter.ContactsAdapter;
 import app.untrusted.model.Contact;
+import app.untrusted.utils.FetchData;
 
-public class CallFragment extends BaseFragment
+
+public class CallFragment extends BaseFragment implements FetchData.GetList
 {
     private RecyclerView recyclerView;
     private CheckBox cb;
@@ -58,7 +63,9 @@ public class CallFragment extends BaseFragment
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<Contact> contactList;
+    ArrayList<Contact> contactListTemp=new ArrayList<Contact>();
     CheckBox cBox;
+    FetchData fetch;
     Button permission,reload;
     Button permit;
     LinearLayout layoutNoContact;
@@ -72,17 +79,41 @@ public class CallFragment extends BaseFragment
     public CallFragment()
     {
         // Required empty public constructor
+      //  new FetchData(1,getActivity()).execute();
+        Log.e("Hello","Constructor");
     }
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Log.e("Hello","OnCreate");
+
+    }
+    //overriding GetList METHOD
+
+
+    @Override
+    public void getList(ArrayList<?> list)
+    {
+        if(list!=null)
+        {
+            contactListTemp= (ArrayList<Contact>) ((ArrayList<Contact>)list).clone();
+            contactList.addAll(contactListTemp);
+            adapter.notifyDataSetChanged();
+
+
+            Log.e("Hello","GetList");
+        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        new FetchData(1, getActivity(), this, null).execute();
+
+        Log.e("Hello","OnCreateView");
         View view=inflater.inflate(R.layout.fragment_call, container, false);
         layoutNoContact=(LinearLayout)view.findViewById(R.id.lay_contact);
         rootlayout=(RelativeLayout)view.findViewById(R.id.mainll);
@@ -94,7 +125,7 @@ public class CallFragment extends BaseFragment
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
         {
             //Showing the SnackBar if User has denied the Access to Contatcs
-            contactList = (ArrayList<Contact>) requestContacts().clone();
+           // contactList = (ArrayList<Contact>) requestContacts().clone();
             permission.setOnClickListener(new OnClickListener()
             {
                 @Override
@@ -145,7 +176,20 @@ public class CallFragment extends BaseFragment
             oldBlockedList = gson.fromJson(json, type);
             // Inflate the layout for this fragment
             cBox = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
-            contactList = (ArrayList<Contact>) requestContacts().clone();
+         //   contactList = (ArrayList<Contact>) requestContacts().clone();
+/*
+            try {
+                contactListTemp.addAll((ArrayList<Contact>)new HomeActivity.FetchData().execute().get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+*/
+         //   new FetchData(1,getActivity()).execute();
+
+
+            contactList=(ArrayList<Contact>)contactListTemp.clone();
             cb = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
             adapter = new ContactsAdapter(getActivity(), contactList);
             layoutManager = new LinearLayoutManager(getActivity());
@@ -274,6 +318,8 @@ public class CallFragment extends BaseFragment
         });
         return  legalList;
     }
+
+
 
 
 

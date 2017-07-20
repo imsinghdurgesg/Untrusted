@@ -42,40 +42,42 @@ public class CallBarring extends BroadcastReceiver {
     {
         blockList=getBlockListFromPref(context);
         //putting all the Blocked Numbers into a list of Blocked Numbers
-        for(int j=0;j<blockList.size();j++)
-        {
-            int length=blockList.get(j).getCPhone().length();
-            String num=blockList.get(j).getCPhone();
-            String num1=num.replaceAll("\\s+","");
-            if(length>10)
-            {
-                bNumber=num1.substring(num1.length()-10);
-            }
-            else
-            {
-                bNumber=num1;
-            }
-            blockNumbers.add(bNumber);
-            bNumber=null;  //emptying String number for refilling
+        if(blockList!=null ) {
+            for (int j = 0; j < blockList.size(); j++) {
+                int length = blockList.get(j).getCPhone().length();
+                String num = blockList.get(j).getCPhone();
+                String num1 = num.replaceAll("\\s+", "");
+                if (length > 10) {
+                    bNumber = num1.substring(num1.length() - 10);
+                } else {
+                    bNumber = num1;
+                }
+                blockNumbers.add(bNumber);
+                bNumber = null;  //emptying String number for refilling
 
+            }
+            ArrayList<String> cc = blockNumbers;
+            // If, the received action is not a type of "Phone_State", ignore it
+            if (!intent.getAction().equals("android.intent.action.PHONE_STATE"))
+                return;
+
+                // Else, try to do some action
+            else {
+                // Fetch the number of incoming call
+                number = intent.getExtras().getString(
+                        TelephonyManager.EXTRA_INCOMING_NUMBER);
+                numberToVerify = number.substring(number.length() - 10);
+                if (blockNumbers.contains(numberToVerify)) {
+                    disconnectPhoneItelephony(context);
+                }
+            }
         }
-        ArrayList<String> cc = blockNumbers;
-        // If, the received action is not a type of "Phone_State", ignore it
-        if (!intent.getAction().equals("android.intent.action.PHONE_STATE"))
+        else
+        {
             return;
-
-            // Else, try to do some action
-        else {
-            // Fetch the number of incoming call
-            number = intent.getExtras().getString(
-                    TelephonyManager.EXTRA_INCOMING_NUMBER);
-            numberToVerify = number.substring(number.length() - 10);
-            if(blockNumbers.contains(numberToVerify))
-            {
-                disconnectPhoneItelephony(context);
-            }
         }
     }
+
 
     private void disconnectPhoneItelephony(Context context) {
         ITelephony telephonyService;

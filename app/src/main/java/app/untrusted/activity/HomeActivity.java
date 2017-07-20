@@ -3,16 +3,22 @@ package app.untrusted.activity;
 
 import android.annotation.TargetApi;
 import android.app.KeyguardManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -23,11 +29,16 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import app.untrusted.R;
 import app.untrusted.fragments.AppFragment;
 import app.untrusted.fragments.CallFragment;
+import app.untrusted.model.CheckBoxState;
+import app.untrusted.model.Contact;
+import app.untrusted.source.AppsManager;
 import app.untrusted.utils.AppSharedPreference;
 import app.untrusted.utils.CustomTypefaceSpan;
 
@@ -287,5 +298,9 @@ public class HomeActivity extends BaseActivity {
         }
 
     }
+
+
+
+
 
 }
