@@ -1,6 +1,7 @@
 package app.untrusted.fragments;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,7 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
     LinearLayoutManager mLayoutManager;
     ArrayList<CheckBoxState> tempPackage = new ArrayList<>();
     InstalledAppsAdapter mAdapter;
+   // ProgressBar pgBar;
     ArrayList<CheckBoxState> appList;
     AlertDialog.Builder builder;
     public AppFragment() {
@@ -42,7 +45,7 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
             tempPackage= (ArrayList<CheckBoxState>) ((ArrayList<CheckBoxState>)list).clone();
             appList.addAll(tempPackage);
             mAdapter.notifyDataSetChanged();
-
+            hideProgressDialog();
 
             Log.e("Hello","GetList");
         }
@@ -71,6 +74,7 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
         new FetchData(2, getActivity(), null, this).execute();
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_app_list, container, false);
+     //   pgBar=(ProgressBar) view.findViewById(R.id.pg_bar);
         mContext = getContext();
         mContext.startService(new Intent(mContext, SecureMyAppsService.class));
         // Get the activity
@@ -93,7 +97,6 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
 
         // Set the adapter for RecyclerView
         mRecyclerView.setAdapter(mAdapter);
-        hideProgressDialog();
         return view;
     }
 
