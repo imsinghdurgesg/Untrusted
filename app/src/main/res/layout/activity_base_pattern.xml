@@ -9,10 +9,10 @@
 <ImageView
     android:layout_marginTop="20dp"
     android:id="@+id/pattern_lock_image_top"
-    android:layout_width="70dp"
-    android:layout_height="70dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:src="@drawable/ic_launcher"
+    android:src="@drawable/ic_lcon"
     />
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,8 +23,9 @@
         <TextView
             android:id="@+id/pl_message_text"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/zero_dim"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="Please draw pattern"
             android:gravity="center"
             android:textAppearance="?android:textAppearanceMedium" />
 
