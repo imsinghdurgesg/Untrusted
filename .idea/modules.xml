@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android_app_protector.iml" filepath="$PROJECT_DIR$/android_app_protector.iml" />
-      <module fileurl="file://C:\Users\darshang\Desktop\New folder (6)\Beta\android_app_protector\android_app_protector.iml" filepath="C:\Users\darshang\Desktop\New folder (6)\Beta\android_app_protector\android_app_protector.iml" />
       <module fileurl="file://C:\Users\Rsharma\Desktop\Blocker\Latest 1.5\android_app_protector\android_app_protector.iml" filepath="C:\Users\Rsharma\Desktop\Blocker\Latest 1.5\android_app_protector\android_app_protector.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
