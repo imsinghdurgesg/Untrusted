@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -51,9 +52,10 @@ import app.untrusted.R;
 import app.untrusted.activity.HomeActivity;
 import app.untrusted.adapter.ContactsAdapter;
 import app.untrusted.model.Contact;
+import app.untrusted.utils.FetchData;
 
 
-public class CallFragment extends BaseFragment implements HomeActivity.GetList
+public class CallFragment extends BaseFragment implements FetchData.GetList
 {
     private RecyclerView recyclerView;
     private CheckBox cb;
@@ -63,6 +65,7 @@ public class CallFragment extends BaseFragment implements HomeActivity.GetList
     ArrayList<Contact> contactList;
     ArrayList<Contact> contactListTemp=new ArrayList<Contact>();
     CheckBox cBox;
+    FetchData fetch;
     Button permission,reload;
     Button permit;
     LinearLayout layoutNoContact;
@@ -76,11 +79,15 @@ public class CallFragment extends BaseFragment implements HomeActivity.GetList
     public CallFragment()
     {
         // Required empty public constructor
+      //  new FetchData(1,getActivity()).execute();
+        Log.e("Hello","Constructor");
     }
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Log.e("Hello","OnCreate");
+
     }
     //overriding GetList METHOD
 
@@ -88,7 +95,15 @@ public class CallFragment extends BaseFragment implements HomeActivity.GetList
     @Override
     public void getList(ArrayList<?> list)
     {
-        contactListTemp.addAll((ArrayList<Contact>)list);
+        if(list!=null)
+        {
+            contactListTemp= (ArrayList<Contact>) ((ArrayList<Contact>)list).clone();
+            contactList.addAll(contactListTemp);
+            adapter.notifyDataSetChanged();
+
+
+            Log.e("Hello","GetList");
+        }
 
     }
 
@@ -96,6 +111,9 @@ public class CallFragment extends BaseFragment implements HomeActivity.GetList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
+        new FetchData(1, getActivity(), this, null).execute();
+
+        Log.e("Hello","OnCreateView");
         View view=inflater.inflate(R.layout.fragment_call, container, false);
         layoutNoContact=(LinearLayout)view.findViewById(R.id.lay_contact);
         rootlayout=(RelativeLayout)view.findViewById(R.id.mainll);
@@ -107,7 +125,7 @@ public class CallFragment extends BaseFragment implements HomeActivity.GetList
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
         {
             //Showing the SnackBar if User has denied the Access to Contatcs
-            contactList = (ArrayList<Contact>) requestContacts().clone();
+           // contactList = (ArrayList<Contact>) requestContacts().clone();
             permission.setOnClickListener(new OnClickListener()
             {
                 @Override
@@ -168,6 +186,9 @@ public class CallFragment extends BaseFragment implements HomeActivity.GetList
                 e.printStackTrace();
             }
 */
+         //   new FetchData(1,getActivity()).execute();
+
+
             contactList=(ArrayList<Contact>)contactListTemp.clone();
             cb = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
             adapter = new ContactsAdapter(getActivity(), contactList);

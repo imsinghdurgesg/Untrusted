@@ -1,5 +1,6 @@
 package app.untrusted.utils;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,11 +9,13 @@ import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import app.untrusted.activity.HomeActivity;
+import app.untrusted.fragments.AppFragment;
+import app.untrusted.fragments.CallFragment;
 import app.untrusted.model.CheckBoxState;
 import app.untrusted.model.Contact;
 import app.untrusted.source.AppsManager;
@@ -24,29 +27,38 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>>
 {
     Contact contact;
     Cursor cursor;
-    Context myContext;
     int counter;
-    Context mContext;
     int value;
-    public HomeActivity.GetValueFromAsync getValueFromAsync;
+    public GetList getAList;
+    private ProgressDialog dialog;
+    Context ctx;
+    RecyclerView.Adapter adapter;
     ArrayList<Contact> contactList;
-    private RecyclerView.Adapter adapter;
     ArrayList<CheckBoxState> packageInstalled = new ArrayList<CheckBoxState>();
+    CallFragment callFragment;
 
-    public FetchData(int value, Context context)
+    public FetchData(int value, Context context, CallFragment callFragment, AppFragment appFragment)
     {
-        this.adapter=adapter;
-        this.myContext=context;
+
+        this.callFragment = callFragment;
+        if(callFragment==null)
+        {
+            getAList =  (GetList) appFragment;
+        }
+        if(appFragment==null)
+        {
+            getAList =  (GetList) callFragment;
+
+        }
+        dialog=new ProgressDialog(context);
+        ctx = context;
         this.value=value;
     }
     @Override
     protected ArrayList<?> doInBackground(ArrayList<String>... params)
     {
-
         ArrayList<?> legalList=new ArrayList<>();
         ArrayList<?> packageInstalled=new ArrayList<>();
-        legalList= getContacts();
-        packageInstalled=new AppsManager(myContext).getInstalledPackages();
 
 /*
             Now Filtering the ArrayList Of Contacts as that List may contain some Contacts
@@ -70,13 +82,14 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>>
                 return o1.getCName().compareToIgnoreCase(o2.getCName());
             }
         });
-
         if(value==1)
         {
+            legalList= getContacts();
             return legalList;
         }
         else if(value==2)
         {
+            packageInstalled=new AppsManager(ctx).getInstalledPackages();
             return packageInstalled;
         }
         else
@@ -89,12 +102,19 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>>
     protected void onPreExecute()
     {
         super.onPreExecute();
+        dialog.setMessage("Loading data...");
+        dialog.setIndeterminate(true);
+      //  dialog.show();
     }
 
     @Override
     protected void onPostExecute(ArrayList<?> list)
     {
         super.onPostExecute(list);
+        getAList.getList(list);
+     //   dialog.dismiss();
+
+
     }
 
     //this method will return the List of all Contacts
@@ -113,7 +133,7 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>>
         String Phone_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
         Uri PhoneCONTENT_URI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         StringBuffer output;
-        ContentResolver contentResolver = myContext.getContentResolver();
+        ContentResolver contentResolver = ctx.getContentResolver();
         cursor = contentResolver.query(CONTENT_URIL, null,null, null, null);
         //iterate every phone in the contact
         if (cursor.getCount() > 0)
@@ -169,6 +189,10 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>>
         return contactList;
 
 
+    }
+    public interface GetList extends Serializable
+    {
+        void getList(ArrayList<?> list);
     }
 
 }

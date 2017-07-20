@@ -47,7 +47,6 @@ public class HomeActivity extends BaseActivity {
     SpannableString str = new SpannableString("App-Protector");
     private Toolbar toolbar;
     String themeName;
-    public GetList getList;
     public static List<String> blockedNumbers;
     private TabLayout tabLayout;
     private String tab1str = "Protect My Apps";
@@ -63,9 +62,7 @@ public class HomeActivity extends BaseActivity {
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        getList=(GetList)this;
+    protected void onCreate(Bundle savedInstanceState) {
 
         mSharedPref = new AppSharedPreference(this);
         Intent mIntent = getIntent();
@@ -301,148 +298,7 @@ public class HomeActivity extends BaseActivity {
         }
 
     }
-    //interface
-    public interface GetValueFromAsync
-    {
-        void onReceiveList(ArrayList<?> list);
-    }
 
-    //Async Class
-    public static class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>> {
-        Contact contact;
-        Cursor cursor;
-        Context myContext;
-        int counter;
-        Context mContext;
-        int value;
-        public HomeActivity.GetValueFromAsync getValueFromAsync;
-        ArrayList<Contact> contactList;
-        private RecyclerView.Adapter adapter;
-        ArrayList<CheckBoxState> packageInstalled = new ArrayList<CheckBoxState>();
-
-
-        @Override
-        protected ArrayList<?> doInBackground(ArrayList<String>... params) {
-
-            ArrayList<?> legalList = new ArrayList<>();
-            ArrayList<?> packageInstalled = new ArrayList<>();
-            legalList = getContacts();
-            packageInstalled = new AppsManager(myContext).getInstalledPackages();
-
-/*
-            Now Filtering the ArrayList Of Contacts as that List may contain some Contacts
-            which dont have Contact Number
-*/
-/*
-          for(int j=0;j<illegalList.size();j++)
-          {
-              if(!(illegalList.get(j).getCPhone().equals("")))
-              {
-                  legalList.add(illegalList.get(j));
-              }
-          }
-*/
-
-            Collections.sort((ArrayList<Contact>) legalList, new Comparator<Contact>() {
-                @Override
-                public int compare(Contact o1, Contact o2) {
-                    return o1.getCName().compareToIgnoreCase(o2.getCName());
-                }
-            });
-
-            if (value == 1) {
-                return legalList;
-            } else if (value == 2) {
-                return packageInstalled;
-            } else
-                return legalList;
-
-
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<?> list) {
-            super.onPostExecute(list);
-        }
-        public ArrayList<Contact> getContacts() {
-            contact = new Contact();
-            contactList = new ArrayList<Contact>();
-            String phoneNumber = null;
-            ArrayList<String> allContacts = new ArrayList<String>();
-            ArrayList<String> phone_numbers = new ArrayList<String>();
-            Uri CONTENT_URIL = ContactsContract.Contacts.CONTENT_URI;
-            String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
-            String NUMBER = ContactsContract.CommonDataKinds.Phone.NUMBER;
-            String _ID = ContactsContract.Contacts._ID;
-            String HAS_PHONE_NUMBER = ContactsContract.Contacts.HAS_PHONE_NUMBER;
-            String Phone_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
-            Uri PhoneCONTENT_URI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-            StringBuffer output;
-            ContentResolver contentResolver = myContext.getContentResolver();
-            cursor = contentResolver.query(CONTENT_URIL, null, null, null, null);
-            //iterate every phone in the contact
-            if (cursor.getCount() > 0) {
-                counter = 0;
-                while (cursor.moveToNext()) {
-                    contact = new Contact();
-
-                    String name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
-                    //     contact.setCName(name);
-                    //  contact.setCPhone(phone);
-                    String contact_id = cursor.getString(cursor.getColumnIndex(_ID));
-                    int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex(HAS_PHONE_NUMBER)));
-                    //   contact.setCName(name.toString());
-                    if (hasPhoneNumber > 0) {
-                        //This is to read multiple phone numbers associated with the same contact
-                        Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[]{contact_id}, null);
-                        while (phoneCursor.moveToNext()) {
-                            contact = new Contact();
-                            contact.setCName(name);
-                            phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
-                            contact.setCPhone(phoneNumber);
-                            contactList.add(contact);
-
-                        }
-
-//                    contact.setCPhone(phoneNumber);
-//                    contact.setCPhone("");
-
-                        phoneCursor.close();
-                    }
-/*
-                else
-                {
-                    Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
-                    while (phoneCursor.moveToNext())
-                    {
-                        contact=new Contact();
-                        contact.setCName(name);
-                        phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
-                        contact.setCPhone("");
-                        contactList.add(contact);
-                    }
-
-                    phoneCursor.close();
-                }
-*/
-                }
-            }
-            return contactList;
-
-
-        }
-    }
-
-    //interface to send List
-    public interface GetList
-    {
-        void getList(ArrayList<?> list);
-    }
 
 
 
