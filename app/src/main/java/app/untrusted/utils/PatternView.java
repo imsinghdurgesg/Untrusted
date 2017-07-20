@@ -283,7 +283,7 @@ public class PatternView extends View {
         //mErrorColor = context.getColor(R.color.lock_pattern_view_error_color);
         //mSuccessColor = context.getColor(R.color.lock_pattern_view_success_color);
         mRegularColor = a.getColor(R.styleable.PatternView_pl_regularColor,getResources().getColor(R.color.pattern_dot));
-        mErrorColor = a.getColor(R.styleable.PatternView_pl_errorColor, mErrorColor);
+        mErrorColor = a.getColor(R.styleable.PatternView_pl_errorColor, getResources().getColor(R.color.colorPrimary));
         mSuccessColor = a.getColor(R.styleable.PatternView_pl_successColor, getResources().getColor(R.color.colorPrimaryDarkGreen));
         a.recycle();
 

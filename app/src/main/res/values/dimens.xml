@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="pl_pattern_dot_line_width">2dp</dimen>
+    <dimen name="pl_pattern_dot_line_width">5dp</dimen>
     <dimen name="pl_pattern_dot_size">15dp</dimen>
     <dimen name="pl_pattern_dot_size_activated">28dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->

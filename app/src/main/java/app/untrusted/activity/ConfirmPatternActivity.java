@@ -1,9 +1,14 @@
 package app.untrusted.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.List;
@@ -13,8 +18,9 @@ import app.untrusted.utils.AppSharedPreference;
 import app.untrusted.utils.PatternUtils;
 import app.untrusted.utils.PatternView;
 import app.untrusted.utils.ViewAccessibilityCompat;
-import static app.untrusted.services.SecureMyAppsService.foregroundPackage;
+
 import static app.untrusted.services.SecureMyAppsService.blockedPackage;
+import static app.untrusted.services.SecureMyAppsService.foregroundPackage;
 
 
 // For AOSP implementations, see:
@@ -34,9 +40,18 @@ public class ConfirmPatternActivity extends BasePatternActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        Intent intent = getIntent();
+        String currentPackage = intent.getStringExtra("Package");
+
+
         mSharedPref = new AppSharedPreference(this);
 
         super.onCreate(savedInstanceState);
+        if (currentPackage != null) {
+            Log.d("Confirm Pattern", currentPackage);
+            top_image.setImageDrawable(getAppIconByPackageName(currentPackage));
+
+        }
         pl_button_container = (LinearLayout) findViewById(R.id.pl_button_container);
 
         Intent intentLock = getIntent();
@@ -120,6 +135,18 @@ public class ConfirmPatternActivity extends BasePatternActivity
     protected boolean isPatternCorrect(List<PatternView.Cell> pattern) {
         String patternSha1 = mSharedPref.getStringData("patternSha");
         return TextUtils.equals(PatternUtils.patternToSha1String(pattern), patternSha1);
+    }
+
+    public Drawable getAppIconByPackageName(String packageName) {
+        Drawable icon;
+        try {
+            icon = this.getPackageManager().getApplicationIcon(packageName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            // Get a default icon
+            icon = ContextCompat.getDrawable(this, R.drawable.icon_avatat);
+        }
+        return icon;
     }
 
     protected void onConfirmed() {
