@@ -10,8 +10,7 @@ import app.untrusted.R;
 public enum ViewPagerModel {
 
     RED(R.string.red, R.layout.view_first),
-    BLUE(R.string.blue, R.layout.view_second),
-    GREEN(R.string.green, R.layout.view_third);
+    BLUE(R.string.blue, R.layout.view_second);
 
     private int mTitleResId;
     private int mLayoutResId;

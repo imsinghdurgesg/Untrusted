@@ -8,18 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import app.untrusted.R;
 import app.untrusted.activity.LaunchScreenViewPagerActivity;
 import app.untrusted.activity.SplashScreenActivity;
 import app.untrusted.model.ViewPagerModel;
 
-
 /**
  * Created by DarshanG on 7/17/2017.
  */
-
 public class ViewPagerAdapter extends PagerAdapter {
 
     private Context mContext;
@@ -40,7 +38,7 @@ public class ViewPagerAdapter extends PagerAdapter {
             case 0:
                 resId = R.layout.view_first;
                 view = inflater.inflate(R.layout.view_first, null, false);
-                LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.linear_layout);
+                RelativeLayout linearLayout = (RelativeLayout) view.findViewById(R.id.linear_layout);
                 Button button = (Button) linearLayout.findViewById(R.id.button);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -55,12 +53,7 @@ public class ViewPagerAdapter extends PagerAdapter {
             case 1:
                 resId = R.layout.view_second;
                 view = inflater.inflate(R.layout.view_second, null, false);
-                break;
-
-            case 2:
-                resId = R.layout.view_third;
-                view = inflater.inflate(R.layout.view_third, null, false);
-                                LinearLayout linearLayoutThird = (LinearLayout) view.findViewById(R.id.linear_layout2);
+                RelativeLayout linearLayoutThird = (RelativeLayout) view.findViewById(R.id.linear_layout2);
                 Button buttonEnterApp = (Button) linearLayoutThird.findViewById(R.id.buttonEnterApp);
                 buttonEnterApp.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -71,8 +64,7 @@ public class ViewPagerAdapter extends PagerAdapter {
                     }
                 });
                 break;
-
-        }
+                  }
         ((ViewPager) collection).addView(view, 0);
         return view;
     }
@@ -97,5 +89,4 @@ public class ViewPagerAdapter extends PagerAdapter {
         ViewPagerModel customPagerEnum = ViewPagerModel.values()[position];
         return mContext.getString(customPagerEnum.getTitleResId());
     }
-
 }

@@ -3,20 +3,23 @@
 
     <app.untrusted.activity.MyPreferenceCategory android:title="@string/chnage_app_Lock">
         <Preference
+            android:selectable="true"
+            android:title="@string/chnage_Pattern"
             android:enabled="true"
             android:key="changeLock"
-            android:selectable="true"
-            android:title="@string/chnage_Pattern" />
+            />
+
     </app.untrusted.activity.MyPreferenceCategory>
 
 
     <app.untrusted.activity.MyPreferenceCategory android:title="Security">
         <CheckBoxPreference
-            android:layout_width="match_parent"
             android:key="SwitchSecurity"
             android:selectable="true"
             android:summary="Administrative permission"
-            android:title="Make App Unistallable without Security"/>
+            android:title="Make App Unistallable without Security"
+            android:layout_width="match_parent">
+        </CheckBoxPreference>
 
     </app.untrusted.activity.MyPreferenceCategory>
 
@@ -32,6 +35,8 @@
             android:key="call"
             android:selectable="true"
             android:title="@string/pref_protect_txt" />
+            />
+
     </app.untrusted.activity.MyPreferenceCategory>
 
 
