@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import app.untrusted.R;
 import app.untrusted.adapter.InstalledAppsAdapter;
@@ -43,9 +46,23 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
         if(list!=null)
         {
             tempPackage= (ArrayList<CheckBoxState>) ((ArrayList<CheckBoxState>)list).clone();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    appList.addAll(tempPackage);
+                    mAdapter.notifyDataSetChanged();
+                    hideProgressDialog();
+
+
+                }
+            }, 0);
+
+/*
             appList.addAll(tempPackage);
             mAdapter.notifyDataSetChanged();
             hideProgressDialog();
+*/
 
             Log.e("Hello","GetList");
         }
