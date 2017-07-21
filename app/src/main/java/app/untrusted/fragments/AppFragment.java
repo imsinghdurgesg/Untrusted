@@ -48,23 +48,10 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
         if(list!=null && list.size()>0)
         {
             tempPackage= (ArrayList<CheckBoxState>) ((ArrayList<CheckBoxState>)list).clone();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
 
                     appList.addAll(tempPackage);
                     mAdapter.notifyDataSetChanged();
                     hideProgressDialog();
-
-
-                }
-            }, 0);
-
-/*
-            appList.addAll(tempPackage);
-            mAdapter.notifyDataSetChanged();
-            hideProgressDialog();
-*/
 
             Log.e("Hello","GetList");
         }
@@ -98,7 +85,7 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
     {
         new FetchData(2, getActivity(), null, this).execute();
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.activity_app_list, container, false);
+        View view = inflater.inflate(R.layout.activity_app_list , container, false);
      //   pgBar=(ProgressBar) view.findViewById(R.id.pg_bar);
         layNoData=(LinearLayout)view.findViewById(R.id.lay_no_data);
         layNoData.setVisibility(LinearLayout.GONE);

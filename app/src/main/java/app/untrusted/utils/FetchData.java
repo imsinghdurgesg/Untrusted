@@ -74,7 +74,6 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>>
           }
 */
 
-/*
         Collections.sort((ArrayList<Contact>)legalList, new Comparator<Contact>()
         {
             @Override
@@ -83,7 +82,6 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>>
                 return o1.getCName().compareToIgnoreCase(o2.getCName());
             }
         });
-*/
         if(value==1)
         {
             legalList= getContacts();

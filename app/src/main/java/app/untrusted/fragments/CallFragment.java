@@ -1,52 +1,39 @@
 package app.untrusted.fragments;
 
 import android.Manifest;
-import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.Context;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
-
 import android.provider.Settings;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.util.Log;
-import android.view.View.OnClickListener;
 import android.view.LayoutInflater;
 import android.view.View;
-
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.concurrent.ExecutionException;
+
 
 import app.untrusted.BuildConfig;
 import app.untrusted.R;
@@ -56,106 +43,86 @@ import app.untrusted.model.Contact;
 import app.untrusted.utils.FetchData;
 
 
-public class CallFragment extends BaseFragment implements FetchData.GetList
-{
+public class CallFragment extends BaseFragment implements FetchData.GetList {
     private RecyclerView recyclerView;
     private CheckBox cb;
-    public static ArrayList<Contact> oldBlockedList=null;
+    public static ArrayList<Contact> oldBlockedList = null;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     ArrayList<Contact> contactList;
-    ArrayList<Contact> contactListTemp=new ArrayList<Contact>();
+    ArrayList<Contact> contactListTemp = new ArrayList<Contact>();
     CheckBox cBox;
-    FetchData fetch;
-    Button permission,reload;
-    Button permit;
+    Button permission, reload;
     LinearLayout layoutNoContact;
     LinearLayout layoutNoData;
     private RelativeLayout rootlayout;
-    TextView txt_name,txt_phone;
-
     int counter;
-    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
     Cursor cursor;
     Contact contact;
-    public CallFragment()
-    {
+
+    public CallFragment() {
         // Required empty public constructor
-      //  new FetchData(1,getActivity()).execute();
-        Log.e("Hello","Constructor");
+        //  new FetchData(1,getActivity()).execute();
+        Log.e("Hello", "Constructor");
     }
+
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("Hello","OnCreate");
+        Log.e("Hello", "OnCreate");
 
     }
     //overriding GetList METHOD
 
 
     @Override
-    public void getList(ArrayList<?> list)
-    {
-        if(list!=null && list.size()>0)
+    public void getList(ArrayList<?> list) {
+        if (list != null && list.size()>0)
         {
-            contactListTemp= (ArrayList<Contact>) ((ArrayList<Contact>)list).clone();
-
-            new Handler().postDelayed(new Runnable() {
+            layoutNoData.setVisibility(LinearLayout.GONE);
+            contactListTemp = (ArrayList<Contact>) ((ArrayList<Contact>) list).clone();
+            //Sorting List
+            Collections.sort((ArrayList<Contact>) contactListTemp, new Comparator<Contact>() {
                 @Override
-                public void run() {
-
-                    //Sorting List
-                    Collections.sort((ArrayList<Contact>)contactListTemp, new Comparator<Contact>()
-                    {
-                        @Override
-                        public int compare(Contact o1, Contact o2)
-                        {
-                            return o1.getCName().compareToIgnoreCase(o2.getCName());
-                        }
-                    });
-
-                    contactList.addAll(contactListTemp);
-                    adapter.notifyDataSetChanged();
-
-
+                public int compare(Contact o1, Contact o2) {
+                    return o1.getCName().compareToIgnoreCase(o2.getCName());
                 }
-            }, 5);
-            Log.e("Hello","GetList");
+            });
+            contactList.addAll(contactListTemp);
+            adapter.notifyDataSetChanged();
+
+
         }
-         else
-        {
+        else
+           {
             layoutNoData.setVisibility(LinearLayout.VISIBLE);
+
         }
 
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)
-    {
-        new FetchData(1, getActivity(), this, null).execute();
+                             Bundle savedInstanceState) {
 
-        Log.e("Hello","OnCreateView");
-        View view=inflater.inflate(R.layout.fragment_call, container, false);
-        layoutNoContact=(LinearLayout)view.findViewById(R.id.lay_contact);
-        layoutNoData=(LinearLayout)view.findViewById(R.id.lay_no_data);
-        rootlayout=(RelativeLayout)view.findViewById(R.id.mainll);
+        Log.e("Hello", "OnCreateView");
+        View view = inflater.inflate(R.layout.fragment_call, container, false);
+        layoutNoContact = (LinearLayout) view.findViewById(R.id.lay_contact);
+        layoutNoData= (LinearLayout) view.findViewById(R.id.lay_no_data);
+        rootlayout = (RelativeLayout) view.findViewById(R.id.mainll);
         View parentLayout = view.findViewById(android.R.id.content);
-        permission=(Button) view.findViewById(R.id.permission);
-        reload=(Button) view.findViewById(R.id.permission_load);
-  //      permit= (Button) view.findViewById(R.id.btn_permit);
-        recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
-        {
-            layoutNoData.setVisibility(LinearLayout.GONE);
+        permission = (Button) view.findViewById(R.id.permission);
+        reload = (Button) view.findViewById(R.id.permission_load);
+        //      permit= (Button) view.findViewById(R.id.btn_permit);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             //Showing the SnackBar if User has denied the Access to Contatcs
-           // contactList = (ArrayList<Contact>) requestContacts().clone();
-            permission.setOnClickListener(new OnClickListener()
-            {
+            // contactList = (ArrayList<Contact>) requestContacts().clone();
+            layoutNoData.setVisibility(LinearLayout.GONE);
+            permission.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
                     Intent intent = new Intent();
                     intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                     Uri uri = Uri.fromParts("package",
@@ -166,21 +133,17 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
 
                 }
             });
-            reload.setOnClickListener(new OnClickListener()
-            {
+            reload.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View v)
-                {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED)
-                    {
+                public void onClick(View v) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
                         Toast.makeText(getActivity(), "Adding Contacts ... please wait", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                         startActivity(intent);
                         Toast.makeText(getActivity(), "Contacts Added Succesfully !", Toast.LENGTH_SHORT).show();
 
 
-                    }
-                    else
+                    } else
                     {
                         Toast.makeText(getActivity(), "Please Press Enable first and get the Permissions for getting Contacts !", Toast.LENGTH_LONG).show();
                     }
@@ -188,9 +151,11 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
 
                 }
             });
-        }
-        else {
-            layoutNoData.setVisibility(LinearLayout.GONE);
+        } else
+            {
+                new FetchData(1, getActivity(), this, null).execute();
+
+                layoutNoData.setVisibility(LinearLayout.GONE);
             layoutNoContact.setVisibility(LinearLayout.GONE);
             //First of all getting all the BlockedContacts list that user has selected last time
             SharedPreferences appSharedPrefs = getActivity().getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);
@@ -202,7 +167,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
             oldBlockedList = gson.fromJson(json, type);
             // Inflate the layout for this fragment
             cBox = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
-         //   contactList = (ArrayList<Contact>) requestContacts().clone();
+            //   contactList = (ArrayList<Contact>) requestContacts().clone();
 /*
             try {
                 contactListTemp.addAll((ArrayList<Contact>)new HomeActivity.FetchData().execute().get());
@@ -212,10 +177,10 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
                 e.printStackTrace();
             }
 */
-         //   new FetchData(1,getActivity()).execute();
+            //   new FetchData(1,getActivity()).execute();
 
 
-            contactList=(ArrayList<Contact>)contactListTemp.clone();
+            contactList = (ArrayList<Contact>) contactListTemp.clone();
             cb = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
             adapter = new ContactsAdapter(getActivity(), contactList);
             layoutManager = new LinearLayoutManager(getActivity());
@@ -228,8 +193,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
 
     }
@@ -237,13 +201,12 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
 
 //the method which gets all the Contacts from Phone
 
-    public ArrayList<Contact> getContacts()
-    {
-        contact=new Contact();
-        contactList=new ArrayList<Contact>();
-        String phoneNumber=null;
+    public ArrayList<Contact> getContacts() {
+        contact = new Contact();
+        contactList = new ArrayList<Contact>();
+        String phoneNumber = null;
         ArrayList<String> allContacts = new ArrayList<String>();
-        ArrayList<String> phone_numbers=new ArrayList<String>();
+        ArrayList<String> phone_numbers = new ArrayList<String>();
         Uri CONTENT_URIL = ContactsContract.Contacts.CONTENT_URI;
         String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
         String NUMBER = ContactsContract.CommonDataKinds.Phone.NUMBER;
@@ -253,28 +216,24 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
         Uri PhoneCONTENT_URI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
         StringBuffer output;
         ContentResolver contentResolver = getActivity().getContentResolver();
-        cursor = contentResolver.query(CONTENT_URIL, null,null, null, null);
+        cursor = contentResolver.query(CONTENT_URIL, null, null, null, null);
         //iterate every phone in the contact
-        if (cursor.getCount() > 0)
-        {
+        if (cursor.getCount() > 0) {
             counter = 0;
-            while (cursor.moveToNext())
-            {
-                contact=new Contact();
+            while (cursor.moveToNext()) {
+                contact = new Contact();
 
-                String name = cursor.getString(cursor.getColumnIndex( DISPLAY_NAME ));
-           //     contact.setCName(name);
+                String name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
+                //     contact.setCName(name);
                 //  contact.setCPhone(phone);
-                String contact_id = cursor.getString(cursor.getColumnIndex( _ID ));
-                int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex( HAS_PHONE_NUMBER )));
-             //   contact.setCName(name.toString());
-                if (hasPhoneNumber > 0)
-                {
+                String contact_id = cursor.getString(cursor.getColumnIndex(_ID));
+                int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex(HAS_PHONE_NUMBER)));
+                //   contact.setCName(name.toString());
+                if (hasPhoneNumber > 0) {
                     //This is to read multiple phone numbers associated with the same contact
-                    Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
-                    while (phoneCursor.moveToNext())
-                    {
-                        contact=new Contact();
+                    Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[]{contact_id}, null);
+                    while (phoneCursor.moveToNext()) {
+                        contact = new Contact();
                         contact.setCName(name);
                         phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
                         contact.setCPhone(phoneNumber);
@@ -305,27 +264,32 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
 */
             }
         }
+        Collections.sort((contactList), new Comparator<Contact>() {
+            @Override
+            public int compare(Contact o1, Contact o2) {
+                return o1.getCName().compareToIgnoreCase(o2.getCName());
+            }
+        });
+
         return contactList;
 
 
     }
-    private ArrayList<Contact> requestContacts()
-    {
-        ArrayList<Contact> illegalList=new ArrayList<Contact>();
-        ArrayList<Contact> filteredList=new ArrayList<Contact>();
-        ArrayList<Contact> legalList=new ArrayList<Contact>();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PERMISSIONS_REQUEST_READ_CONTACTS);
-        } else
-        {
-            legalList= getContacts();
 
-/*
+   /* private ArrayList<Contact> requestContacts() {
+        ArrayList<Contact> illegalList = new ArrayList<Contact>();
+        ArrayList<Contact> filteredList = new ArrayList<Contact>();
+        ArrayList<Contact> legalList = new ArrayList<Contact>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
+        } else {
+            legalList = getContacts();
+
+*//*
             Now Filtering the ArrayList Of Contacts as that List may contain some Contacts
             which dont have Contact Number
-*/
-/*
+*//*
+*//*
           for(int j=0;j<illegalList.size();j++)
           {
               if(!(illegalList.get(j).getCPhone().equals("")))
@@ -333,21 +297,17 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
                   legalList.add(illegalList.get(j));
               }
           }
-*/
+*//*
         }
-         Collections.sort(legalList, new Comparator<Contact>(){
+        Collections.sort(legalList, new Comparator<Contact>() {
             @Override
-            public int compare(Contact o1, Contact o2)
-            {
+            public int compare(Contact o1, Contact o2) {
                 return o1.getCName().compareToIgnoreCase(o2.getCName());
             }
         });
-        return  legalList;
-    }
-
-
-
-
+        return legalList;
+    }*/
 
 
 }
+

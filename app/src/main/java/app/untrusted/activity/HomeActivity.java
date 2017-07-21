@@ -1,4 +1,3 @@
-
 package app.untrusted.activity;
 
 import android.annotation.TargetApi;
