@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="singh.durgesh.com.applocker.activity.AppListActivity">
+    android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mRecycle_app_List"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+    <LinearLayout
+        android:id="@+id/lay_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:layout_marginBottom="@dimen/ten_dim"
+        android:layout_centerInParent="true"
+
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/no_data"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/ten_dim"
+            android:padding="@dimen/ten_dim"
+            android:text="This Data yet not added to device"
+            />
+    </LinearLayout>
 
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

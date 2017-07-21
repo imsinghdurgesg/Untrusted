@@ -70,6 +70,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
     Button permission,reload;
     Button permit;
     LinearLayout layoutNoContact;
+    LinearLayout layoutNoData;
     private RelativeLayout rootlayout;
     TextView txt_name,txt_phone;
 
@@ -96,7 +97,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
     @Override
     public void getList(ArrayList<?> list)
     {
-        if(list!=null)
+        if(list!=null && list.size()>0)
         {
             contactListTemp= (ArrayList<Contact>) ((ArrayList<Contact>)list).clone();
 
@@ -119,8 +120,12 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
 
 
                 }
-            }, 10);
+            }, 5);
             Log.e("Hello","GetList");
+        }
+         else
+        {
+            layoutNoData.setVisibility(LinearLayout.VISIBLE);
         }
 
     }
@@ -134,6 +139,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
         Log.e("Hello","OnCreateView");
         View view=inflater.inflate(R.layout.fragment_call, container, false);
         layoutNoContact=(LinearLayout)view.findViewById(R.id.lay_contact);
+        layoutNoData=(LinearLayout)view.findViewById(R.id.lay_no_data);
         rootlayout=(RelativeLayout)view.findViewById(R.id.mainll);
         View parentLayout = view.findViewById(android.R.id.content);
         permission=(Button) view.findViewById(R.id.permission);
@@ -142,6 +148,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
         {
+            layoutNoData.setVisibility(LinearLayout.GONE);
             //Showing the SnackBar if User has denied the Access to Contatcs
            // contactList = (ArrayList<Contact>) requestContacts().clone();
             permission.setOnClickListener(new OnClickListener()
@@ -183,6 +190,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
             });
         }
         else {
+            layoutNoData.setVisibility(LinearLayout.GONE);
             layoutNoContact.setVisibility(LinearLayout.GONE);
             //First of all getting all the BlockedContacts list that user has selected last time
             SharedPreferences appSharedPrefs = getActivity().getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);

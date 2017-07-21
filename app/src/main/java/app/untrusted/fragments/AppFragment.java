@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
     InstalledAppsAdapter mAdapter;
    // ProgressBar pgBar;
     ArrayList<CheckBoxState> appList;
+    LinearLayout layNoData;
     AlertDialog.Builder builder;
     public AppFragment() {
         // Required empty public constructor
@@ -43,7 +45,7 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
     @Override
     public void getList(ArrayList<?> list)
     {
-        if(list!=null)
+        if(list!=null && list.size()>0)
         {
             tempPackage= (ArrayList<CheckBoxState>) ((ArrayList<CheckBoxState>)list).clone();
             new Handler().postDelayed(new Runnable() {
@@ -65,6 +67,12 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
 */
 
             Log.e("Hello","GetList");
+        }
+        else
+        {
+            hideProgressDialog();
+            layNoData.setVisibility(LinearLayout.VISIBLE);
+
         }
 
 
@@ -92,6 +100,8 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_app_list, container, false);
      //   pgBar=(ProgressBar) view.findViewById(R.id.pg_bar);
+        layNoData=(LinearLayout)view.findViewById(R.id.lay_no_data);
+        layNoData.setVisibility(LinearLayout.GONE);
         mContext = getContext();
         mContext.startService(new Intent(mContext, SecureMyAppsService.class));
         // Get the activity

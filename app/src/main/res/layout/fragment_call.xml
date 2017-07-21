@@ -64,5 +64,30 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/lay_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/ten_dim"
+        android:layout_centerInParent="true"
+
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/no_data"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:paddingLeft="@dimen/ten_dim"
+            android:padding="@dimen/ten_dim"
+            android:text="This Data yet not added to device"
+            />
+    </LinearLayout>
+
 
 </RelativeLayout>
