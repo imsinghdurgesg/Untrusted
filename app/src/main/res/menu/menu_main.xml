@@ -2,14 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!--<item-->
-        <!--android:id="@+id/action_search"-->
-        <!--android:title="@string/block"-->
-        <!--android:icon="@drawable/block"-->
-        <!--app:showAsAction="always" />-->
+    <!--android:id="@+id/action_search"-->
+    <!--android:title="@string/block"-->
+    <!--android:icon="@drawable/block"-->
+    <!--app:showAsAction="always" />-->
     <item
         android:id="@+id/miSetting"
         android:icon="@drawable/setting_icon"
-            app:showAsAction="always"
-        android:title="Settings">
-    </item>
+        android:title="Settings"
+        app:showAsAction="always"/>
 </menu>
