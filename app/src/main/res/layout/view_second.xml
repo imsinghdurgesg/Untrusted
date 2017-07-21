@@ -7,45 +7,51 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Spam Blocker"
-        android:textSize="50dp"
+        android:text="Block the unwanted calls"
+        android:textSize="25dp"
         android:textStyle="italic"
-        android:layout_marginLeft="20dp"
         android:textColor="#FFFF"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:id="@+id/number"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 
     <ImageView
         android:src="@drawable/callimage"
         android:id="@+id/image"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:layout_above="@+id/buttonEnterApp"
-        android:layout_alignParentStart="true" />
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/number"
+        android:layout_centerInParent="true"
+       />
 
     <Button
         android:id="@+id/buttonEnterApp"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textColor="#5a8772"
         android:textSize="20dp"
         android:layout_gravity="center"
-        android:layout_height="wrap_content"
-        android:text="Click Here"
+        android:text="Launch App"
+        android:textAllCaps="false"
+        android:padding="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_launch"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <ImageView
         android:id="@+id/rocket"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="@android:color/transparent"
-        android:layout_marginTop="280dp"
+        android:layout_centerInParent="true"
         android:src="@drawable/figer"
-        android:layout_below="@+id/number"
-        android:layout_alignParentStart="true" />
+        />
 
 
 </RelativeLayout>

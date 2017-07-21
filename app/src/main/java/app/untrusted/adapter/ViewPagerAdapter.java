@@ -42,14 +42,13 @@ public class ViewPagerAdapter extends PagerAdapter {
             view = inflater.inflate(R.layout.view_first, null, false);
             RelativeLayout linearLayout = (RelativeLayout) view.findViewById(R.id.linear_layout);
             mApplock = linearLayout.findViewById(R.id.rocket);
-                      startAnimation();
-                      linearLayout.setOnClickListener(new View.OnClickListener() {
-                          @Override
-                          public void onClick(View v) {
-                              startAnimation();
-
-                          }
-                      });
+            startAnimation();
+            linearLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startAnimation();
+                }
+            });
             Button button = (Button) linearLayout.findViewById(R.id.button);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,7 +84,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     }
 
     private void startCallAnimation() {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 800);
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 330);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -94,13 +93,13 @@ public class ViewPagerAdapter extends PagerAdapter {
             }
         });
         valueAnimator.setInterpolator(new LinearInterpolator());
-        valueAnimator.setDuration(2500L);
+               valueAnimator.setDuration(700L);
+        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
         valueAnimator.start();
-
     }
 
     private void startAnimation() {
-        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 800);
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0, 330);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -109,7 +108,8 @@ public class ViewPagerAdapter extends PagerAdapter {
             }
         });
         valueAnimator.setInterpolator(new LinearInterpolator());
-        valueAnimator.setDuration(2500L);
+        valueAnimator.setDuration(700L);
+        valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
         valueAnimator.start();
     }
 
