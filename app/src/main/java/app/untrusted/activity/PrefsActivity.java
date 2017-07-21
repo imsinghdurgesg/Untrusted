@@ -174,60 +174,10 @@ public class PrefsActivity extends AppCompatActivity  {
             });
 
 
-                     SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
 
-                    SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                        @Override
-                        public boolean onPreferenceClick(Preference preference) {
-                   /* ComponentName devAdminReceiver = new ComponentName(context, AdminReceiver.class);
-                    DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(context.DEVICE_POLICY_SERVICE);
-                    dpm.isAdminActive(devAdminReceiver);*/
-
-                            if (!dpm.isAdminActive(devAdminReceiver)) {
-                                SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
-                                Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-                                intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, devAdminReceiver);
-                                startActivity(intent);
-                                //SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
-                                return true;
-                            } else {
-                      /*  Log.d("called", "called here");
-                        SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
-                        Snackbar.make(getView(),"Sorry",Snackbar.LENGTH_SHORT).show();
-                        return false;*/
-                                AlertDialog.Builder builder;
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
-                                } else {
-                                    builder = new AlertDialog.Builder(context);
-                                }
-                                builder.setTitle("Security")
-                                        .setMessage("Are you sure you want to change the permission?")
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                // continue with delete
-                                                Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
-                                                startActivity(intent);
-                                                dialog.dismiss();
-                                            }
-                                        })
-                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                // do nothing
-                                                dialog.dismiss();
-                                                getActivity().recreate();
-                                            }
-                                        })
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .show();
-                                return false;
-                            }
-
-
-                        }
-                    });
                     if (!dpm.isAdminActive(devAdminReceiver)) {
                         SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
                         Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
@@ -236,20 +186,22 @@ public class PrefsActivity extends AppCompatActivity  {
                         //SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
                         return true;
                     } else {
+
                         AlertDialog.Builder builder;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
                         } else {
+                            builder = new AlertDialog.Builder(context);
                             builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
                         }
                         builder.setTitle("Security")
-                                .setMessage("Please search Device Administrator permission in settings")
+                                .setMessage("Are you sure you want to change the permission?")
+                                .setCancelable(false)
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent dialogIntent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
-                                        dialogIntent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, devAdminReceiver);
-                                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(dialogIntent);
+                                        // continue with delete
+                                        Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
+                                        startActivity(intent);
                                         dialog.dismiss();
                                     }
                                 })
@@ -257,15 +209,112 @@ public class PrefsActivity extends AppCompatActivity  {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // do nothing
                                         dialog.dismiss();
-                                        SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+                                        getActivity().recreate();
                                     }
                                 })
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show();
                         return false;
                     }
+
+
                 }
+
             });
+
+
+//                     SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//                @Override
+//                public boolean onPreferenceClick(Preference preference) {
+//
+//                    SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//                        @Override
+//                        public boolean onPreferenceClick(Preference preference) {
+//                   /* ComponentName devAdminReceiver = new ComponentName(context, AdminReceiver.class);
+//                    DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(context.DEVICE_POLICY_SERVICE);
+//                    dpm.isAdminActive(devAdminReceiver);*/
+//
+//                            if (!dpm.isAdminActive(devAdminReceiver)) {
+//                                SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+//                                Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+//                                intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, devAdminReceiver);
+//                                startActivity(intent);
+//                                //SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+//                                return true;
+//                            } else {
+//                      /*  Log.d("called", "called here");
+//                        SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+//                        Snackbar.make(getView(),"Sorry",Snackbar.LENGTH_SHORT).show();
+//                        return false;*/
+//                                AlertDialog.Builder builder;
+//                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                                    builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+//                                } else {
+//                                    builder = new AlertDialog.Builder(context);
+//                                }
+//                                builder.setTitle("Security")
+//                                        .setMessage("Are you sure you want to change the permission?")
+//                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                // continue with delete
+//                                                Intent intent = new Intent(Settings.ACTION_SECURITY_SETTINGS);
+//                                                startActivity(intent);
+//                                                dialog.dismiss();
+//                                            }
+//                                        })
+//                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                // do nothing
+//                                                dialog.dismiss();
+//                                                getActivity().recreate();
+//                                            }
+//                                        })
+//                                        .setIcon(android.R.drawable.ic_dialog_alert)
+//                                        .show();
+//                                return false;
+//                            }
+//
+//
+//                        }
+//                    });
+//                    if (!dpm.isAdminActive(devAdminReceiver)) {
+//                        SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+//                        Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+//                        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, devAdminReceiver);
+//                        startActivity(intent);
+//                        //SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+//                        return true;
+//                    } else {
+//                        AlertDialog.Builder builder;
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                            builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
+//                        } else {
+//                            builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
+//                        }
+//                        builder.setTitle("Security")
+//                                .setMessage("Please search Device Administrator permission in settings")
+//                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        Intent dialogIntent = new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS);
+//                                        dialogIntent.putExtra(PreferenceActivity.EXTRA_SHOW_FRAGMENT, devAdminReceiver);
+//                                        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                        startActivity(dialogIntent);
+//                                        dialog.dismiss();
+//                                    }
+//                                })
+//                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        // do nothing
+//                                        dialog.dismiss();
+//                                        SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+//                                    }
+//                                })
+//                                .setIcon(android.R.drawable.ic_dialog_alert)
+//                                .show();
+//                        return false;
+//                    }
+//                }
+//            });
 
         }
 

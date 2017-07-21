@@ -4,8 +4,10 @@ package app.untrusted.adapter;
  * Created by DSingh on 6/5/2017.
  */
 
+import android.app.AlertDialog;
 import android.app.AppOpsManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -127,8 +129,32 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isUserHavingStatsPermission()) {
-                    Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                    mContext.startActivity(intent);
+                    AlertDialog.Builder builder;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder = new AlertDialog.Builder(mContext, R.style.MyDialogTheme);
+                    } else {
+                        builder = new AlertDialog.Builder(mContext,R.style.MyDialogTheme);
+                    }
+                    builder.setTitle("Permission")
+                            .setMessage("Please enable Untrusted app usage access permission in the setting")
+                            .setCancelable(false)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                    Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                                    mContext.startActivity(intent);
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // do nothing
+                                    dialog.dismiss();
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+
                 }
                 if (checkStateList != null) {
                     if (!checkStateList.isEmpty()) {

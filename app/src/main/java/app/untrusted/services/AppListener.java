@@ -35,7 +35,7 @@ public class AppListener extends BroadcastReceiver {
         Uri uri = intent.getData();
         String pkg = uri != null ? uri.getSchemeSpecificPart() : null;
         if (intent.getAction().equals("android.intent.action.PACKAGE_REMOVED")) {
-            if(pkg!=null){
+            if (pkg != null) {
                 if (getBlockApp(pkg)) {
                     for (int position = 0; position < blockApps.size(); position++) {
                         if (blockApps.get(position).getPackageName().equals(pkg)) {
@@ -62,12 +62,15 @@ public class AppListener extends BroadcastReceiver {
         Type type = new TypeToken<List<CheckBoxState>>() {
         }.getType();
         blockApps = gson.fromJson(packages, type);
-        for (int position = 0; position < blockApps.size(); position++) {
-            if (blockApps.get(position).getPackageName().equals(currentApp)) {
-                return true;
-            }
+        if (blockApps != null ) {
+            for (int position = 0; position < blockApps.size(); position++) {
+                if (blockApps.get(position).getPackageName().equals(currentApp)) {
+                    return true;
+                }
 
+            }
         }
+
         return false;
     }
 

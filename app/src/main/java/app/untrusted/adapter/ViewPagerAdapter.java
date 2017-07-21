@@ -93,7 +93,7 @@ public class ViewPagerAdapter extends PagerAdapter {
             }
         });
         valueAnimator.setInterpolator(new LinearInterpolator());
-               valueAnimator.setDuration(2500L);
+               valueAnimator.setDuration(700L);
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
         valueAnimator.start();
     }
@@ -108,7 +108,7 @@ public class ViewPagerAdapter extends PagerAdapter {
             }
         });
         valueAnimator.setInterpolator(new LinearInterpolator());
-        valueAnimator.setDuration(2500L);
+        valueAnimator.setDuration(700L);
         valueAnimator.setRepeatCount(ValueAnimator.INFINITE);
         valueAnimator.start();
     }
