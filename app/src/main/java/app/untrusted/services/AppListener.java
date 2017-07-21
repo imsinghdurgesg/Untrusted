@@ -35,18 +35,22 @@ public class AppListener extends BroadcastReceiver {
         Uri uri = intent.getData();
         String pkg = uri != null ? uri.getSchemeSpecificPart() : null;
         if (intent.getAction().equals("android.intent.action.PACKAGE_REMOVED")) {
-            if (getBlockApp(pkg)) {
-                for (int position = 0; position < blockApps.size(); position++) {
-                    if (blockApps.get(position).getPackageName().equals(pkg)) {
-                        blockApps.remove(position);
-                    }
-                    AppSharedPreference mShared = new AppSharedPreference(context);
-                    Gson gson = new Gson();
-                    String json = gson.toJson(blockApps);
-                    mShared.putStringData("BlockApps", json);
+            if(pkg!=null){
+                if (getBlockApp(pkg)) {
+                    for (int position = 0; position < blockApps.size(); position++) {
+                        if (blockApps.get(position).getPackageName().equals(pkg)) {
+                            blockApps.remove(position);
+                        }
+                        AppSharedPreference mShared = new AppSharedPreference(context);
+                        Gson gson = new Gson();
+                        String json = gson.toJson(blockApps);
+                        mShared.putStringData("BlockApps", json);
 
+                    }
                 }
             }
+
+
         }
     }
 

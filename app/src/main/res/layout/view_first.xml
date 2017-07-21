@@ -7,14 +7,15 @@
     android:layout_height="match_parent">
 
 
-
     <TextView
-        android:text="App Locker"
-        android:textSize="50dp"
-        android:layout_marginLeft="20dp"
+        android:text="Select an App to protect"
+        android:textSize="25dp"
         android:id="@+id/number"
         android:textStyle="italic"
+        android:padding="5dp"
+        android:layout_marginTop="19dp"
         android:textColor="#FFFF"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -23,7 +24,9 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/number"
+        android:gravity="center"
+        android:layout_marginTop="25dp"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -31,32 +34,33 @@
         android:layout_height="wrap_content"
         android:text="Swipe Right"
         android:id="@+id/swipetext"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="20sp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="80dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/button"
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SKIP"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/bg_launch"
+        android:text="Skip"
+        android:padding="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
     <ImageView
         android:id="@+id/rocket"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="@android:color/transparent"
-        android:layout_marginTop="200dp"
         android:src="@drawable/figer"
-        android:layout_below="@+id/number"
-        android:layout_alignParentStart="true" />
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

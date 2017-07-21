@@ -27,7 +27,7 @@
 
     <TextView
         android:text="Smart,
-Application Protector and Spam Blocker "
+Application Protector and Call Blocker "
         android:textColor="#FFFF"
         android:textStyle="bold"
         android:layout_marginLeft="20dp"
