@@ -46,23 +46,10 @@ public class AppFragment extends BaseFragment implements FetchData.GetList {
         if(list!=null)
         {
             tempPackage= (ArrayList<CheckBoxState>) ((ArrayList<CheckBoxState>)list).clone();
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
 
                     appList.addAll(tempPackage);
                     mAdapter.notifyDataSetChanged();
                     hideProgressDialog();
-
-
-                }
-            }, 0);
-
-/*
-            appList.addAll(tempPackage);
-            mAdapter.notifyDataSetChanged();
-            hideProgressDialog();
-*/
 
             Log.e("Hello","GetList");
         }

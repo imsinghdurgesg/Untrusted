@@ -100,12 +100,8 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
         {
             contactListTemp= (ArrayList<Contact>) ((ArrayList<Contact>)list).clone();
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    //Sorting List
-                    Collections.sort((ArrayList<Contact>)contactListTemp, new Comparator<Contact>()
+            //Sorting List
+            Collections.sort((ArrayList<Contact>)contactListTemp, new Comparator<Contact>()
                     {
                         @Override
                         public int compare(Contact o1, Contact o2)
@@ -119,11 +115,9 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
 
 
                 }
-            }, 10);
             Log.e("Hello","GetList");
         }
 
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
