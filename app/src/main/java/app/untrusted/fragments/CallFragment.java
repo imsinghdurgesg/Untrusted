@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 
@@ -98,10 +99,27 @@ public class CallFragment extends BaseFragment implements FetchData.GetList
         if(list!=null)
         {
             contactListTemp= (ArrayList<Contact>) ((ArrayList<Contact>)list).clone();
-            contactList.addAll(contactListTemp);
-            adapter.notifyDataSetChanged();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    //Sorting List
+                    Collections.sort((ArrayList<Contact>)contactListTemp, new Comparator<Contact>()
+                    {
+                        @Override
+                        public int compare(Contact o1, Contact o2)
+                        {
+                            return o1.getCName().compareToIgnoreCase(o2.getCName());
+                        }
+                    });
+
+                    contactList.addAll(contactListTemp);
+                    adapter.notifyDataSetChanged();
 
 
+                }
+            }, 10);
             Log.e("Hello","GetList");
         }
 
