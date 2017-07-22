@@ -23,18 +23,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-
 import app.untrusted.BuildConfig;
 import app.untrusted.R;
 import app.untrusted.activity.HomeActivity;
@@ -77,24 +72,16 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
 
     @Override
     public void getList(ArrayList<?> list) {
-        if (list != null && list.size()>0)
-        {
+        if (list != null && list.size() > 0) {
             layoutNoData.setVisibility(LinearLayout.GONE);
             contactListTemp = (ArrayList<Contact>) ((ArrayList<Contact>) list).clone();
             //Sorting List
-            Collections.sort((ArrayList<Contact>) contactListTemp, new Comparator<Contact>() {
-                @Override
-                public int compare(Contact o1, Contact o2) {
-                    return o1.getCName().compareToIgnoreCase(o2.getCName());
-                }
-            });
+
             contactList.addAll(contactListTemp);
             adapter.notifyDataSetChanged();
 
 
-        }
-        else
-           {
+        } else {
             layoutNoData.setVisibility(LinearLayout.VISIBLE);
 
         }
@@ -109,7 +96,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
         Log.e("Hello", "OnCreateView");
         View view = inflater.inflate(R.layout.fragment_call, container, false);
         layoutNoContact = (LinearLayout) view.findViewById(R.id.lay_contact);
-        layoutNoData= (LinearLayout) view.findViewById(R.id.lay_no_data);
+        layoutNoData = (LinearLayout) view.findViewById(R.id.lay_no_data);
         rootlayout = (RelativeLayout) view.findViewById(R.id.mainll);
         View parentLayout = view.findViewById(android.R.id.content);
         permission = (Button) view.findViewById(R.id.permission);
@@ -143,19 +130,17 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
                         Toast.makeText(getActivity(), "Contacts Added Succesfully !", Toast.LENGTH_SHORT).show();
 
 
-                    } else
-                    {
+                    } else {
                         Toast.makeText(getActivity(), "Please Press Enable first and get the Permissions for getting Contacts !", Toast.LENGTH_LONG).show();
                     }
 
 
                 }
             });
-        } else
-            {
-                new FetchData(1, getActivity(), this, null).execute();
+        } else {
+            new FetchData(1, getActivity(), this, null).execute();
 
-                layoutNoData.setVisibility(LinearLayout.GONE);
+            layoutNoData.setVisibility(LinearLayout.GONE);
             layoutNoContact.setVisibility(LinearLayout.GONE);
             //First of all getting all the BlockedContacts list that user has selected last time
             SharedPreferences appSharedPrefs = getActivity().getSharedPreferences("BlockedContacts", Context.MODE_PRIVATE);

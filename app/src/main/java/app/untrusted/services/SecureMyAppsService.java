@@ -79,7 +79,6 @@ public class SecureMyAppsService extends Service {
             }
         }, 0, 500, TimeUnit.MILLISECONDS);
     }
-
     /**
      * In this method we are getting foreground package name and blocking the selected apps accordingly.
      */

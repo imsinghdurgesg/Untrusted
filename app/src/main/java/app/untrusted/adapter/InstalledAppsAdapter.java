@@ -128,7 +128,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
         holder.cbBlockedApp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isUserHavingStatsPermission()) {
+                if (!isUserHavingStatsPermission() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         builder = new AlertDialog.Builder(mContext, R.style.MyDialogTheme);
@@ -141,9 +141,13 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
-                                    Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                                    mContext.startActivity(intent);
-                                    dialog.dismiss();
+                                    Intent intent = null;
+                                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                                        intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                                        mContext.startActivity(intent);
+                                        dialog.dismiss();
+                                    }
+
                                 }
                             })
                             .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

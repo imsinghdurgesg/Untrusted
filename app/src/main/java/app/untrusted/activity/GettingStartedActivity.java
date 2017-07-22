@@ -9,6 +9,8 @@ import android.widget.Button;
 
 import app.untrusted.R;
 import app.untrusted.utils.AppSharedPreference;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 
 public class GettingStartedActivity extends AppCompatActivity {
@@ -32,6 +34,7 @@ public class GettingStartedActivity extends AppCompatActivity {
         }
 
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
