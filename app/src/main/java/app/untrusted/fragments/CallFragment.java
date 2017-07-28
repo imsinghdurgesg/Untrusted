@@ -181,7 +181,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
 
 
             contactList = (ArrayList<Contact>) contactListTemp.clone();
-            cb = (CheckBox) view.findViewById(R.id.checkBoxBlocked);
+            cb = (CheckBox)view.findViewById(R.id.checkBoxBlocked);
             adapter = new ContactsAdapter(getActivity(), contactList);
             layoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(layoutManager);
@@ -195,6 +195,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
     @Override
     public void onResume() {
         super.onResume();
+        adapter.notifyDataSetChanged();
 
     }
 

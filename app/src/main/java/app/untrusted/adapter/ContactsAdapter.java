@@ -1,9 +1,14 @@
 package app.untrusted.adapter;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
@@ -32,6 +37,7 @@ import java.util.List;
 import java.util.Set;
 
 import app.untrusted.R;
+import app.untrusted.activity.SplashScreenActivity;
 import app.untrusted.model.Contact;
 import app.untrusted.utils.AppSharedPreference;
 import app.untrusted.utils.CustomTypefaceSpan;
@@ -50,6 +56,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
     ColorGenerator generator = ColorGenerator.MATERIAL;
     private String contNameCap,nameCap;
     int color = generator.getColor("#4000ff");
+    int phoneStatus;
 
 
     //constructor
@@ -63,7 +70,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_item, parent, false);
 
-        RecyclerViewHolder recyclerViewHolder = new RecyclerViewHolder(context,view, oldBlockedList, listOfContacts);
+        RecyclerViewHolder recyclerViewHolder = new RecyclerViewHolder(context,view, oldBlockedList, listOfContacts,phoneStatus);
         return recyclerViewHolder;
     }
 
@@ -121,6 +128,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
         }
         holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
+
             Contact objContact=new Contact();
 
             @Override
@@ -134,6 +142,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
                     listOfBContacts.addAll(unique);
 
                 }
+
                 if (isChecked)
                 {
                     //   holder.rl.setBackgroundColor(holder.itemView.getResources().getColor(R.color.check));
@@ -198,19 +207,48 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Recycl
          LinearLayout preCard;
         Context context;
         CheckBox cb;
+        int value;
 
         //constructor
-        public RecyclerViewHolder(final Context context, final View itemView, final ArrayList<Contact> oldBlockedList1, final List<Contact> listOfContacts1) {
+        public RecyclerViewHolder(final Context context, final View itemView, final ArrayList<Contact> oldBlockedList1, final List<Contact> listOfContacts1,int value) {
             super(itemView);
             this.context=context;
             this.oldBlockedList1 = oldBlockedList1;
             this.listOfContacts1 = listOfContacts1;
+            this.value=value;
             preCard = (LinearLayout) itemView.findViewById(R.id.card_view);
             txt_name = (TextView) itemView.findViewById(R.id.txt_name);
             txt_phone = (TextView) itemView.findViewById(R.id.txt_phone);
           //  rl = (RelativeLayout) itemView.findViewById(R.id.cfull_view);
             contact_img = (ImageView) itemView.findViewById(R.id.contact_letter);
             cb = (CheckBox) itemView.findViewById(R.id.checkBoxBlocked);
+            cb.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context.getApplicationContext().checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                        //  requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PERMISSIONS_REQUEST_READ_CONTACTS);
+                        ActivityCompat.requestPermissions((Activity)context, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+                    }
+
+                }
+            });
+/*
+            cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+                {
+                    if(isChecked)
+                    {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context.getApplicationContext().checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                            //  requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},PERMISSIONS_REQUEST_READ_CONTACTS);
+                            ActivityCompat.requestPermissions((Activity) context.getApplicationContext(), new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+                        }
+                    }
+
+                }
+            });
+*/
 
 
         }
