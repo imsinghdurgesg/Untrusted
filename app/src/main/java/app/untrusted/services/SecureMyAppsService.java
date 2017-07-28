@@ -114,10 +114,12 @@ public class SecureMyAppsService extends Service {
                     }
                 }
             }
-        } else {
+        }
+        else {
             ActivityManager am = (ActivityManager) getBaseContext().getSystemService(ACTIVITY_SERVICE);
             String currentApp = am.getRunningTasks(1).get(0).topActivity.getPackageName();
-            if (currentApp.equals(getMyAppPAckage()) && currentApp.equals(blockedPackage)) {
+            Log.d("jelly----",currentApp);
+            if (currentApp.equals(getMyAppPAckage()) || currentApp.equals(blockedPackage)) {
                 return;
             } else {
                 blockedPackage = "";

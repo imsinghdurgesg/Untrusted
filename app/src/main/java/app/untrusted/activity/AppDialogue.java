@@ -37,7 +37,7 @@ public class AppDialogue extends DialogFragment {
     RelativeLayout rel1,rel2;
     private RecyclerView.Adapter protectAdapter;
     private Button btGoToTab1;
-    ImageView imgClose1,imgClose2;
+    ImageView imgClose1;
     private RecyclerView.LayoutManager layoutManager1;
     public static ArrayList<CheckBoxState> blockAppList = null;  //to get the Current Blocked List
     private Toolbar toolbar;
@@ -51,8 +51,8 @@ public class AppDialogue extends DialogFragment {
         String themeName = appSharedPreference.getStringData("Theme");
           //inflate layout with recycler view
         View v = inflater.inflate(R.layout.dialogue_app, container, false);
-        imgClose1=(ImageView)v.findViewById(R.id.iv_close_fragment_btn1);
-        imgClose2=(ImageView)v.findViewById(R.id.iv_close_fragment_btn2);
+        imgClose1=(ImageView)v.findViewById(R.id.iv_close_fragment_btn);
+      //  imgClose2=(ImageView)v.findViewById(R.id.iv_close_fragment_btn2);
         imgClose1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -65,7 +65,7 @@ public class AppDialogue extends DialogFragment {
             }
         });
 
-        imgClose2.setOnClickListener(new View.OnClickListener() {
+        /*imgClose2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -74,7 +74,7 @@ public class AppDialogue extends DialogFragment {
                 getActivity().finish();
 
             }
-        });
+        });*/
 
         layoutNoContact1 = (LinearLayout) v.findViewById(R.id.lay_contact2);
         rel1=(RelativeLayout)v.findViewById(R.id.rel_1);

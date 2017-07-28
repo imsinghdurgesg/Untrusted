@@ -24,12 +24,15 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 import app.untrusted.BuildConfig;
 import app.untrusted.R;
 import app.untrusted.activity.HomeActivity;
@@ -68,16 +71,19 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
 
     }
     //overriding GetList METHOD
-
-
     @Override
     public void getList(ArrayList<?> list) {
         if (list != null && list.size() > 0) {
             layoutNoData.setVisibility(LinearLayout.GONE);
             contactListTemp = (ArrayList<Contact>) ((ArrayList<Contact>) list).clone();
             //Sorting List
-
             contactList.addAll(contactListTemp);
+            Collections.sort((contactList), new Comparator<Contact>() {
+                @Override
+                public int compare(Contact o1, Contact o2) {
+                    return o1.getCName().compareToIgnoreCase(o2.getCName());
+                }
+            });
             adapter.notifyDataSetChanged();
 
 
@@ -190,8 +196,6 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
         contact = new Contact();
         contactList = new ArrayList<Contact>();
         String phoneNumber = null;
-        ArrayList<String> allContacts = new ArrayList<String>();
-        ArrayList<String> phone_numbers = new ArrayList<String>();
         Uri CONTENT_URIL = ContactsContract.Contacts.CONTENT_URI;
         String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
         String NUMBER = ContactsContract.CommonDataKinds.Phone.NUMBER;
@@ -249,12 +253,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
 */
             }
         }
-        Collections.sort((contactList), new Comparator<Contact>() {
-            @Override
-            public int compare(Contact o1, Contact o2) {
-                return o1.getCName().compareToIgnoreCase(o2.getCName());
-            }
-        });
+
 
         return contactList;
 

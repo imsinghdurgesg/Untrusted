@@ -53,9 +53,9 @@ public class CallDialogue extends DialogFragment
         String themeName = appSharedPreference.getStringData("Theme");
         //inflate layout with recycler view
         View v = inflater.inflate(R.layout.dialogue_call, container, false);
-        imgCloseblock1=(ImageView)v.findViewById(R.id.iv_close_fragment_btn1_block);
+      //  imgCloseblock1=(ImageView)v.findViewById(R.id.iv_close_fragment_btn1_block);
         imgCloseblock2=(ImageView)v.findViewById(R.id.iv_close_fragment_btn2_block);
-        imgCloseblock1.setOnClickListener(new View.OnClickListener() {
+       /* imgCloseblock1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -63,15 +63,15 @@ public class CallDialogue extends DialogFragment
                 dismiss();
                 startActivity(getActivity().getIntent());
                 getActivity().finish();
-               /* Intent intent = new Intent(getActivity(), PrefsActivity.class);
-                startActivity(intent);*/
-               /* listener = (CountBlockList) getActivity();
-                listener.onFinishDialog(CallBarring.getBlockListFromPref(getActivity()).size());*/
+               *//* Intent intent = new Intent(getActivity(), PrefsActivity.class);
+                startActivity(intent);*//*
+               *//* listener = (CountBlockList) getActivity();
+                listener.onFinishDialog(CallBarring.getBlockListFromPref(getActivity()).size());*//*
                dismiss();
 
 
             }
-        });
+        });*/
 
         imgCloseblock2.setOnClickListener(new View.OnClickListener() {
             @Override

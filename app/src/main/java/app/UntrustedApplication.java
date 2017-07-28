@@ -21,6 +21,7 @@ import io.fabric.sdk.android.Fabric;
 
 public class UntrustedApplication extends Application {
     private static Context context;
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -49,6 +50,7 @@ public class UntrustedApplication extends Application {
             e.printStackTrace();
         }
     }
+
     public static Context getAppContext() {
         return context;
     }
