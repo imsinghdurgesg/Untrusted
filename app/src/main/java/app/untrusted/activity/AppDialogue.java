@@ -33,60 +33,57 @@ import app.untrusted.utils.CustomTypefaceSpan;
 
 public class AppDialogue extends DialogFragment {
     private RecyclerView protectRecView;
-    private TextView tvTagprotect, noContact1,tvTagprotect2;
-    RelativeLayout rel1,rel2;
+    private TextView tvTagprotect, noContact1, tvTagprotect2;
+    RelativeLayout rel1, rel2;
     private RecyclerView.Adapter protectAdapter;
     private Button btGoToTab1;
-    ImageView imgClose1;
+    ImageView imgClose1,imgClose2;
     private RecyclerView.LayoutManager layoutManager1;
     public static ArrayList<CheckBoxState> blockAppList = null;  //to get the Current Blocked List
     private Toolbar toolbar;
     LinearLayout layoutNoContact1;
     LinearLayout layoutWithList1;
+    public CountAppBlockList listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         AppSharedPreference appSharedPreference = new AppSharedPreference(getActivity());
         //SharedPreference to change Theme dynamically...
         String themeName = appSharedPreference.getStringData("Theme");
-          //inflate layout with recycler view
+        //inflate layout with recycler view
         View v = inflater.inflate(R.layout.dialogue_app, container, false);
-        imgClose1=(ImageView)v.findViewById(R.id.iv_close_fragment_btn);
-      //  imgClose2=(ImageView)v.findViewById(R.id.iv_close_fragment_btn2);
+        imgClose1 = (ImageView) v.findViewById(R.id.iv_close_fragment_btn);
+          imgClose2=(ImageView)v.findViewById(R.id.iv_close_fragment_btn1);
         imgClose1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
+        imgClose2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
+               // listener=(CountAppBlockList)getActivity();
+               // listener.onFinishAppDialog(CallBarring.getProtectListFromPref(getActivity()).size());
                 dismiss();
                 startActivity(getActivity().getIntent());
                 getActivity().finish();
-
 
             }
         });
 
-        /*imgClose2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                dismiss();
-                startActivity(getActivity().getIntent());
-                getActivity().finish();
-
-            }
-        });*/
-
         layoutNoContact1 = (LinearLayout) v.findViewById(R.id.lay_contact2);
-        rel1=(RelativeLayout)v.findViewById(R.id.rel_1);
-        rel2=(RelativeLayout)v.findViewById(R.id.rel_2);
+        rel1 = (RelativeLayout) v.findViewById(R.id.rel_1);
+        rel2 = (RelativeLayout) v.findViewById(R.id.rel_2);
         layoutWithList1 = (LinearLayout) v.findViewById(R.id.app2);
         //setting a style to ToolBar App icon Text
         tvTagprotect = (TextView) v.findViewById(R.id.txtprotect);
         tvTagprotect2 = (TextView) v.findViewById(R.id.txtprotect2);
         btGoToTab1 = (Button) v.findViewById(R.id.gototab2);
         noContact1 = (TextView) v.findViewById(R.id.tv_noprotect);
-        if (themeName != null)
-        {
+        if (themeName != null) {
             if (themeName.equals("Redtheme")) {
                 rel1.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             } else {
@@ -134,10 +131,8 @@ public class AppDialogue extends DialogFragment {
             protectRecView.setLayoutManager(layoutManager1);
             protectRecView.setAdapter(protectAdapter);
 
-        } else
-        {
-            if (themeName != null)
-            {
+        } else {
+            if (themeName != null) {
                 if (themeName.equals("Redtheme")) {
                     rel2.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 } else {
@@ -148,8 +143,10 @@ public class AppDialogue extends DialogFragment {
             layoutWithList1.setVisibility(LinearLayout.GONE);
 
         }
-    return  v;
+        return v;
     }
 
-
+    public interface CountAppBlockList {
+        void onFinishAppDialog(int size);
+    }
 }

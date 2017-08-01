@@ -30,14 +30,14 @@
 
                 />
 
-         <!--   <ImageView
+            <ImageView
                 android:id="@+id/iv_close_fragment_btn1_block"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_close"
                 android:layout_marginLeft="@dimen/ten_dim"
                 android:layout_centerVertical="true"
-                android:contentDescription="@string/app_name"/>-->
+                android:contentDescription="@string/app_name"/>
 
         </RelativeLayout>
         <android.support.v7.widget.RecyclerView

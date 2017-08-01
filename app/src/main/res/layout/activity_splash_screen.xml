@@ -17,7 +17,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/lock_logo"
+                android:src="@drawable/ic_launcher"
                 android:foregroundGravity="center_vertical"
                 android:layout_marginBottom="78dp"
                 android:layout_alignParentBottom="true"

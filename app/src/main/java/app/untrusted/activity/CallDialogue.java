@@ -1,6 +1,5 @@
 package app.untrusted.activity;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -19,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import app.untrusted.R;
@@ -28,23 +26,24 @@ import app.untrusted.model.Contact;
 import app.untrusted.services.CallBarring;
 import app.untrusted.utils.AppSharedPreference;
 import app.untrusted.utils.CustomTypefaceSpan;
+
 /**
  * Created by RSharma on 7/13/2017.
  */
 
-public class CallDialogue extends DialogFragment
-{
+public class CallDialogue extends DialogFragment {
     private RecyclerView blockRecView;
-    private TextView tvTagblock, noContactblock1,tvTagblock2;
-    RelativeLayout relblock1,relblock2;
+    private TextView tvTagblock, noContactblock1, tvTagblock2;
+    RelativeLayout relblock1, relblock2;
     private RecyclerView.Adapter callAdapter;
     private Button btGoToTab;
-    ImageView imgCloseblock1,imgCloseblock2;
+    ImageView imgCloseblock1, imgCloseblock2;
     private RecyclerView.LayoutManager layoutManagerblock;
     public static ArrayList<Contact> blockCallList = null;  //to get the Current Blocked List
     private Toolbar toolbar;
     LinearLayout layoutNoContactblock1;
     LinearLayout layoutWithListblock1;
+    public CountBlockList listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,45 +52,34 @@ public class CallDialogue extends DialogFragment
         String themeName = appSharedPreference.getStringData("Theme");
         //inflate layout with recycler view
         View v = inflater.inflate(R.layout.dialogue_call, container, false);
-      //  imgCloseblock1=(ImageView)v.findViewById(R.id.iv_close_fragment_btn1_block);
-        imgCloseblock2=(ImageView)v.findViewById(R.id.iv_close_fragment_btn2_block);
-       /* imgCloseblock1.setOnClickListener(new View.OnClickListener() {
+        imgCloseblock1 = (ImageView) v.findViewById(R.id.iv_close_fragment_btn1_block);
+        imgCloseblock2 = (ImageView) v.findViewById(R.id.iv_close_fragment_btn2_block);
+        imgCloseblock1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-
+            public void onClick(View v) {
+            //    listener = (CountBlockList) getActivity();
+            //    listener.onFinishDialog(CallBarring.getProtectListFromPref(getActivity()).size());
                 dismiss();
                 startActivity(getActivity().getIntent());
                 getActivity().finish();
-               *//* Intent intent = new Intent(getActivity(), PrefsActivity.class);
-                startActivity(intent);*//*
-               *//* listener = (CountBlockList) getActivity();
-                listener.onFinishDialog(CallBarring.getBlockListFromPref(getActivity()).size());*//*
-               dismiss();
-
-
-            }
-        });*/
-
-        imgCloseblock2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-                dismiss();
-                startActivity(getActivity().getIntent());
-                getActivity().finish();
-
 
             }
         });
 
+        imgCloseblock2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
         layoutNoContactblock1 = (LinearLayout) v.findViewById(R.id.lay_contact2_block);
-        relblock1=(RelativeLayout)v.findViewById(R.id.rel_1_block);
-        relblock2=(RelativeLayout)v.findViewById(R.id.rel_2_block);
+        relblock1 = (RelativeLayout) v.findViewById(R.id.rel_1_block);
+        relblock2 = (RelativeLayout) v.findViewById(R.id.rel_2_block);
         layoutWithListblock1 = (LinearLayout) v.findViewById(R.id.app2_block);
         //setting a style to ToolBar App icon Text
         tvTagblock = (TextView) v.findViewById(R.id.txtprotect_block);
-        tvTagblock2= (TextView) v.findViewById(R.id.txtprotect2_block);
+        tvTagblock2 = (TextView) v.findViewById(R.id.txtprotect2_block);
         btGoToTab = (Button) v.findViewById(R.id.gototab);
         noContactblock1 = (TextView) v.findViewById(R.id.tv_noprotect_block);
 
@@ -130,22 +118,21 @@ public class CallDialogue extends DialogFragment
 
             blockRecView = (RecyclerView) v.findViewById(R.id.recycler_view2_block);
             //Settting Adapter
-            callAdapter = new CallSetAdapter(getActivity(),blockCallList);
+            callAdapter = new CallSetAdapter(getActivity(), blockCallList);
             layoutManagerblock = new LinearLayoutManager(getActivity());
             blockRecView.setLayoutManager(layoutManagerblock);
             blockRecView.setAdapter(callAdapter);
 
-        } else
-        {
+        } else {
             tvTagblock2.setText(ss1);
             layoutWithListblock1.setVisibility(LinearLayout.GONE);
 
         }
-        return  v;
+        return v;
     }
 
-    /*public interface CountBlockList {
+    public interface CountBlockList {
         void onFinishDialog(int size);
-    }*/
+    }
 
 }

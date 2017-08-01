@@ -43,6 +43,7 @@ public class PrefsActivity extends AppCompatActivity  {
     private Toolbar toolbar;
     static int BLOCKED_CONTACTS = 0;
     static int BLOCKED_APPS = 0;
+    Preference appPref;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,8 +72,7 @@ public class PrefsActivity extends AppCompatActivity  {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
 //            Intent intent = new Intent(this, HomeActivity.class);
 //            startActivity(intent);
             this.finish();
@@ -80,16 +80,18 @@ public class PrefsActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-   /* @Override
-/*
-    @Override
+  /*  @Override
     public void onFinishDialog(int size) {
-        Log.d("here ------",""+size);
-        BLOCKED_CONTACTS=size;
 
-    }*/
+    }
 
-    public static class PreferenceScreen extends PreferenceFragment {
+    @Override
+    public void onFinishAppDialog(int size) {
+
+
+    }
+*/
+    public static class PreferenceScreen extends PreferenceFragment implements CallDialogue.CountBlockList,AppDialogue.CountAppBlockList {
         CheckBoxPreference SwitchSecurity;
         Context context;
         AppSharedPreference appSharedPreference;
@@ -142,8 +144,7 @@ public class PrefsActivity extends AppCompatActivity  {
             }
             appPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(Preference preference)
-                {
+                public boolean onPreferenceClick(Preference preference) {
 
                     AppDialogue mFrag = new AppDialogue();
                     mFrag.show(getFragmentManager(), "frag_apps");
@@ -163,8 +164,7 @@ public class PrefsActivity extends AppCompatActivity  {
 
             contactPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
-                public boolean onPreferenceClick(Preference preference)
-                {
+                public boolean onPreferenceClick(Preference preference) {
                     CallDialogue mFrag1 = new CallDialogue();
                     mFrag1.show(getFragmentManager(), "frag_calls");
                     mFrag1.setCancelable(false);
@@ -331,9 +331,37 @@ public class PrefsActivity extends AppCompatActivity  {
         @Override
         public void onResume() {
             super.onResume();
+            Log.d("here ------App", "önResume Calleed");
             final ComponentName devAdminReceiver = new ComponentName(getActivity().getApplication().getApplicationContext(), AdminReceiver.class);
             final DevicePolicyManager dpm = (DevicePolicyManager) getActivity().getApplication().getApplicationContext().getSystemService(DEVICE_POLICY_SERVICE);
             SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+        }
+
+        @Override
+        public void onFinishAppDialog(int size) {
+            Log.d("here ------App", "" + size);
+            BLOCKED_APPS = size;
+            Preference appPref = findPreference("call");
+            if (BLOCKED_APPS > 0) {
+                appPref.setSummary(BLOCKED_APPS + " applications protected");
+            } else {
+                appPref.setSummary("No application protected yet");
+            }
+
+
+        }
+
+        @Override
+        public void onFinishDialog(int size) {
+            Log.d("here ------Call", "" + size);
+            BLOCKED_CONTACTS = size;
+            Preference contactPref = findPreference("call");
+            if (BLOCKED_CONTACTS > 0) {
+                contactPref.setSummary(BLOCKED_CONTACTS + " contacts blocked");
+            } else {
+                contactPref.setSummary("No contact blocked yet");
+            }
+
         }
        /* @Override
         public void onAttach(Context context) {
