@@ -124,7 +124,7 @@ public class PrefsActivity extends AppCompatActivity  {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.prefs);
             final SwitchPreference switchPreference = (SwitchPreference) findPreference("SwitchTheme");
-            SwitchSecurity = (CheckBoxPreference) findPreference("SwitchSecurity");
+          //  SwitchSecurity = (CheckBoxPreference) findPreference("SwitchSecurity");
 
             Preference lockPreference = findPreference("changeLock");
             lockPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -174,7 +174,7 @@ public class PrefsActivity extends AppCompatActivity  {
             });
 
 
-            SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+    /*        SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
 
@@ -221,7 +221,7 @@ public class PrefsActivity extends AppCompatActivity  {
                 }
 
             });
-
+*/
 
 //                     SwitchSecurity.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 //                @Override
@@ -334,7 +334,7 @@ public class PrefsActivity extends AppCompatActivity  {
             Log.d("here ------App", "önResume Calleed");
             final ComponentName devAdminReceiver = new ComponentName(getActivity().getApplication().getApplicationContext(), AdminReceiver.class);
             final DevicePolicyManager dpm = (DevicePolicyManager) getActivity().getApplication().getApplicationContext().getSystemService(DEVICE_POLICY_SERVICE);
-            SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
+         //   SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
         }
 
         @Override

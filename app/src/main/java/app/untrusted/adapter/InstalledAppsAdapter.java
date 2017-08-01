@@ -136,7 +136,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
                         builder = new AlertDialog.Builder(mContext,R.style.MyDialogTheme);
                     }
                     builder.setTitle("Permission")
-                            .setMessage("Please enable Untrusted app usage access permission in the setting")
+                            .setMessage("In android 5.0 or above,you must permit user access permission in setting to protect your apps")
                             .setCancelable(false)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
