@@ -136,7 +136,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
                         builder = new AlertDialog.Builder(mContext,R.style.MyDialogTheme);
                     }
                     builder.setTitle("Permission")
-                            .setMessage("In android 5.0 or above,you must permit user access permission in setting to protect your apps")
+                            .setMessage("In android 5.0 or above,you must permit user access permission in setting to use app protection feature of untrusted")
                             .setCancelable(false)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
