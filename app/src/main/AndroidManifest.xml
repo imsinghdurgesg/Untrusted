@@ -6,6 +6,7 @@
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -47,18 +48,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name=".services.AdminReceiver"
-            android:permission="android.permission.BIND_DEVICE_ADMIN">
-            <meta-data
-                android:name="android.app.device_admin"
-                android:resource="@xml/deviceadmin" />
-            <intent-filter>
-                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
-                <action android:name="android.app.action.ACTION_DEVICE_ADMIN_DISABLE_REQUESTED"/>
-                <action android:name="android.app.action.ACTION_DEVICE_ADMIN_DISABLED"/>
             </intent-filter>
         </receiver>
 
@@ -155,5 +144,5 @@
             android:value="296823fe34ea7f748f28f6f95523ad45631e5dbd" />
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
 </manifest>
