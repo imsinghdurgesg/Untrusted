@@ -151,5 +151,9 @@ public class AppDialogue extends DialogFragment {
     return  v;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        protectAdapter.notifyDataSetChanged();
+    }
 }

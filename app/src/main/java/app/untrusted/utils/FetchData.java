@@ -11,8 +11,11 @@ import android.support.v7.widget.RecyclerView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 import app.untrusted.fragments.AppFragment;
 import app.untrusted.fragments.CallFragment;
@@ -155,16 +158,15 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>>
                     Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[] { contact_id }, null);
                     while (phoneCursor.moveToNext())
                     {
-                        contact=new Contact();
+                 //       contact=new Contact();
                         contact.setCName(name);
                         phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
-                        contact.setCPhone(phoneNumber);
+                        String phoneUnique=phoneNumber.replaceAll("\\s+", "");
+                        contact.setCPhone(phoneUnique);
                         contactList.add(contact);
 
                     }
 
-//                    contact.setCPhone(phoneNumber);
-//                    contact.setCPhone("");
 
                     phoneCursor.close();
                 }
@@ -186,7 +188,14 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>>
 */
             }
         }
-        return contactList;
+        //filtering for duplicate Contacts updated on 31 July
+        ArrayList<Contact> refinedContactList=new ArrayList<Contact>();
+        Set<Contact> setContacts=new HashSet<>();
+        setContacts.addAll((ArrayList<Contact>)contactList);
+        refinedContactList.clear();
+        refinedContactList.addAll(setContacts);
+
+        return refinedContactList;
 
 
     }

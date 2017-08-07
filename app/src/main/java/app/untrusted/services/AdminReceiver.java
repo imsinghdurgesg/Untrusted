@@ -13,18 +13,18 @@ import static android.content.ContentValues.TAG;
  */
 
 public class AdminReceiver extends DeviceAdminReceiver {
-    /**
+/*    *//**
      *
      * @param context
      * @param intent get called when user try to uncheck as administrator
      * @return dialog of charsequence
-     */
+     *//*
     @Override
     public CharSequence onDisableRequested(final Context context, Intent intent) {
         DevicePolicyManager deviceManger = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
         deviceManger.lockNow();
         Log.i(TAG, "DEVICE ADMINISTRATION DISABLE REQUESTED & LOCKED PHONE");
         return "Do you want to remove uninstallation security ";
-    }
+    }*/
 
 }

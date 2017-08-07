@@ -144,6 +144,11 @@ public class CallDialogue extends DialogFragment
         return  v;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        callAdapter.notifyDataSetChanged();
+    }
     /*public interface CountBlockList {
         void onFinishDialog(int size);
     }*/
