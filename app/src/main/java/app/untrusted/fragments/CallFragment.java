@@ -68,7 +68,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e("Hello", "OnCreate");
-
+    showProgressDialog();
     }
     //overriding GetList METHOD
     @Override
@@ -89,7 +89,6 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
 
         } else {
             layoutNoData.setVisibility(LinearLayout.VISIBLE);
-
         }
 
     }
@@ -177,6 +176,7 @@ public class CallFragment extends BaseFragment implements FetchData.GetList {
             layoutManager = new LinearLayoutManager(getActivity());
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(adapter);
+            hideProgressDialog();
         }
 
 
