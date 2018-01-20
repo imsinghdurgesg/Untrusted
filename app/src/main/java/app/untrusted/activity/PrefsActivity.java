@@ -91,7 +91,7 @@ public class PrefsActivity extends AppCompatActivity  {
 
     }
 */
-    public static class PreferenceScreen extends PreferenceFragment implements CallDialogue.CountBlockList,AppDialogue.CountAppBlockList {
+    public static class PreferenceScreen extends PreferenceFragment {
         CheckBoxPreference SwitchSecurity;
         Context context;
         AppSharedPreference appSharedPreference;
@@ -197,7 +197,7 @@ public class PrefsActivity extends AppCompatActivity  {
          //   SwitchSecurity.setChecked(dpm.isAdminActive(devAdminReceiver));
         }
 
-        @Override
+       /* @Override
         public void onFinishAppDialog(int size) {
             Log.d("here ------App", "" + size);
             BLOCKED_APPS = size;
@@ -209,10 +209,9 @@ public class PrefsActivity extends AppCompatActivity  {
             }
 
 
-        }
+        }*/
 
-        @Override
-        public void onFinishDialog(int size) {
+     /*   public void onFinishDialog(int size) {
             Log.d("here ------Call", "" + size);
             BLOCKED_CONTACTS = size;
             Preference contactPref = findPreference("call");
@@ -222,7 +221,7 @@ public class PrefsActivity extends AppCompatActivity  {
                 contactPref.setSummary("No contact blocked yet");
             }
 
-        }
+        }*/
        /* @Override
         public void onAttach(Context context) {
             super.onAttach(context);

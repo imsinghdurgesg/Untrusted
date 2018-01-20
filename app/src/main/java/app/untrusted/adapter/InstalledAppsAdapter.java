@@ -25,6 +25,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -146,6 +147,7 @@ public class InstalledAppsAdapter extends RecyclerView.Adapter<InstalledAppsAdap
                                         intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                                         mContext.startActivity(intent);
                                         dialog.dismiss();
+                                        Toast.makeText(mContext,"Please enable permission for Untrusted",Toast.LENGTH_LONG).show();
                                     }
 
                                 }

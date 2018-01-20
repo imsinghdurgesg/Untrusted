@@ -13,8 +13,8 @@ public  class StartMyServiceAtBootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast toast=Toast.makeText(context,"broadcast found",Toast.LENGTH_SHORT);
-        toast.show();
+     /*   Toast toast=Toast.makeText(context,"broadcast found",Toast.LENGTH_SHORT);
+        toast.show();*/
         Intent serviceIntent = new Intent(context,SecureMyAppsService.class);
         context.startService(serviceIntent);
 

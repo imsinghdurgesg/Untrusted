@@ -1,9 +1,12 @@
 package app.untrusted.services;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -16,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -32,15 +36,12 @@ import app.untrusted.utils.AppSharedPreference;
  * Created by DSingh on 6/6/2017.
  */
 
-/**
- * Created by DSingh on 6/6/2017.
- */
-
 public class SecureMyAppsService extends Service {
     String CURRENT_PACKAGE_NAME;
     // public static SecureMyAppsService instance;
     public static String blockedPackage = "";
     public static String foregroundPackage = "";
+    public static int SERVICE_ID=123;
     ArrayList<CheckBoxState> blockApps = new ArrayList<>();
 
     @Override
@@ -72,13 +73,34 @@ public class SecureMyAppsService extends Service {
         ScheduledExecutorService scheduler = Executors
                 .newSingleThreadScheduledExecutor();
         scheduler.scheduleAtFixedRate(new Runnable() {
-
             @Override
             public void run() {
                 getLollipopOrAboveFGAppPackageName();
             }
         }, 0, 500, TimeUnit.MILLISECONDS);
     }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+        scheduleAlarmManager();
+      //  startService(new Intent(getApplicationContext(), SecureMyAppsService.class));
+      /*  Log.d("cleared backstack---","here");
+        Intent restartServiceTask = new Intent(getApplicationContext(),this.getClass());
+        restartServiceTask.setPackage(getPackageName());
+      //  PendingIntent restartPendingIntent =PendingIntent.getService(getApplicationContext(), 1,restartServiceTask, PendingIntent.FLAG_ONE_SHOT);
+        ScheduledExecutorService scheduler = Executors
+                .newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(new Runnable() {
+
+            @Override
+            public void run() {
+                getLollipopOrAboveFGAppPackageName();
+            }
+        }, 0, 500, TimeUnit.MILLISECONDS);*/
+      // scheduleMethod();
+    }
+
     /**
      * In this method we are getting foreground package name and blocking the selected apps accordingly.
      */
@@ -187,6 +209,28 @@ public class SecureMyAppsService extends Service {
         return CURRENT_PACKAGE_NAME;
     }
 
+
+    public void scheduleAlarmManager() {
+        Context ctx = getApplicationContext();
+/** this gives us the time for the first trigger.  */
+        Calendar cal = Calendar.getInstance();
+        AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+        long interval = 100 * 5; // in milliseconds
+        Intent serviceIntent = new Intent(ctx, SecureMyAppsService.class);
+// make sure you **don't** use *PendingIntent.getBroadcast*, it wouldn't work
+        PendingIntent servicePendingIntent =
+                PendingIntent.getService(ctx,
+                        SecureMyAppsService.SERVICE_ID, // integer constant used to identify the service
+                        serviceIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);  // FLAG to avoid creating a second service if there's already one running
+// there are other options like setInexactRepeating, check the docs
+        am.setRepeating(
+                AlarmManager.RTC,//type of alarm. This one will wake up the device when it goes off, but there are others, check the docs
+                cal.getTimeInMillis(),
+                interval,
+                servicePendingIntent
+        );
+    }
     /**
      * Again starting the service while it is destroying
      */

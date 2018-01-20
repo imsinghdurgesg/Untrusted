@@ -6,11 +6,18 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.ContactsContract;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 import app.untrusted.fragments.AppFragment;
 import app.untrusted.fragments.CallFragment;
@@ -21,6 +28,7 @@ import app.untrusted.source.AppsManager;
 /**
  * Created by RSharma on 7/19/2017.
  */
+@RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
 public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>> {
     Contact contact;
     Cursor cursor;
@@ -121,21 +129,21 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>> 
                 //   contact.setCName(name.toString());
                 if (hasPhoneNumber > 0) {
                     //This is to read multiple phone numbers associated with the same contact
-                    Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[]{contact_id}, null);
-                    while (phoneCursor.moveToNext()) {
                         contact = new Contact();
-                        contact.setCName(name);
-                        phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
-                        contact.setCPhone(phoneNumber);
-                        contactList.add(contact);
+                        Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[]{contact_id}, null);
+                        while (phoneCursor.moveToNext()) {
+                            //       contact=new Contact();
+                            contact.setCName(name);
+                            phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
+                            String phoneUnique = phoneNumber.replaceAll("\\s+", "");
+                            contact.setCPhone(phoneUnique);
+                            contactList.add(contact);
 
+                        }
+
+
+                        phoneCursor.close();
                     }
-
-//                    contact.setCPhone(phoneNumber);
-//                    contact.setCPhone("");
-
-                    phoneCursor.close();
-                }
 /*
                 else
                 {
@@ -152,16 +160,23 @@ public class FetchData extends AsyncTask<ArrayList<String>, Void, ArrayList<?>> 
                     phoneCursor.close();
                 }
 */
+                }
             }
+            //filtering for duplicate Contacts updated on 31 July
+            ArrayList<Contact> refinedContactList = new ArrayList<Contact>();
+            Set<Contact> setContacts = new HashSet<>();
+            setContacts.addAll((ArrayList<Contact>) contactList);
+            refinedContactList.clear();
+            refinedContactList.addAll(setContacts);
+
+            return refinedContactList;
+
+
         }
-        return contactList;
 
+        public interface GetList extends Serializable {
+            void getList(ArrayList<?> list);
+        }
 
     }
-
-    public interface GetList extends Serializable {
-        void getList(ArrayList<?> list);
-    }
-
-}
 

@@ -43,8 +43,6 @@ public class CallDialogue extends DialogFragment {
     private Toolbar toolbar;
     LinearLayout layoutNoContactblock1;
     LinearLayout layoutWithListblock1;
-    public CountBlockList listener;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         AppSharedPreference appSharedPreference = new AppSharedPreference(getActivity());
@@ -131,8 +129,10 @@ public class CallDialogue extends DialogFragment {
         return v;
     }
 
-    public interface CountBlockList {
-        void onFinishDialog(int size);
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(callAdapter!=null)
+        callAdapter.notifyDataSetChanged();
     }
-
 }

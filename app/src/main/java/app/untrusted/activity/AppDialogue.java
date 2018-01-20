@@ -43,7 +43,6 @@ public class AppDialogue extends DialogFragment {
     private Toolbar toolbar;
     LinearLayout layoutNoContact1;
     LinearLayout layoutWithList1;
-    public CountAppBlockList listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -146,7 +145,11 @@ public class AppDialogue extends DialogFragment {
         return v;
     }
 
-    public interface CountAppBlockList {
-        void onFinishAppDialog(int size);
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(protectAdapter!=null)
+        protectAdapter.notifyDataSetChanged();
     }
 }
